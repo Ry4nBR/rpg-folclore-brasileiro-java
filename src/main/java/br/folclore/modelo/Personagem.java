@@ -9,6 +9,8 @@ import java.util.List;
  * Abstração: base comum de todo combatente
  */
 public abstract class Personagem {
+    public static final int MAX_HABILIDADES_EQUIPADAS = 3;
+
     private final List<Habilidade> habilidades = new ArrayList<>();
     private final String nome;
     private final Tipo tipo;
@@ -51,6 +53,18 @@ public abstract class Personagem {
 
     public List<Habilidade> getHabilidades() {
         return Collections.unmodifiableList(habilidades);
+    }
+
+    protected void adicionarHabilidade(Habilidade habilidade) {
+        if (habilidade == null) {
+            throw new IllegalArgumentException("A habilidade não pode ser nula.");
+        }
+        if (habilidades.size() >= MAX_HABILIDADES_EQUIPADAS) {
+            throw new IllegalArgumentException("O personagem não pode equipar mais de "
+                    + MAX_HABILIDADES_EQUIPADAS + " habilidades.");
+        }
+
+        habilidades.add(habilidade);
     }
 
     public int getPvMaximo() {
