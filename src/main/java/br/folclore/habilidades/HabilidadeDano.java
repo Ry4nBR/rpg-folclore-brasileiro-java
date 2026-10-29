@@ -12,6 +12,21 @@ public class HabilidadeDano extends HabilidadeBase {
 
     @Override
     public ResultadoAcao executar(Personagem usuario, Personagem alvo) {
-        throw new UnsupportedOperationException("A execução desta habilidade ainda não foi implementada.");
+        if (!temUsosRestantes()) {
+            return new ResultadoAcao(
+                    ResultadoAcao.Efeito.FALHA,
+                    0,
+                    "Sem usos restantes de " + getNome() + "!");
+        }
+
+        consumirUso();
+        int dano = usuario.calcularDano(alvo, poderBase);
+        int danoAplicado = alvo.receberDano(dano);
+
+        return new ResultadoAcao(
+                ResultadoAcao.Efeito.DANO,
+                danoAplicado,
+                usuario.getNome() + " usou " + getNome() + "! " + alvo.getNome()
+                        + " sofreu " + danoAplicado + " de dano.");
     }
 }
