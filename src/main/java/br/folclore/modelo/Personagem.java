@@ -18,4 +18,12 @@ public abstract class Personagem {
         this.nome = nome;
         this.tipo = tipo;
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public Tipo getTipo() {
+        return tipo;
+    }
 }
