@@ -62,4 +62,8 @@ public abstract class Personagem {
     public int getVelocidade() {
         return velocidade;
     }
+
+    public boolean estaVivo() {
+        return pvAtual > 0;
+    }
 }
