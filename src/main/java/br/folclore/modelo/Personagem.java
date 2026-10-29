@@ -105,4 +105,9 @@ public abstract class Personagem {
     public abstract int atacar(Personagem alvo);
 
     public abstract String getNomeAtaqueBasico();
+
+    public String resumoDeStatus() {
+        return getNome() + " (" + getTipo().getRotulo() + ") | PV " + getPvAtual() + "/" + getPvMaximo()
+                + " | ATQ " + getAtaque() + " | DEF " + getDefesa() + " | VEL " + getVelocidade();
+    }
 }
