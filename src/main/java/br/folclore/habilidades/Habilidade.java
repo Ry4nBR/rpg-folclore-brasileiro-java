@@ -6,4 +6,12 @@ public interface Habilidade {
     String getNome();
 
     ResultadoAcao executar(Personagem usuario, Personagem alvo);
+
+    int getUsosMaximos();
+
+    int getUsosRestantes();
+
+    boolean temUsosRestantes();
+
+    void restaurarUsos();
 }
