@@ -1,9 +1,15 @@
 package br.folclore.modelo;
 
+import br.folclore.habilidades.Habilidade;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Abstração: base comum de todo combatente
  */
 public abstract class Personagem {
+    private final List<Habilidade> habilidades = new ArrayList<>();
     private final String nome;
     private final Tipo tipo;
     private int pvMaximo;
@@ -41,6 +47,10 @@ public abstract class Personagem {
 
     public Tipo getTipo() {
         return tipo;
+    }
+
+    public List<Habilidade> getHabilidades() {
+        return Collections.unmodifiableList(habilidades);
     }
 
     public int getPvMaximo() {
