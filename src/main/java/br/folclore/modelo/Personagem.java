@@ -103,4 +103,6 @@ public abstract class Personagem {
      * @return dano causado ao alvo
      */
     public abstract int atacar(Personagem alvo);
+
+    public abstract String getNomeAtaqueBasico();
 }
