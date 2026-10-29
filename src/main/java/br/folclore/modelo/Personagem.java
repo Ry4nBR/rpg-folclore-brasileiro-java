@@ -33,4 +33,12 @@ public abstract class Personagem {
     public Tipo getTipo() {
         return tipo;
     }
+
+    public int getPvMaximo() {
+        return pvMaximo;
+    }
+
+    public int getPvAtual() {
+        return pvAtual;
+    }
 }
