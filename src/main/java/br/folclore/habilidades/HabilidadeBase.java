@@ -25,4 +25,22 @@ public abstract class HabilidadeBase implements Habilidade {
     public int getUsosRestantes() {
         return usosRestantes;
     }
+
+    @Override
+    public boolean temUsosRestantes() {
+        return usosRestantes > 0;
+    }
+
+    @Override
+    public void restaurarUsos() {
+        usosRestantes = usosMaximos;
+    }
+
+    protected void consumirUso() {
+        if (!temUsosRestantes()) {
+            throw new IllegalStateException("Não há usos restantes para esta habilidade.");
+        }
+
+        usosRestantes--;
+    }
 }
