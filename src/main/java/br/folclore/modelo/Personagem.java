@@ -86,4 +86,9 @@ public abstract class Personagem {
         pvAtual = (int) Math.min(pvMaximo, (long) pvAtual + quantidade);
         return pvAtual - pvAnterior;
     }
+
+    public int curarPercentualDaVidaMaxima(int percentual) {
+        int valor = Math.max(1, pvMaximo * percentual / 100);
+        return curar(valor);
+    }
 }
