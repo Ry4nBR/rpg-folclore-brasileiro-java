@@ -50,4 +50,16 @@ public abstract class Personagem {
     public int getPvAtual() {
         return pvAtual;
     }
+
+    public int getAtaque() {
+        return ataque;
+    }
+
+    public int getDefesa() {
+        return defesa;
+    }
+
+    public int getVelocidade() {
+        return velocidade;
+    }
 }
