@@ -1,6 +1,7 @@
 package br.folclore.modelo;
 
 import br.folclore.habilidades.Habilidade;
+import br.folclore.habilidades.ResultadoAcao;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -65,6 +66,14 @@ public abstract class Personagem {
         }
 
         habilidades.add(habilidade);
+    }
+
+    public ResultadoAcao usarHabilidade(int indice, Personagem alvo) {
+        if (indice < 0 || indice >= habilidades.size()) {
+            throw new IllegalArgumentException("Índice de habilidade inválido.");
+        }
+
+        return habilidades.get(indice).executar(this, alvo);
     }
 
     public int getPvMaximo() {
