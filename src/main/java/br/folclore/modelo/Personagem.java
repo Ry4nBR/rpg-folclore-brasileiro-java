@@ -91,4 +91,8 @@ public abstract class Personagem {
         int valor = Math.max(1, pvMaximo * percentual / 100);
         return curar(valor);
     }
+
+    public int calcularDano(Personagem alvo, int poderBase) {
+        return Math.max(1, getAtaque() + poderBase - alvo.getDefesa());
+    }
 }
