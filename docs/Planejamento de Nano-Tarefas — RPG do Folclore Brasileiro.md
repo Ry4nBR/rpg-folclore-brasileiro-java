@@ -30,7 +30,7 @@
 - Arquivo(s) Alvo: `.gitignore`
 - Ação: Executar `git init`; criar `.gitignore` ignorando `target/`, `out/`, `.idea/`, `*.iml`, `.vscode/`, `*.class` e `saves/`; após o commit, criar a branch `dev`.
 - Commit: `chore: inicializacao do repositorio com gitignore`
-- Tag: `v0.1.1`
+- Tag: `v0.4.1`
 
 ---
 
@@ -39,7 +39,7 @@
 - Arquivo(s) Alvo: `README.md`
 - Ação: Criar README com título do jogo, descrição de uma linha, aviso «Jogo exclusivamente em Português do Brasil» e seções vazias «Como executar» e «Equipe».
 - Commit: `docs: criacao do readme inicial do projeto`
-- Tag: `v0.1.2`
+- Tag: `v0.4.2`
 
 ---
 
@@ -48,7 +48,7 @@
 - Arquivo(s) Alvo: `pom.xml`
 - Ação: Criar `pom.xml` com groupId `br.folclore`, artifactId `rpg-folclore`, `maven.compiler.release` = 17 e `exec-maven-plugin` apontando `mainClass` para `br.folclore.Main`. Nenhuma dependência externa.
 - Commit: `chore: configuracao do maven com java 17`
-- Tag: `v0.1.3`
+- Tag: `v0.4.3`
 
 ---
 
@@ -57,7 +57,7 @@
 - Arquivo(s) Alvo: `SRC Main.java`
 - Ação: Criar a classe `Main` com `public static void main(String[] args)` que apenas imprime `RPG do Folclore Brasileiro - iniciando`. Validar com `mvn compile exec:java`.
 - Commit: `feat: criacao do ponto de entrada main`
-- Tag: `v0.1.4`
+- Tag: `v0.4.4`
 
 ---
 
@@ -68,7 +68,7 @@
 - Arquivo(s) Alvo: `SRC modelo/.gitkeep`, `SRC habilidades/.gitkeep`, `SRC batalha/.gitkeep`, `SRC ia/.gitkeep`, `SRC progressao/.gitkeep`
 - Ação: Criar os cinco pacotes de domínio, cada um com um `.gitkeep`.
 - Commit: `chore: estrutura de pacotes do dominio`
-- Tag: `v0.1.5`
+- Tag: `v0.4.5`
 
 ---
 
@@ -77,7 +77,7 @@
 - Arquivo(s) Alvo: `SRC ui/.gitkeep`, `SRC ui/componentes/.gitkeep`, `SRC ui/telas/.gitkeep`, `SRC ui/efeitos/.gitkeep`, `SRC save/.gitkeep`, `SRC audio/.gitkeep`
 - Ação: Criar os pacotes de interface, efeitos, save e áudio, cada um com `.gitkeep`.
 - Commit: `chore: estrutura de pacotes de interface save e audio`
-- Tag: `v0.1.6`
+- Tag: `v0.4.6`
 
 ---
 
@@ -86,7 +86,7 @@
 - Arquivo(s) Alvo: `RES sprites/.gitkeep`, `RES retratos/.gitkeep`, `RES fundos/.gitkeep`, `RES audio/bgm/.gitkeep`, `RES audio/sfx/.gitkeep`
 - Ação: Criar as pastas de recursos visuais e sonoros, cada uma com `.gitkeep`.
 - Commit: `chore: estrutura de pastas de recursos visuais e sonoros`
-- Tag: `v0.1.7`
+- Tag: `v0.4.7`
 
 ---
 
@@ -97,7 +97,7 @@
 - Arquivo(s) Alvo: `docs/git-workflow.md`
 - Ação: Documentar: `main` = estável (recebe tags), `dev` = integração, branches `feature/<dev>-<id-tarefa>`; 1 tarefa = 1 commit; merge via Pull Request revisado pelo outro integrante.
 - Commit: `docs: definicao da estrategia de branches e commits`
-- Tag: `v0.1.8`
+- Tag: `v0.4.8`
 
 ---
 
@@ -106,7 +106,7 @@
 - Arquivo(s) Alvo: `docs/decisoes.md`
 - Ação: Registrar: linguagem Java, idioma único PT-BR e todas as regras adotadas listadas nas premissas deste planejamento (fórmula de dano, slots, XP, fuga, derrota, equipe, save).
 - Commit: `docs: registro de decisoes de escopo e regras de jogo`
-- Tag: `v0.1.9`
+- Tag: `v0.4.9`
 
 ---
 
@@ -121,7 +121,7 @@ Pré-requisito: Fase 1.
 - Arquivo(s) Alvo: `SRC modelo/Tipo.java`
 - Ação: Criar `enum Tipo` com as constantes `VENTO`, `FISICO`, `PSIQUICO`.
 - Commit: `feat: criacao do enum tipo com tipos dos personagens jogaveis`
-- Tag: `v0.2.1`
+- Tag: `v0.5.1`
 
 ---
 
@@ -130,7 +130,7 @@ Pré-requisito: Fase 1.
 - Arquivo(s) Alvo: `SRC modelo/Tipo.java`
 - Ação: Adicionar as constantes elementais `FOGO`, `PLANTA`, `AGUA`.
 - Commit: `feat: adicao dos tipos elementais fogo planta e agua`
-- Tag: `v0.2.2`
+- Tag: `v0.5.2`
 
 ---
 
@@ -139,7 +139,7 @@ Pré-requisito: Fase 1.
 - Arquivo(s) Alvo: `SRC modelo/Tipo.java`
 - Ação: Adicionar campo `private final String rotulo`, construtor privado e `getRotulo()`. Rótulos: Vento, Físico, Psíquico, Fogo, Planta, Água.
 - Commit: `feat: rotulo em portugues para cada tipo`
-- Tag: `v0.2.3`
+- Tag: `v0.5.3`
 
 ---
 
@@ -150,7 +150,7 @@ Pré-requisito: Fase 1.
 - Arquivo(s) Alvo: `SRC modelo/Personagem.java`
 - Ação: Criar `public abstract class Personagem` vazia, com Javadoc: «Abstração: base comum de todo combatente».
 - Commit: `feat: criacao da classe abstrata personagem`
-- Tag: `v0.2.4`
+- Tag: `v0.5.4`
 
 ---
 
@@ -159,7 +159,7 @@ Pré-requisito: Fase 1.
 - Arquivo(s) Alvo: `SRC modelo/Personagem.java`
 - Ação: Adicionar `private final String nome` e `private final Tipo tipo` e o construtor `protected Personagem(String nome, Tipo tipo)`, lançando `IllegalArgumentException` se nome vazio ou tipo nulo.
 - Commit: `feat: atributos privados nome e tipo em personagem`
-- Tag: `v0.2.5`
+- Tag: `v0.5.5`
 
 ---
 
@@ -168,7 +168,7 @@ Pré-requisito: Fase 1.
 - Arquivo(s) Alvo: `SRC modelo/Personagem.java`
 - Ação: Adicionar `public String getNome()` e `public Tipo getTipo()`.
 - Commit: `feat: getters de nome e tipo em personagem`
-- Tag: `v0.2.6`
+- Tag: `v0.5.6`
 
 ---
 
@@ -177,7 +177,7 @@ Pré-requisito: Fase 1.
 - Arquivo(s) Alvo: `SRC modelo/Personagem.java`
 - Ação: Adicionar `private int pvMaximo` e `private int pvAtual`; ampliar o construtor para `(nome, tipo, pvMaximo)`; validar `pvMaximo > 0`; inicializar `pvAtual = pvMaximo`.
 - Commit: `feat: encapsulamento dos pontos de vida em personagem`
-- Tag: `v0.2.7`
+- Tag: `v0.5.7`
 
 ---
 
@@ -186,7 +186,7 @@ Pré-requisito: Fase 1.
 - Arquivo(s) Alvo: `SRC modelo/Personagem.java`
 - Ação: Adicionar `getPvMaximo()` e `getPvAtual()`.
 - Commit: `feat: getters de pontos de vida em personagem`
-- Tag: `v0.2.8`
+- Tag: `v0.5.8`
 
 ---
 
@@ -195,7 +195,7 @@ Pré-requisito: Fase 1.
 - Arquivo(s) Alvo: `SRC modelo/Personagem.java`
 - Ação: Adicionar `private int ataque`, `defesa`, `velocidade`; ampliar o construtor para `(nome, tipo, pvMaximo, ataque, defesa, velocidade)` validando valores >= 0.
 - Commit: `feat: encapsulamento de ataque defesa e velocidade em personagem`
-- Tag: `v0.2.9`
+- Tag: `v0.5.9`
 
 ---
 
@@ -204,7 +204,7 @@ Pré-requisito: Fase 1.
 - Arquivo(s) Alvo: `SRC modelo/Personagem.java`
 - Ação: Adicionar `getAtaque()`, `getDefesa()` e `getVelocidade()`.
 - Commit: `feat: getters de ataque defesa e velocidade em personagem`
-- Tag: `v0.2.10`
+- Tag: `v0.5.10`
 
 ---
 
@@ -213,7 +213,7 @@ Pré-requisito: Fase 1.
 - Arquivo(s) Alvo: `SRC modelo/Personagem.java`
 - Ação: Adicionar `public boolean estaVivo()` retornando `pvAtual > 0`.
 - Commit: `feat: metodo estaVivo na classe personagem`
-- Tag: `v0.2.11`
+- Tag: `v0.5.11`
 
 ---
 
@@ -222,7 +222,7 @@ Pré-requisito: Fase 1.
 - Arquivo(s) Alvo: `SRC modelo/Personagem.java`
 - Ação: Adicionar `public int receberDano(int dano)`: lançar `IllegalArgumentException` se dano < 0; `pvAtual = Math.max(0, pvAtual - dano)`; retornar o dano efetivamente aplicado.
 - Commit: `feat: metodo receberDano com validacao na classe personagem`
-- Tag: `v0.2.12`
+- Tag: `v0.5.12`
 
 ---
 
@@ -231,7 +231,7 @@ Pré-requisito: Fase 1.
 - Arquivo(s) Alvo: `SRC modelo/Personagem.java`
 - Ação: Adicionar `public int curar(int quantidade)`: validar >= 0; `pvAtual = Math.min(pvMaximo, pvAtual + quantidade)`; retornar o valor efetivamente curado.
 - Commit: `feat: metodo curar com limite de pv maximo na classe personagem`
-- Tag: `v0.2.13`
+- Tag: `v0.5.13`
 
 ---
 
@@ -240,7 +240,7 @@ Pré-requisito: Fase 1.
 - Arquivo(s) Alvo: `SRC modelo/Personagem.java`
 - Ação: Adicionar `public int curarPercentualDaVidaMaxima(int percentual)`: `valor = Math.max(1, pvMaximo * percentual / 100)`; delegar a `curar(valor)`.
 - Commit: `feat: metodo curarPercentualDaVidaMaxima na classe personagem`
-- Tag: `v0.2.14`
+- Tag: `v0.5.14`
 
 ---
 
@@ -249,7 +249,7 @@ Pré-requisito: Fase 1.
 - Arquivo(s) Alvo: `SRC modelo/Personagem.java`
 - Ação: Adicionar `public int calcularDano(Personagem alvo, int poderBase)` retornando `Math.max(1, getAtaque() + poderBase - alvo.getDefesa())`. Não aplica o dano; só calcula.
 - Commit: `feat: criacao do metodo calcularDano na classe personagem`
-- Tag: `v0.2.15`
+- Tag: `v0.5.15`
 
 ---
 
@@ -258,7 +258,7 @@ Pré-requisito: Fase 1.
 - Arquivo(s) Alvo: `SRC modelo/Personagem.java`
 - Ação: Declarar `public abstract int atacar(Personagem alvo)` (retorna o dano causado), com Javadoc explicando que cada subclasse define o próprio ataque básico (Polimorfismo).
 - Commit: `feat: metodo abstrato atacar na classe personagem`
-- Tag: `v0.2.16`
+- Tag: `v0.5.16`
 
 ---
 
@@ -267,7 +267,7 @@ Pré-requisito: Fase 1.
 - Arquivo(s) Alvo: `SRC modelo/Personagem.java`
 - Ação: Declarar `public abstract String getNomeAtaqueBasico()`.
 - Commit: `feat: metodo abstrato getNomeAtaqueBasico na classe personagem`
-- Tag: `v0.2.17`
+- Tag: `v0.5.17`
 
 ---
 
@@ -276,7 +276,7 @@ Pré-requisito: Fase 1.
 - Arquivo(s) Alvo: `SRC modelo/Personagem.java`
 - Ação: Adicionar `public String resumoDeStatus()` retornando, por exemplo, `Saci (Vento) | PV 50/50 | ATQ 9 | DEF 5 | VEL 10`.
 - Commit: `feat: metodo resumoDeStatus na classe personagem`
-- Tag: `v0.2.18`
+- Tag: `v0.5.18`
 
 ---
 
@@ -287,7 +287,7 @@ Pré-requisito: Fase 1.
 - Arquivo(s) Alvo: `SRC habilidades/ResultadoAcao.java`
 - Ação: Criar `public final class ResultadoAcao` com `enum Efeito { DANO, CURA, FALHA }` e campos `efeito`, `valor` (int), `mensagem` (String) com construtor.
 - Commit: `feat: criacao da classe resultadoAcao`
-- Tag: `v0.2.19`
+- Tag: `v0.5.19`
 
 ---
 
@@ -296,7 +296,7 @@ Pré-requisito: Fase 1.
 - Arquivo(s) Alvo: `SRC habilidades/ResultadoAcao.java`
 - Ação: Adicionar `getEfeito()`, `getValor()` e `getMensagem()`.
 - Commit: `feat: getters da classe resultadoAcao`
-- Tag: `v0.2.20`
+- Tag: `v0.5.20`
 
 ---
 
@@ -305,7 +305,7 @@ Pré-requisito: Fase 1.
 - Arquivo(s) Alvo: `SRC habilidades/Habilidade.java`
 - Ação: Criar `public interface Habilidade` com `String getNome()` e `ResultadoAcao executar(Personagem usuario, Personagem alvo)`.
 - Commit: `feat: criacao da interface habilidade`
-- Tag: `v0.2.21`
+- Tag: `v0.5.21`
 
 ---
 
@@ -314,7 +314,7 @@ Pré-requisito: Fase 1.
 - Arquivo(s) Alvo: `SRC habilidades/Habilidade.java`
 - Ação: Adicionar à interface `int getUsosMaximos()`, `int getUsosRestantes()`, `boolean temUsosRestantes()` e `void restaurarUsos()`.
 - Commit: `feat: contrato de limite de usos na interface habilidade`
-- Tag: `v0.2.22`
+- Tag: `v0.5.22`
 
 ---
 
@@ -323,7 +323,7 @@ Pré-requisito: Fase 1.
 - Arquivo(s) Alvo: `SRC habilidades/HabilidadeBase.java`
 - Ação: Criar `abstract class HabilidadeBase implements Habilidade` com `private final String nome`, `private final int usosMaximos`, `private int usosRestantes`; construtor `(nome, usosMaximos)` (usosRestantes = usosMaximos); implementar `getNome`, `getUsosMaximos`, `getUsosRestantes`.
 - Commit: `feat: classe abstrata habilidadeBase com controle de usos`
-- Tag: `v0.2.23`
+- Tag: `v0.5.23`
 
 ---
 
@@ -332,7 +332,7 @@ Pré-requisito: Fase 1.
 - Arquivo(s) Alvo: `SRC habilidades/HabilidadeBase.java`
 - Ação: Implementar `temUsosRestantes()` (`usosRestantes > 0`), `restaurarUsos()` (volta ao máximo) e `protected void consumirUso()` (decrementa; lança `IllegalStateException` se zero).
 - Commit: `feat: consumo e restauracao de usos em habilidadeBase`
-- Tag: `v0.2.24`
+- Tag: `v0.5.24`
 
 ---
 
@@ -341,7 +341,7 @@ Pré-requisito: Fase 1.
 - Arquivo(s) Alvo: `SRC habilidades/HabilidadeDano.java`
 - Ação: Criar `class HabilidadeDano extends HabilidadeBase` com `private final int poderBase`, construtor `(nome, usosMaximos, poderBase)` e `executar` provisório lançando `UnsupportedOperationException`.
 - Commit: `feat: criacao da classe habilidadeDano`
-- Tag: `v0.2.25`
+- Tag: `v0.5.25`
 
 ---
 
@@ -350,7 +350,7 @@ Pré-requisito: Fase 1.
 - Arquivo(s) Alvo: `SRC habilidades/HabilidadeDano.java`
 - Ação: Implementar `executar`: sem usos retorna `ResultadoAcao` FALHA (mensagem `Sem usos restantes de <nome>!`); senão `consumirUso()`, `dano = usuario.calcularDano(alvo, poderBase)`, `alvo.receberDano(dano)` e retorna DANO com mensagem `<usuario> usou <habilidade>! <alvo> sofreu <n> de dano.`
 - Commit: `feat: implementacao do metodo executar em habilidadeDano`
-- Tag: `v0.2.26`
+- Tag: `v0.5.26`
 
 ---
 
@@ -359,7 +359,7 @@ Pré-requisito: Fase 1.
 - Arquivo(s) Alvo: `SRC habilidades/HabilidadeCura.java`
 - Ação: Criar `class HabilidadeCura extends HabilidadeBase` com `private final int percentual`, construtor `(nome, usosMaximos, percentual)` e `executar` provisório.
 - Commit: `feat: criacao da classe habilidadeCura`
-- Tag: `v0.2.27`
+- Tag: `v0.5.27`
 
 ---
 
@@ -368,7 +368,7 @@ Pré-requisito: Fase 1.
 - Arquivo(s) Alvo: `SRC habilidades/HabilidadeCura.java`
 - Ação: Implementar `executar`: sem usos retorna FALHA; senão `consumirUso()`, `curado = usuario.curarPercentualDaVidaMaxima(percentual)` e retorna CURA com mensagem `<usuario> usou <habilidade> e recuperou <n> de PV!`
 - Commit: `feat: implementacao do metodo executar em habilidadeCura`
-- Tag: `v0.2.28`
+- Tag: `v0.5.28`
 
 ---
 
@@ -377,7 +377,7 @@ Pré-requisito: Fase 1.
 - Arquivo(s) Alvo: `SRC modelo/Personagem.java`
 - Ação: Adicionar `private final List<Habilidade> habilidades = new ArrayList<>()` e `getHabilidades()` retornando `Collections.unmodifiableList`.
 - Commit: `feat: lista encapsulada de habilidades equipadas em personagem`
-- Tag: `v0.2.29`
+- Tag: `v0.5.29`
 
 ---
 
@@ -386,7 +386,7 @@ Pré-requisito: Fase 1.
 - Arquivo(s) Alvo: `SRC modelo/Personagem.java`
 - Ação: Adicionar constante `MAX_HABILIDADES_EQUIPADAS = 3` e `protected void adicionarHabilidade(Habilidade h)`: rejeita nulo e excesso do limite.
 - Commit: `feat: metodo adicionarHabilidade com limite em personagem`
-- Tag: `v0.2.30`
+- Tag: `v0.5.30`
 
 ---
 
@@ -395,7 +395,7 @@ Pré-requisito: Fase 1.
 - Arquivo(s) Alvo: `SRC modelo/Personagem.java`
 - Ação: Adicionar `public ResultadoAcao usarHabilidade(int indice, Personagem alvo)`: validar índice e delegar a `habilidades.get(indice).executar(this, alvo)`.
 - Commit: `feat: metodo usarHabilidade na classe personagem`
-- Tag: `v0.2.31`
+- Tag: `v0.5.31`
 
 ---
 
@@ -410,7 +410,7 @@ Pré-requisito: Fase 2.
 - Arquivo(s) Alvo: `SRC modelo/Saci.java`
 - Ação: Criar `class Saci extends Personagem` com construtor `super(Saci, Tipo.VENTO, 50, 9, 5, 10)` e stubs temporários de `atacar` (`return 0`) e `getNomeAtaqueBasico` (`return vazio`) para compilar.
 - Commit: `feat: criacao da classe saci herdando de personagem`
-- Tag: `v0.3.1`
+- Tag: `v0.5.32`
 
 ---
 
@@ -419,7 +419,7 @@ Pré-requisito: Fase 2.
 - Arquivo(s) Alvo: `SRC modelo/Saci.java`
 - Ação: Extrair os literais para constantes `private static final`: `PV_BASE=50`, `ATAQUE_BASE=9`, `DEFESA_BASE=5`, `VELOCIDADE_BASE=10`; usar no `super`.
 - Commit: `refactor: constantes de status base do saci`
-- Tag: `v0.3.2`
+- Tag: `v0.5.33`
 
 ---
 
@@ -428,7 +428,7 @@ Pré-requisito: Fase 2.
 - Arquivo(s) Alvo: `SRC modelo/Saci.java`
 - Ação: Implementar `getNomeAtaqueBasico()` retornando Rasteira de Vento e `atacar(alvo)`: `alvo.receberDano(calcularDano(alvo, PODER_ATAQUE_BASICO))` com `PODER_ATAQUE_BASICO = 5`.
 - Commit: `feat: ataque basico rasteira de vento do saci`
-- Tag: `v0.3.3`
+- Tag: `v0.5.34`
 
 ---
 
@@ -437,7 +437,7 @@ Pré-requisito: Fase 2.
 - Arquivo(s) Alvo: `SRC modelo/Saci.java`
 - Ação: No construtor, `adicionarHabilidade(new HabilidadeCura(Ventos Revigorantes, 4, 5))`: cura 5% da vida máxima, 4 usos.
 - Commit: `feat: implementacao da habilidade ventos revigorantes do saci`
-- Tag: `v0.3.4`
+- Tag: `v0.5.35`
 
 ---
 
@@ -448,7 +448,7 @@ Pré-requisito: Fase 2.
 - Arquivo(s) Alvo: `SRC modelo/Lobisomem.java`
 - Ação: Criar `class Lobisomem extends Personagem` com `super(Lobisomem, Tipo.FISICO, 60, 12, 6, 8)` e stubs temporários dos dois métodos abstratos.
 - Commit: `feat: criacao da classe lobisomem herdando de personagem`
-- Tag: `v0.3.5`
+- Tag: `v0.5.36`
 
 ---
 
@@ -457,7 +457,7 @@ Pré-requisito: Fase 2.
 - Arquivo(s) Alvo: `SRC modelo/Lobisomem.java`
 - Ação: Extrair constantes `PV_BASE=60`, `ATAQUE_BASE=12`, `DEFESA_BASE=6`, `VELOCIDADE_BASE=8` e usá-las no `super`.
 - Commit: `refactor: constantes de status base do lobisomem`
-- Tag: `v0.3.6`
+- Tag: `v0.5.37`
 
 ---
 
@@ -466,7 +466,7 @@ Pré-requisito: Fase 2.
 - Arquivo(s) Alvo: `SRC modelo/Lobisomem.java`
 - Ação: Implementar `getNomeAtaqueBasico()` (Garra Selvagem) e `atacar(alvo)` com `PODER_ATAQUE_BASICO = 7`.
 - Commit: `feat: ataque basico garra selvagem do lobisomem`
-- Tag: `v0.3.7`
+- Tag: `v0.5.38`
 
 ---
 
@@ -475,7 +475,7 @@ Pré-requisito: Fase 2.
 - Arquivo(s) Alvo: `SRC modelo/Lobisomem.java`
 - Ação: No construtor, `adicionarHabilidade(new HabilidadeDano(Uivo Brutal, 3, 12))`.
 - Commit: `feat: habilidade uivo brutal do lobisomem`
-- Tag: `v0.3.8`
+- Tag: `v0.5.39`
 
 ---
 
@@ -486,7 +486,7 @@ Pré-requisito: Fase 2.
 - Arquivo(s) Alvo: `SRC modelo/NegrinhoDoPastoreio.java`
 - Ação: Criar `class NegrinhoDoPastoreio extends Personagem` com `super(Negrinho do Pastoreio, Tipo.PSIQUICO, 45, 10, 4, 9)` e stubs temporários.
 - Commit: `feat: criacao da classe negrinhoDoPastoreio herdando de personagem`
-- Tag: `v0.3.9`
+- Tag: `v0.5.40`
 
 ---
 
@@ -495,7 +495,7 @@ Pré-requisito: Fase 2.
 - Arquivo(s) Alvo: `SRC modelo/NegrinhoDoPastoreio.java`
 - Ação: Extrair constantes `PV_BASE=45`, `ATAQUE_BASE=10`, `DEFESA_BASE=4`, `VELOCIDADE_BASE=9` e usá-las no `super`.
 - Commit: `refactor: constantes de status base do negrinho do pastoreio`
-- Tag: `v0.3.10`
+- Tag: `v0.5.41`
 
 ---
 
@@ -504,7 +504,7 @@ Pré-requisito: Fase 2.
 - Arquivo(s) Alvo: `SRC modelo/NegrinhoDoPastoreio.java`
 - Ação: Implementar `getNomeAtaqueBasico()` (Toque Psíquico) e `atacar(alvo)` com `PODER_ATAQUE_BASICO = 6`.
 - Commit: `feat: ataque basico toque psiquico do negrinho do pastoreio`
-- Tag: `v0.3.11`
+- Tag: `v0.5.42`
 
 ---
 
@@ -513,7 +513,7 @@ Pré-requisito: Fase 2.
 - Arquivo(s) Alvo: `SRC modelo/NegrinhoDoPastoreio.java`
 - Ação: No construtor, `adicionarHabilidade(new HabilidadeDano(Objetos Perdidos, 3, 11))`.
 - Commit: `feat: habilidade objetos perdidos do negrinho do pastoreio`
-- Tag: `v0.3.12`
+- Tag: `v0.5.43`
 
 ---
 
@@ -524,7 +524,7 @@ Pré-requisito: Fase 2.
 - Arquivo(s) Alvo: `SRC modelo/CatalogoDeHerois.java`
 - Ação: Criar classe utilitária com `public static List<Personagem> criarTodos()` retornando novas instâncias de `Saci`, `Lobisomem` e `NegrinhoDoPastoreio` (nessa ordem). Usada pela tela de seleção.
 - Commit: `feat: catalogo de herois iniciais`
-- Tag: `v0.3.13`
+- Tag: `v0.5.44`
 
 ---
 
@@ -539,7 +539,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/ConfiguracoesUi.java`
 - Ação: Criar classe de constantes: `LARGURA = 960`, `ALTURA = 540`, `FPS = 60`, `TITULO = RPG do Folclore Brasileiro`.
 - Commit: `feat: constantes de configuracao da interface`
-- Tag: `v0.4.1`
+- Tag: `v0.5.45`
 
 ---
 
@@ -548,7 +548,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/JanelaPrincipal.java`
 - Ação: Criar `JanelaPrincipal extends JFrame`: título via `ConfiguracoesUi.TITULO`, `EXIT_ON_CLOSE`, `setResizable(false)`.
 - Commit: `feat: criacao da janela desktop principal`
-- Tag: `v0.4.2`
+- Tag: `v0.5.46`
 
 ---
 
@@ -557,7 +557,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/PainelDoJogo.java`, `SRC ui/JanelaPrincipal.java`
 - Ação: Criar `PainelDoJogo extends JPanel` com `setPreferredSize(960x540)`, `setFocusable(true)` e double buffer; adicionar à janela, chamar `pack()` e `setLocationRelativeTo(null)`.
 - Commit: `feat: painel de desenho do jogo dentro da janela`
-- Tag: `v0.4.3`
+- Tag: `v0.5.47`
 
 ---
 
@@ -566,7 +566,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/PainelDoJogo.java`
 - Ação: Sobrescrever `paintComponent`: preencher fundo preto e configurar `Graphics2D` com antialiasing desligado e interpolação `NEAREST_NEIGHBOR` (pixel art nítida).
 - Commit: `feat: configuracao de renderizacao pixel art no painel`
-- Tag: `v0.4.4`
+- Tag: `v0.5.48`
 
 ---
 
@@ -575,7 +575,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/PainelDoJogo.java`
 - Ação: Criar `javax.swing.Timer` com intervalo `1000 / FPS` que chama `atualizar()` e `repaint()` a cada tick; iniciar no construtor.
 - Commit: `feat: loop de renderizacao a 60 fps`
-- Tag: `v0.4.5`
+- Tag: `v0.5.49`
 
 ---
 
@@ -584,7 +584,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC Main.java`
 - Ação: Substituir o `println` por `SwingUtilities.invokeLater(() -> new JanelaPrincipal().setVisible(true))`.
 - Commit: `feat: main abre a janela principal`
-- Tag: `v0.4.6`
+- Tag: `v0.5.50`
 
 ---
 
@@ -595,7 +595,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/telas/Tela.java`
 - Ação: Criar `interface Tela` com `atualizar()`, `desenhar(Graphics2D g)`, `aoClicar(int x, int y)`, `aoMoverMouse(int x, int y)` e `aoPressionarTecla(int codigo)`.
 - Commit: `feat: criacao da interface tela`
-- Tag: `v0.4.7`
+- Tag: `v0.5.51`
 
 ---
 
@@ -604,7 +604,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/GerenciadorDeTelas.java`
 - Ação: Criar classe com campo `Tela telaAtual` e `trocarPara(Tela nova)`.
 - Commit: `feat: criacao do gerenciador de telas`
-- Tag: `v0.4.8`
+- Tag: `v0.5.52`
 
 ---
 
@@ -613,7 +613,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/PainelDoJogo.java`, `SRC ui/GerenciadorDeTelas.java`
 - Ação: Expor `atualizar()` e `desenhar(g)` no gerenciador (delegando à tela atual, tratando nulo) e chamá-los no loop e no `paintComponent`.
 - Commit: `feat: delegacao do loop e do desenho ao gerenciador de telas`
-- Tag: `v0.4.9`
+- Tag: `v0.5.53`
 
 ---
 
@@ -622,7 +622,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/PainelDoJogo.java`
 - Ação: Registrar `MouseListener` (`mousePressed`) repassando as coordenadas para `aoClicar`.
 - Commit: `feat: repasse de cliques do mouse para a tela atual`
-- Tag: `v0.4.10`
+- Tag: `v0.5.54`
 
 ---
 
@@ -631,7 +631,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/PainelDoJogo.java`
 - Ação: Registrar `MouseMotionListener` (`mouseMoved`) repassando para `aoMoverMouse`.
 - Commit: `feat: repasse de movimento do mouse para a tela atual`
-- Tag: `v0.4.11`
+- Tag: `v0.5.55`
 
 ---
 
@@ -640,7 +640,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/PainelDoJogo.java`
 - Ação: Registrar `KeyListener` (`keyPressed`) repassando `getKeyCode()` para `aoPressionarTecla`.
 - Commit: `feat: repasse de teclado para a tela atual`
-- Tag: `v0.4.12`
+- Tag: `v0.5.56`
 
 ---
 
@@ -649,7 +649,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/componentes/Botao.java`
 - Ação: Criar `Botao` com `x, y, largura, altura, rotulo` e `Runnable aoAcionar`; construtor completo.
 - Commit: `feat: criacao do componente botao`
-- Tag: `v0.4.13`
+- Tag: `v0.5.57`
 
 ---
 
@@ -658,7 +658,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/componentes/Botao.java`
 - Ação: Implementar `desenhar(Graphics2D g)`: retângulo preenchido, borda de 3 px e rótulo centralizado (fonte monoespaçada bold 20) usando `FontMetrics`.
 - Commit: `feat: desenho do componente botao`
-- Tag: `v0.4.14`
+- Tag: `v0.5.58`
 
 ---
 
@@ -667,7 +667,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/componentes/Botao.java`
 - Ação: Adicionar `boolean habilitado`, `setHabilitado`, `contem(x, y)` e `clicar(x, y)` (executa `aoAcionar` só se habilitado e dentro da área). Desenhar cinza quando desabilitado.
 - Commit: `feat: deteccao de clique e estado habilitado no botao`
-- Tag: `v0.4.15`
+- Tag: `v0.5.59`
 
 ---
 
@@ -676,7 +676,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/componentes/Botao.java`
 - Ação: Adicionar `boolean sobMouse`, `atualizarHover(x, y)` e cor de realce no `desenhar` quando `sobMouse`.
 - Commit: `feat: efeito hover no botao`
-- Tag: `v0.4.16`
+- Tag: `v0.5.60`
 
 ---
 
@@ -685,7 +685,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/componentes/CarregadorDeImagens.java`
 - Ação: Criar `static BufferedImage carregar(String caminho)` lendo de `getResourceAsStream` com `ImageIO.read`.
 - Commit: `feat: carregador de imagens a partir dos recursos`
-- Tag: `v0.4.17`
+- Tag: `v0.5.61`
 
 ---
 
@@ -694,7 +694,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/componentes/CarregadorDeImagens.java`
 - Ação: Adicionar cache `Map<String, BufferedImage>` e fallback: se o arquivo não existir, logar em `System.err` e retornar um quadrado magenta 32x32.
 - Commit: `feat: cache e imagem substituta no carregador de imagens`
-- Tag: `v0.4.18`
+- Tag: `v0.5.62`
 
 ---
 
@@ -705,7 +705,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/telas/TelaInicial.java`
 - Ação: Criar `TelaInicial implements Tela` com construtor recebendo `GerenciadorDeTelas` e métodos vazios.
 - Commit: `feat: esqueleto da tela inicial`
-- Tag: `v0.4.19`
+- Tag: `v0.5.63`
 
 ---
 
@@ -714,7 +714,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/telas/TelaInicial.java`
 - Ação: Em `desenhar`: fundo sólido verde-escuro e título RPG do Folclore Brasileiro centralizado (fonte 40 bold).
 - Commit: `feat: fundo e titulo da tela inicial`
-- Tag: `v0.4.20`
+- Tag: `v0.5.64`
 
 ---
 
@@ -723,7 +723,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/telas/TelaInicial.java`
 - Ação: Criar `Botao botaoNovoJogo` (380, 250, 200x50, «Novo Jogo») e desenhá-lo.
 - Commit: `feat: layout do botao novo jogo`
-- Tag: `v0.4.21`
+- Tag: `v0.5.65`
 
 ---
 
@@ -732,7 +732,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/telas/TelaInicial.java`
 - Ação: Ligar `aoClicar` e `aoMoverMouse` ao `botaoNovoJogo`; ação provisória: `System.out.println` (ligada na tarefa 4.4.13).
 - Commit: `feat: eventos de clique e hover do botao novo jogo`
-- Tag: `v0.4.22`
+- Tag: `v0.5.66`
 
 ---
 
@@ -741,7 +741,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/telas/TelaInicial.java`
 - Ação: Criar `botaoContinuar` (380, 315, 200x50, «Continuar») e desenhá-lo.
 - Commit: `feat: layout do botao continuar`
-- Tag: `v0.4.23`
+- Tag: `v0.5.67`
 
 ---
 
@@ -750,7 +750,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/telas/TelaInicial.java`
 - Ação: Ligar clique e hover do `botaoContinuar`; ação provisória `println` (ligada ao load na Fase 11).
 - Commit: `feat: eventos de clique e hover do botao continuar`
-- Tag: `v0.4.24`
+- Tag: `v0.5.68`
 
 ---
 
@@ -759,7 +759,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/telas/TelaInicial.java`
 - Ação: Criar `botaoSair` (380, 380, 200x50, «Sair») e desenhá-lo.
 - Commit: `feat: layout do botao sair`
-- Tag: `v0.4.25`
+- Tag: `v0.5.69`
 
 ---
 
@@ -768,7 +768,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/telas/TelaInicial.java`
 - Ação: Ligar clique e hover do `botaoSair`; ação: `System.exit(0)`.
 - Commit: `feat: eventos de clique e hover do botao sair`
-- Tag: `v0.4.26`
+- Tag: `v0.5.70`
 
 ---
 
@@ -777,7 +777,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/telas/TelaInicial.java`
 - Ação: Navegação por teclado: campo `indiceSelecionado`; setas cima/baixo alternam o botão realçado e ENTER aciona o selecionado.
 - Commit: `feat: navegacao por teclado na tela inicial`
-- Tag: `v0.4.27`
+- Tag: `v0.5.71`
 
 ---
 
@@ -786,7 +786,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/JanelaPrincipal.java`
 - Ação: Instanciar o `GerenciadorDeTelas` e definir `TelaInicial` como tela de abertura.
 - Commit: `feat: tela inicial como tela de abertura do jogo`
-- Tag: `v0.4.28`
+- Tag: `v0.5.72`
 
 ---
 
@@ -797,7 +797,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/telas/TelaSelecaoPersonagem.java`
 - Ação: Criar a tela com construtor `(GerenciadorDeTelas, Consumer<Personagem> aoConfirmar)` e campo `List<Personagem> opcoes = CatalogoDeHerois.criarTodos()`.
 - Commit: `feat: esqueleto da tela de selecao de personagem`
-- Tag: `v0.4.29`
+- Tag: `v0.5.73`
 
 ---
 
@@ -806,7 +806,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/telas/TelaSelecaoPersonagem.java`
 - Ação: Desenhar fundo e título «Escolha seu personagem».
 - Commit: `feat: fundo e titulo da tela de selecao`
-- Tag: `v0.4.30`
+- Tag: `v0.5.74`
 
 ---
 
@@ -815,7 +815,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/telas/TelaSelecaoPersonagem.java`
 - Ação: Desenhar 3 cartões 200x300 em x = 100, 380, 660 e y = 110 (retângulo com borda), um por opção.
 - Commit: `feat: layout dos tres cartoes de personagem`
-- Tag: `v0.4.31`
+- Tag: `v0.5.75`
 
 ---
 
@@ -824,7 +824,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/telas/TelaSelecaoPersonagem.java`
 - Ação: Em cada cartão, escrever `getNome()` e `getTipo().getRotulo()`.
 - Commit: `feat: nome e tipo nos cartoes de personagem`
-- Tag: `v0.4.32`
+- Tag: `v0.5.76`
 
 ---
 
@@ -833,7 +833,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/telas/TelaSelecaoPersonagem.java`
 - Ação: Em cada cartão, listar PV, ATQ, DEF e VEL (uma linha cada) lendo os getters.
 - Commit: `feat: status base nos cartoes de personagem`
-- Tag: `v0.4.33`
+- Tag: `v0.5.77`
 
 ---
 
@@ -842,7 +842,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/telas/TelaSelecaoPersonagem.java`
 - Ação: Reservar em cada cartão uma área 160x160 com retângulo cinza (substituída pelo retrato na Fase 6).
 - Commit: `feat: area reservada para retrato nos cartoes`
-- Tag: `v0.4.34`
+- Tag: `v0.5.78`
 
 ---
 
@@ -851,7 +851,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/telas/TelaSelecaoPersonagem.java`
 - Ação: Campo `indiceSelecionado = -1`; clique em um cartão o seleciona e desenha borda amarela de 4 px.
 - Commit: `feat: selecao e destaque de cartao por clique`
-- Tag: `v0.4.35`
+- Tag: `v0.5.79`
 
 ---
 
@@ -860,7 +860,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/telas/TelaSelecaoPersonagem.java`
 - Ação: Setas esquerda/direita movem `indiceSelecionado` (circular).
 - Commit: `feat: selecao de cartao por teclado`
-- Tag: `v0.4.36`
+- Tag: `v0.5.80`
 
 ---
 
@@ -869,7 +869,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/telas/TelaSelecaoPersonagem.java`
 - Ação: Criar `botaoConfirmar` (380, 450, 200x50, «Confirmar»), desabilitado enquanto `indiceSelecionado < 0`.
 - Commit: `feat: layout do botao confirmar na selecao`
-- Tag: `v0.4.37`
+- Tag: `v0.5.81`
 
 ---
 
@@ -878,7 +878,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/telas/TelaSelecaoPersonagem.java`
 - Ação: Ação do `botaoConfirmar` (e ENTER): `aoConfirmar.accept(opcoes.get(indiceSelecionado))`.
 - Commit: `feat: evento de confirmacao do personagem escolhido`
-- Tag: `v0.4.38`
+- Tag: `v0.5.82`
 
 ---
 
@@ -887,7 +887,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/telas/TelaSelecaoPersonagem.java`
 - Ação: Criar `botaoVoltar` (40, 460, 160x40, «Voltar») e desenhá-lo.
 - Commit: `feat: layout do botao voltar na selecao`
-- Tag: `v0.4.39`
+- Tag: `v0.5.83`
 
 ---
 
@@ -896,7 +896,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/telas/TelaSelecaoPersonagem.java`
 - Ação: Ação do `botaoVoltar` (e ESC): `gerenciador.trocarPara(new TelaInicial(gerenciador))`.
 - Commit: `feat: evento do botao voltar na selecao`
-- Tag: `v0.4.40`
+- Tag: `v0.5.84`
 
 ---
 
@@ -905,7 +905,7 @@ Pré-requisito: Fase 3 (usa `CatalogoDeHerois`).
 - Arquivo(s) Alvo: `SRC ui/telas/TelaInicial.java`
 - Ação: Ação do Novo Jogo passa a abrir `TelaSelecaoPersonagem` com callback provisório que imprime o nome do escolhido (substituído na Fase 8).
 - Commit: `feat: transicao do novo jogo para a selecao de personagem`
-- Tag: `v0.4.41`
+- Tag: `v0.5.85`
 
 ---
 
