@@ -95,4 +95,12 @@ public abstract class Personagem {
     public int calcularDano(Personagem alvo, int poderBase) {
         return Math.max(1, getAtaque() + poderBase - alvo.getDefesa());
     }
+
+    /**
+     * Define o ataque básico de cada subclasse por meio de polimorfismo.
+     *
+     * @param alvo personagem que receberá o ataque
+     * @return dano causado ao alvo
+     */
+    public abstract int atacar(Personagem alvo);
 }
