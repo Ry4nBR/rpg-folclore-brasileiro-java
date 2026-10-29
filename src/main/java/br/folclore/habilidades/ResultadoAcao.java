@@ -16,4 +16,16 @@ public final class ResultadoAcao {
         this.valor = valor;
         this.mensagem = mensagem;
     }
+
+    public Efeito getEfeito() {
+        return efeito;
+    }
+
+    public int getValor() {
+        return valor;
+    }
+
+    public String getMensagem() {
+        return mensagem;
+    }
 }
