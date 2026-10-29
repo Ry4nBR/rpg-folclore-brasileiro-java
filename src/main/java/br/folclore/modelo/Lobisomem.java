@@ -5,6 +5,7 @@ public class Lobisomem extends Personagem {
     private static final int ATAQUE_BASE = 12;
     private static final int DEFESA_BASE = 6;
     private static final int VELOCIDADE_BASE = 8;
+    private static final int PODER_ATAQUE_BASICO = 7;
 
     public Lobisomem() {
         super("Lobisomem", Tipo.FISICO, PV_BASE, ATAQUE_BASE, DEFESA_BASE, VELOCIDADE_BASE);
@@ -12,11 +13,11 @@ public class Lobisomem extends Personagem {
 
     @Override
     public int atacar(Personagem alvo) {
-        return 0;
+        return alvo.receberDano(calcularDano(alvo, PODER_ATAQUE_BASICO));
     }
 
     @Override
     public String getNomeAtaqueBasico() {
-        return "";
+        return "Garra Selvagem";
     }
 }
