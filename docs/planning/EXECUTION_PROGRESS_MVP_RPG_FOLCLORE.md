@@ -6,9 +6,9 @@
 - **Bloco:** 2.3 — Turno do chefe e encerramento
 - **Última tarefa concluída:** 2.3.3 — Criar `ResultadoBatalha` e consulta de fim de combate
 - **Tarefa em execução:** Nenhuma
-- **Próxima tarefa pendente:** Nenhuma neste bloco
-- **Status do bloco:** Em andamento
-- **Bloqueios:** Nenhum.
+- **Próxima tarefa pendente:** 3.1.1 — Criar a classe `Saci` com status base e ataque básico (aguarda autorização explícita)
+- **Status do bloco:** Concluído
+- **Bloqueios:** O Bloco 3.1 depende de autorização explícita.
 
 ## Decisões e estado Git verificado
 
@@ -49,7 +49,16 @@
 | 2.2.2 — Implementar a ação Habilidade | Concluída | `86546f7` — `feat: acao habilidade na batalha com limite de usos` | `mvp-v0.2.4` | `mvn -q compile` passou; JShell validou habilidades de dano e cura, consumo de uso, mensagens, estado, recusa sem usos e ausência de consumo de turno |
 | 2.3.1 — Criar o gancho `deveUsarHabilidade` em `Personagem` | Concluída | `211cc78` — `feat: gancho deveUsarHabilidade na classe personagem` | `mvp-v0.2.5` | `mvn -q compile` passou; JShell confirmou retorno `false` para personagens comuns em turnos variados |
 | 2.3.2 — Implementar o turno do chefe e a checagem de derrota | Concluída | `fe938de` — `feat: turno do chefe e verificacao de derrota na batalha` | `mvp-v0.2.6` | `mvn -q compile` passou; JShell validou ataque básico, habilidade indicada pelo polimorfismo, retorno ao turno do jogador, derrota e estado inválido |
-| 2.3.3 — Criar `ResultadoBatalha` e consulta de fim de combate | Concluída | `feat: resultado de batalha e consulta de encerramento` | `mvp-v0.2.7` | `mvn -q compile` passou; JShell confirmou estado em andamento, vitória e derrota |
+| 2.3.3 — Criar `ResultadoBatalha` e consulta de fim de combate | Concluída | `d0e5c96` — `feat: resultado de batalha e consulta de encerramento` | `mvp-v0.2.7` | `mvn -q compile` passou; JShell confirmou estado em andamento, vitória e derrota |
+
+## Histórico do bloco 2.3
+
+- 2.3.1 foi commitada em `211cc78` e recebeu a tag anotada `mvp-v0.2.5`.
+- 2.3.2 foi commitada em `fe938de` e recebeu a tag anotada `mvp-v0.2.6`.
+- 2.3.3 foi commitada em `d0e5c96` e recebeu a tag anotada `mvp-v0.2.7`.
+- Validação final do Bloco 2.3: `mvn -q clean compile` e `git diff --check` passaram; as três tags anotadas foram conferidas apontando para os commits das respectivas tarefas. JShell cobriu o comportamento padrão do personagem, os caminhos de ação do chefe, vitória, derrota e consulta de encerramento.
+- Arquivos modificados: `src/main/java/br/folclore/modelo/Personagem.java`, `src/main/java/br/folclore/batalha/Batalha.java` e `src/main/java/br/folclore/batalha/ResultadoBatalha.java`.
+- Não houve push. O próximo bloco pendente é Fase 3 / Bloco 3.1 e aguarda autorização explícita.
 
 ## Histórico do bloco 2.2
 
