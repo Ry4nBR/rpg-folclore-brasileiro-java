@@ -3,12 +3,12 @@
 ## Estado atual
 
 - **Fase:** 3 — Implementação dos dois personagens jogáveis
-- **Bloco:** 3.2 — Lobisomem
-- **Última tarefa concluída:** 3.2.2 — Adicionar a habilidade Uivo Brutal ao Lobisomem
+- **Bloco:** 3.3 — Catálogo
+- **Última tarefa concluída:** 3.3.1 — Criar `CatalogoDeHerois`
 - **Tarefa em execução:** Nenhuma
-- **Próxima tarefa pendente:** 3.3.1 — Criar `CatalogoDeHerois` (aguarda autorização explícita)
-- **Status do bloco:** Concluído
-- **Bloqueios:** O Bloco 3.3 depende de autorização explícita.
+- **Próxima tarefa pendente:** Nenhuma neste bloco
+- **Status do bloco:** Em andamento
+- **Bloqueios:** Nenhum.
 
 ## Decisões e estado Git verificado
 
@@ -25,6 +25,7 @@
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 2.3.
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 3.1.
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 3.2.
+- Em 06/11/2026, o usuário autorizou continuar para o Bloco 3.3.
 
 ## Registro das tarefas
 
@@ -56,6 +57,7 @@
 | 3.1.2 — Adicionar a habilidade Ventos Revigorantes ao Saci | Concluída | `0a91078` — `feat: habilidade ventos revigorantes do saci` | `mvp-v0.3.2` | `mvn -q compile` passou; JShell confirmou cura de 12 PV (40→52), três usos consumidos e falha no uso seguinte |
 | 3.2.1 — Criar a classe `Lobisomem` com status base e ataque básico | Concluída | `d07c905` — `feat: implementacao do personagem lobisomem com ataque basico` | `mvp-v0.3.3` | `mvn -q compile` passou; JShell confirmou resumo, ataque e dano 14 contra defesa 5 |
 | 3.2.2 — Adicionar a habilidade Uivo Brutal ao Lobisomem | Concluída | `1dcea68` — `feat: habilidade uivo brutal do lobisomem` | `mvp-v0.3.4` | `mvn -q compile` passou; JShell confirmou dano 19, dois usos e falha na terceira tentativa |
+| 3.3.1 — Criar `CatalogoDeHerois` | Concluída | `feat: catalogo dos herois jogaveis` | `mvp-v0.3.5` | `mvn -q compile` passou; JShell confirmou dois itens na ordem Saci/Lobisomem, instâncias independentes, PV cheio e usos restaurados |
 
 ## Histórico do bloco 3.2
 
