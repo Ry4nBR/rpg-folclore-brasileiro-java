@@ -71,6 +71,26 @@ public class Batalha {
         return true;
     }
 
+    public void executarTurnoDoChefe() {
+        exigirEstado(EstadoBatalha.TURNO_DO_CHEFE);
+        if (chefe.deveUsarHabilidade(turno) && chefe.getHabilidade().temUsosRestantes()) {
+            ResultadoAcao resultado = chefe.usarHabilidade(jogador);
+            registrar(resultado.getMensagem());
+        } else {
+            int dano = chefe.atacar(jogador);
+            registrar(chefe.getNome() + " usou " + chefe.getNomeAtaqueBasico()
+                    + " e causou " + dano + " de dano!");
+        }
+
+        if (!jogador.estaVivo()) {
+            registrar(jogador.getNome() + " caiu em combate!");
+            estado = EstadoBatalha.DERROTA;
+        } else {
+            turno++;
+            estado = EstadoBatalha.ESCOLHA_DO_JOGADOR;
+        }
+    }
+
     private void aposAcaoDoJogador() {
         if (!chefe.estaVivo()) {
             registrar(chefe.getNome() + " caiu em combate!");
