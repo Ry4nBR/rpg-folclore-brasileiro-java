@@ -4,11 +4,11 @@
 
 - **Fase:** 0 — Preparação do ambiente e estrutura inicial
 - **Bloco:** 0.1 — Branch, build e esqueleto
-- **Última tarefa concluída:** 0.1.2 — Configurar Maven (Java 17) e `.gitignore`
+- **Última tarefa concluída:** 0.1.3 — Criar o ponto de entrada e a estrutura de pacotes
 - **Tarefa em execução:** Nenhuma
-- **Próxima tarefa pendente:** 0.1.3 — Criar o ponto de entrada e a estrutura de pacotes
-- **Status do bloco:** Em andamento
-- **Bloqueios:** Nenhum após autorização para executar diretamente na branch `mvp/prototipo`, sem PRs.
+- **Próxima tarefa pendente:** 0.2.1 — Validar o ambiente e documentar requisitos no README (aguarda autorização para o Bloco 0.2)
+- **Status do bloco:** Concluído
+- **Bloqueios:** A próxima tarefa depende de autorização explícita para iniciar o Bloco 0.2.
 
 ## Decisões e estado Git verificado
 
@@ -23,8 +23,8 @@
 | Tarefa | Status | Commit (mensagem planejada) | Tag planejada | Validação |
 |---|---|---|---|---|
 | 0.1.1 — Criar a branch do MVP e registrar o escopo | Concluída | `a735288` — `docs: registro do escopo e da branch do mvp` | `mvp-v0.0.1` | Conteúdo obrigatório conferido; `git diff --check` passou |
-| 0.1.2 — Configurar Maven (Java 17) e `.gitignore` | Concluída | `chore: configuracao do maven java 17 e gitignore do mvp` | `mvp-v0.0.2` | `mvn -q validate` passou com JDK 17; padrões `.gitignore` e ausência de dependências adicionais conferidos |
-| 0.1.3 — Criar o ponto de entrada e a estrutura de pacotes | Pendente | `chore: ponto de entrada e estrutura de pacotes do mvp` | `mvp-v0.0.3` | Pendente |
+| 0.1.2 — Configurar Maven (Java 17) e `.gitignore` | Concluída | `31b4df0` — `chore: configuracao do maven java 17 e gitignore do mvp` | `mvp-v0.0.2` | `mvn -q validate` passou com JDK 17; padrões `.gitignore` e ausência de dependências adicionais conferidos |
+| 0.1.3 — Criar o ponto de entrada e a estrutura de pacotes | Concluída | `chore: ponto de entrada e estrutura de pacotes do mvp` | `mvp-v0.0.3` | `mvn -q compile exec:java` imprimiu a mensagem exigida; pacotes previstos conferidos; pacotes fora do MVP ausentes; `target/` ignorado |
 
 ## Histórico do bloco
 
@@ -34,4 +34,6 @@
 - 0.1.1 foi commitada em `a735288` e recebeu a tag anotada `mvp-v0.0.1`.
 - Ao iniciar 0.1.2, `java` e `mvn` não foram encontrados no PATH; a instalação local ainda será investigada antes da validação Maven.
 - 0.1.2: o `winget` não conseguiu acessar a origem e a restauração requer administrador. Para validar sem alterar a instalação global, foram baixados JDK Temurin 17.0.21 e Maven 3.9.9 portáteis para a pasta temporária da sessão; os checksums oficiais SHA-256/SHA-512 conferiram. `mvn -q validate` passou. Nenhuma ferramenta foi adicionada ao repositório.
-- Commit e tag de 0.1.2 serão registrados após a revisão final do estado do Git. O diretório `target/` (se gerado) deve permanecer ignorado.
+- 0.1.2 foi commitada em `31b4df0` e recebeu a tag anotada `mvp-v0.0.2`.
+- 0.1.3: `mvn -q compile exec:java` executou com sucesso e imprimiu exatamente `RPG do Folclore Brasileiro (MVP) - iniciando`. Os sete diretórios de pacote previstos existem; `audio`, `ia`, `save` e `ui/efeitos` não existem; `target/` está ignorado.
+- Commits e tags de 0.1.3 serão registrados após a revisão final do estado do Git. Não foi feito push. Nenhuma tarefa do Bloco 0.2 ou de fases posteriores será iniciada sem autorização explícita.
