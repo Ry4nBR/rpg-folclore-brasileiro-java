@@ -2,13 +2,13 @@
 
 ## Estado atual
 
-- **Fase:** 2 — Mecânicas de batalha
-- **Bloco:** 2.3 — Turno do chefe e encerramento
+- **Fase:** 3 — Implementação dos dois personagens jogáveis
+- **Bloco:** 3.1 — Saci
 - **Última tarefa concluída:** 2.3.3 — Criar `ResultadoBatalha` e consulta de fim de combate
-- **Tarefa em execução:** Nenhuma
-- **Próxima tarefa pendente:** 3.1.1 — Criar a classe `Saci` com status base e ataque básico (aguarda autorização explícita)
-- **Status do bloco:** Concluído
-- **Bloqueios:** O Bloco 3.1 depende de autorização explícita.
+- **Tarefa em execução:** 3.1.1 — Criar a classe `Saci` com status base e ataque básico
+- **Próxima tarefa pendente:** 3.1.2 — Adicionar a habilidade Ventos Revigorantes ao Saci
+- **Status do bloco:** Em andamento
+- **Bloqueios:** Nenhum.
 
 ## Decisões e estado Git verificado
 
@@ -23,6 +23,7 @@
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 2.1.
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 2.2.
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 2.3.
+- Em 06/11/2026, o usuário autorizou continuar para o Bloco 3.1.
 
 ## Registro das tarefas
 
@@ -50,6 +51,8 @@
 | 2.3.1 — Criar o gancho `deveUsarHabilidade` em `Personagem` | Concluída | `211cc78` — `feat: gancho deveUsarHabilidade na classe personagem` | `mvp-v0.2.5` | `mvn -q compile` passou; JShell confirmou retorno `false` para personagens comuns em turnos variados |
 | 2.3.2 — Implementar o turno do chefe e a checagem de derrota | Concluída | `fe938de` — `feat: turno do chefe e verificacao de derrota na batalha` | `mvp-v0.2.6` | `mvn -q compile` passou; JShell validou ataque básico, habilidade indicada pelo polimorfismo, retorno ao turno do jogador, derrota e estado inválido |
 | 2.3.3 — Criar `ResultadoBatalha` e consulta de fim de combate | Concluída | `d0e5c96` — `feat: resultado de batalha e consulta de encerramento` | `mvp-v0.2.7` | `mvn -q compile` passou; JShell confirmou estado em andamento, vitória e derrota |
+| 3.1.1 — Criar a classe `Saci` com status base e ataque básico | Concluída | `feat: implementacao do personagem saci com ataque basico` | `mvp-v0.3.1` | `mvn -q compile` passou; JShell confirmou resumo, ataque e dano de 10 contra defesa 6 |
+| 3.1.2 — Adicionar a habilidade Ventos Revigorantes ao Saci | Pendente | `feat: habilidade ventos revigorantes do saci` | `mvp-v0.3.2` | Pendente |
 
 ## Histórico do bloco 2.3
 
