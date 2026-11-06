@@ -2,12 +2,12 @@
 
 ## Estado atual
 
-- **Fase:** 7 — Fluxo completo do ginásio
-- **Bloco:** 7.2 — Derrota e reinício
-- **Última tarefa concluída:** 7.2.1 — Implementar «Tentar novamente» com personagem e chefe novos
+- **Fase:** 8 — Testes, correções, validação e finalização do MVP
+- **Bloco:** 8.1 — Documentação técnica
+- **Última tarefa concluída:** 8.1.1 — Documentar os diagramas do MVP em Mermaid
 - **Tarefa em execução:** Nenhuma
-- **Próxima tarefa pendente:** Fase 8 / Bloco 8.1 — Documentação técnica (aguardando autorização)
-- **Status do bloco:** Fase 7 concluída; aguardando autorização para a Fase 8
+- **Próxima tarefa pendente:** 8.1.2 — Documentar os quatro pilares da POO no MVP
+- **Status do bloco:** Bloco 8.1 em execução; demais blocos da Fase 8 autorizados
 - **Bloqueios:** Nenhum na Fase 7. Observação herdada: o cenário de derrota prescrito na tarefa 6.3.2 não ocorre naturalmente com o balanceamento atual; detalhes no histórico da Fase 6.
 
 ## Decisões e estado Git verificado
@@ -36,6 +36,7 @@
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 5.5.
 - Em 06/11/2026, o usuário autorizou executar todos os blocos restantes da Fase 6.
 - Em 06/11/2026, o usuário autorizou executar toda a Fase 7.
+- Em 06/11/2026, o usuário autorizou executar toda a Fase 8.
 
 ## Registro das tarefas
 
@@ -93,6 +94,7 @@
 | 7.1.1 — Criar `SessaoMvp` | Concluída | `fdbec73` — `feat: sessao do mvp com marcacao de ginasio concluido` | `mvp-v0.7.1` | `mvn -q clean compile`; probe validou estado inicial, vitória, derrota sem alteração, reinício, criação do confronto e rejeição de nulo; `git diff --check` |
 | 7.1.2 — Usar a sessão e exibir «Ginásio do Fogo concluído!» | Concluída | `1251519` — `feat: conclusao do ginasio do fogo ao vencer o chefe` | `mvp-v0.7.2` | `mvn -q clean compile`; probe integrou vitória, retorno ao menu, sessão limpa, nova partida e derrota sem mensagem de conclusão |
 | 7.2.1 — Implementar «Tentar novamente» com personagem e chefe novos | Concluída | `8a8dbbe` — `feat: tentar novamente apos derrota com instancias novas` | `mvp-v0.7.3` | `mvn -q clean compile`; probe confirmou retry direto para batalha com novo Saci (60/60 PV, 3 usos) e nova Mula (55/55 PV); `git diff --check` |
+| 8.1.1 — Documentar os diagramas do MVP em Mermaid | Concluída | `docs: diagramas de classes estados e telas do mvp` | `mvp-v0.8.1` | Os quatro diagramas foram revisados contra as classes atuais; pré-visualização do documento abriu. O validador automático exigiu autenticação e não pôde executar validação textual. |
 
 ## Histórico do bloco 6.1
 
