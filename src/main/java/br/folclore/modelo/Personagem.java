@@ -65,6 +65,13 @@ public abstract class Personagem {
         return pvAtual > 0;
     }
 
+    /**
+     * Indica se o personagem deve usar sua habilidade no turno; o chefe sobrescreve esta decisão.
+     */
+    public boolean deveUsarHabilidade(int turno) {
+        return false;
+    }
+
     public int receberDano(int dano) {
         if (dano < 0) {
             throw new IllegalArgumentException("O dano não pode ser negativo.");

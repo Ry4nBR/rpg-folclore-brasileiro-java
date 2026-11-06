@@ -3,12 +3,12 @@
 ## Estado atual
 
 - **Fase:** 2 — Mecânicas de batalha
-- **Bloco:** 2.2 — Turno do jogador
+- **Bloco:** 2.3 — Turno do chefe e encerramento
 - **Última tarefa concluída:** 2.2.2 — Implementar a ação Habilidade
-- **Tarefa em execução:** Nenhuma
-- **Próxima tarefa pendente:** 2.3.1 — Criar o gancho `deveUsarHabilidade` em `Personagem` (aguarda autorização explícita)
-- **Status do bloco:** Concluído
-- **Bloqueios:** O Bloco 2.3 depende de autorização explícita.
+- **Tarefa em execução:** 2.3.1 — Criar o gancho `deveUsarHabilidade` em `Personagem`
+- **Próxima tarefa pendente:** 2.3.2 — Implementar o turno do chefe e a checagem de derrota
+- **Status do bloco:** Em andamento
+- **Bloqueios:** Nenhum.
 
 ## Decisões e estado Git verificado
 
@@ -22,6 +22,7 @@
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 1.2.
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 2.1.
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 2.2.
+- Em 06/11/2026, o usuário autorizou continuar para o Bloco 2.3.
 
 ## Registro das tarefas
 
@@ -46,6 +47,9 @@
 | 2.1.2 — Criar `Batalha` com estado, turno e registro de mensagens | Concluída | `86d14db` — `feat: criacao da classe batalha com estado turno e mensagens` | `mvp-v0.2.2` | `mvn -q compile` e `mvn -q clean compile` passaram; JShell validou referências, valores iniciais, mensagem exata, cópia/limpeza da fila e rejeição de nulos |
 | 2.2.1 — Implementar a ação Atacar e a checagem de vitória | Concluída | `5bf999b` — `feat: acao atacar na batalha com verificacao de vitoria` | `mvp-v0.2.3` | `mvn -q compile` passou; JShell validou dano, mensagem, estado após ataque, vitória e rejeição fora do estado |
 | 2.2.2 — Implementar a ação Habilidade | Concluída | `86546f7` — `feat: acao habilidade na batalha com limite de usos` | `mvp-v0.2.4` | `mvn -q compile` passou; JShell validou habilidades de dano e cura, consumo de uso, mensagens, estado, recusa sem usos e ausência de consumo de turno |
+| 2.3.1 — Criar o gancho `deveUsarHabilidade` em `Personagem` | Concluída | `feat: gancho deveUsarHabilidade na classe personagem` | `mvp-v0.2.5` | `mvn -q compile` passou; JShell confirmou retorno `false` para personagens comuns em turnos variados |
+| 2.3.2 — Implementar o turno do chefe e a checagem de derrota | Pendente | `feat: turno do chefe e verificacao de derrota na batalha` | `mvp-v0.2.6` | Pendente |
+| 2.3.3 — Criar `ResultadoBatalha` e consulta de fim de combate | Pendente | `feat: resultado de batalha e consulta de encerramento` | `mvp-v0.2.7` | Pendente |
 
 ## Histórico do bloco 2.2
 
