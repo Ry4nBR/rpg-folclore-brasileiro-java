@@ -4,9 +4,9 @@
 
 - **Fase:** 1 — Modelagem das entidades e conceitos fundamentais de POO
 - **Bloco:** 1.1 — Personagem (Abstração e Encapsulamento)
-- **Última tarefa concluída:** 1.1.1 — Criar o enum `Tipo`
+- **Última tarefa concluída:** 1.1.2 — Criar `Personagem` com atributos encapsulados
 - **Tarefa em execução:** Nenhuma
-- **Próxima tarefa pendente:** 1.1.2 — Criar `Personagem` com atributos encapsulados
+- **Próxima tarefa pendente:** 1.1.3 — Implementar `estaVivo` e `receberDano`
 - **Status do bloco:** Em andamento
 - **Bloqueios:** Nenhum.
 
@@ -29,7 +29,7 @@
 | 0.1.3 — Criar o ponto de entrada e a estrutura de pacotes | Concluída | `chore: ponto de entrada e estrutura de pacotes do mvp` | `mvp-v0.0.3` | `mvn -q compile exec:java` imprimiu a mensagem exigida; pacotes previstos conferidos; pacotes fora do MVP ausentes; `target/` ignorado |
 | 0.2.1 — Validar o ambiente e documentar requisitos no README | Concluída | `0b56689` — `docs: requisitos e execucao do mvp no readme` | `mvp-v0.0.4` | README conferido; `java -version`, `mvn -version` e `mvn -q compile exec:java` passaram localmente; substituição do critério externo autorizada pelo usuário |
 | 1.1.1 — Criar o enum `Tipo` | Concluída | `feat: criacao do enum tipo com rotulos em portugues` | `mvp-v0.1.1` | `mvn -q compile` passou; JShell confirmou por igualdade exata os rótulos Vento, Físico e Fogo |
-| 1.1.2 — Criar `Personagem` com atributos encapsulados | Pendente | `feat: classe abstrata personagem com atributos encapsulados` | `mvp-v0.1.2` | Pendente |
+| 1.1.2 — Criar `Personagem` com atributos encapsulados | Concluída | `feat: classe abstrata personagem com atributos encapsulados` | `mvp-v0.1.2` | `mvn -q compile` passou; JShell validou getters, PV inicializado ao máximo, valores inválidos lançando exceção e ausência de setters |
 | 1.1.3 — Implementar `estaVivo` e `receberDano` | Pendente | `feat: metodos estaVivo e receberDano em personagem` | `mvp-v0.1.3` | Pendente |
 | 1.1.4 — Implementar `curar` e `curarPercentualDaVidaMaxima` | Pendente | `feat: metodos curar e curarPercentualDaVidaMaxima em personagem` | `mvp-v0.1.4` | Pendente |
 | 1.1.5 — Implementar `calcularDano` | Pendente | `feat: criacao do metodo calcularDano na classe personagem` | `mvp-v0.1.5` | Pendente |
@@ -51,3 +51,4 @@
 - Próximo bloco pendente: Fase 1 / Bloco 1.1. Não iniciar até autorização explícita.
 - Ferramentas de build não estão instaladas globalmente; para este bloco estão sendo usadas distribuições portáteis JDK 17 e Maven 3.9.9, baixadas com verificação dos checksums oficiais para a pasta temporária da sessão. Remover após as validações.
 - 1.1.1: criado `Tipo` com os valores VENTO, FISICO e FOGO e respectivos rótulos. A primeira verificação textual pelo pipe do PowerShell exibiu acento corrompido por codificação do console; a validação foi refeita em JShell por igualdade Unicode exata e passou.
+- 1.1.2: criado `Personagem` com campos privados, construtor protegido validado e getters sem setters; JShell confirmou cenário válido e rejeição de nome vazio/em branco, tipo nulo, PV não positivo e ataque/defesa negativos.
