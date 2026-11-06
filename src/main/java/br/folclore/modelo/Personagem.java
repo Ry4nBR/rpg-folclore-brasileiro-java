@@ -70,4 +70,20 @@ public abstract class Personagem {
         pvAtual = Math.max(0, pvAtual - dano);
         return pvAntesDoDano - pvAtual;
     }
+
+    public int curar(int quantidade) {
+        if (quantidade < 0) {
+            throw new IllegalArgumentException("A cura não pode ser negativa.");
+        }
+
+        int pvAntesDaCura = pvAtual;
+        pvAtual = (int) Math.min(pvMaximo, (long) pvAtual + quantidade);
+        return pvAtual - pvAntesDaCura;
+    }
+
+    public int curarPercentualDaVidaMaxima(int percentual) {
+        long valor = Math.max(1L, (long) pvMaximo * percentual / 100);
+        int quantidade = (int) Math.min(pvMaximo, valor);
+        return curar(quantidade);
+    }
 }
