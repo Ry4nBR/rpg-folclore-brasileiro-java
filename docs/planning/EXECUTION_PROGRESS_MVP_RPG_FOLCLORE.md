@@ -7,8 +7,8 @@
 - **Última tarefa concluída:** 3.2.2 — Adicionar a habilidade Uivo Brutal ao Lobisomem
 - **Tarefa em execução:** Nenhuma
 - **Próxima tarefa pendente:** 3.3.1 — Criar `CatalogoDeHerois` (aguarda autorização explícita)
-- **Status do bloco:** Em andamento
-- **Bloqueios:** Nenhum.
+- **Status do bloco:** Concluído
+- **Bloqueios:** O Bloco 3.3 depende de autorização explícita.
 
 ## Decisões e estado Git verificado
 
@@ -55,7 +55,15 @@
 | 3.1.1 — Criar a classe `Saci` com status base e ataque básico | Concluída | `7590b7e` — `feat: implementacao do personagem saci com ataque basico` | `mvp-v0.3.1` | `mvn -q compile` passou; JShell confirmou resumo, ataque e dano de 10 contra defesa 6 |
 | 3.1.2 — Adicionar a habilidade Ventos Revigorantes ao Saci | Concluída | `0a91078` — `feat: habilidade ventos revigorantes do saci` | `mvp-v0.3.2` | `mvn -q compile` passou; JShell confirmou cura de 12 PV (40→52), três usos consumidos e falha no uso seguinte |
 | 3.2.1 — Criar a classe `Lobisomem` com status base e ataque básico | Concluída | `d07c905` — `feat: implementacao do personagem lobisomem com ataque basico` | `mvp-v0.3.3` | `mvn -q compile` passou; JShell confirmou resumo, ataque e dano 14 contra defesa 5 |
-| 3.2.2 — Adicionar a habilidade Uivo Brutal ao Lobisomem | Concluída | `feat: habilidade uivo brutal do lobisomem` | `mvp-v0.3.4` | `mvn -q compile` passou; JShell confirmou dano 19, dois usos e falha na terceira tentativa |
+| 3.2.2 — Adicionar a habilidade Uivo Brutal ao Lobisomem | Concluída | `1dcea68` — `feat: habilidade uivo brutal do lobisomem` | `mvp-v0.3.4` | `mvn -q compile` passou; JShell confirmou dano 19, dois usos e falha na terceira tentativa |
+
+## Histórico do bloco 3.2
+
+- 3.2.1 foi commitada em `d07c905` e recebeu a tag anotada `mvp-v0.3.3`.
+- 3.2.2 foi commitada em `1dcea68` e recebeu a tag anotada `mvp-v0.3.4`.
+- Validação final do Bloco 3.2: `mvn -q clean compile` e `git diff --check` passaram; as duas tags anotadas foram conferidas apontando para os commits das respectivas tarefas. JShell confirmou resumo, ataque básico, dano da habilidade, usos e falha ao esgotar.
+- Arquivo de código criado/modificado: `src/main/java/br/folclore/modelo/Lobisomem.java`.
+- Não houve push. O próximo bloco pendente é 3.3 e aguarda autorização explícita.
 
 ## Histórico do bloco 3.1
 
