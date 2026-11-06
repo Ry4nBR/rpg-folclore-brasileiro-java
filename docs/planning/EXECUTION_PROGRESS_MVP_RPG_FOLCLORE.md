@@ -6,7 +6,7 @@
 - **Bloco:** 5.1 — Janela, telas e botões
 - **Última tarefa concluída:** 4.2.3 — Criar `DemoBatalhaDerrota`
 - **Tarefa em execução:** Nenhuma
-- **Próxima tarefa pendente:** 5.1.2 — Criar `Tela`, `GerenciadorDeTelas` e o repasse de eventos
+- **Próxima tarefa pendente:** 5.1.3 — Criar o componente `Botao`
 - **Status do bloco:** Em andamento
 - **Bloqueios:** Nenhum.
 
@@ -66,7 +66,8 @@
 | 4.2.1 — Criar `DemoPilares` para demonstrar o polimorfismo | Concluída | `cd33c97` — `test: demo de console dos pilares de poo` | `mvp-v0.4.3` | `mvn -q compile exec:java -Dexec.mainClass=br.folclore.demo.DemoPilares` passou; saída mostrou as três subclasses, ataques, danos e mensagens de habilidade diferentes |
 | 4.2.2 — Criar `DemoBatalhaVitoria` | Concluída | `d3f496f` — `test: demo de batalha com vitoria dos dois herois` | `mvp-v0.4.4` | `mvn -q compile exec:java -Dexec.mainClass=br.folclore.demo.DemoBatalhaVitoria` passou; Saci venceu em 5 turnos com 18 PV e Lobisomem em 4 turnos |
 | 4.2.3 — Criar `DemoBatalhaDerrota` | Concluída | `test: demo de batalha com derrota e habilidade sem usos` | `mvp-v0.4.5` | `mvn -q compile exec:java -Dexec.mainClass=br.folclore.demo.DemoBatalhaDerrota` passou; saída imprime `DERROTA` e `Sem usos restantes de Uivo Brutal!`; a terceira ação foi recusada sem alterar o estado |
-| 5.1.1 — Criar janela principal, painel de desenho e loop | Concluída | `feat: janela principal com painel e loop de renderizacao` | `mvp-v0.5.1` | `mvn -q clean compile` passou; probe Swing via `Main` confirmou janela visível com título correto, painel 960x540, fundo preto e fechamento |
+| 5.1.1 — Criar janela principal, painel de desenho e loop | Concluída | `52cd8f7` — `feat: janela principal com painel e loop de renderizacao` | `mvp-v0.5.1` | `mvn -q clean compile` passou; probe Swing via `Main` confirmou janela visível com título correto, painel 960x540, fundo preto e fechamento |
+| 5.1.2 — Criar `Tela`, `GerenciadorDeTelas` e o repasse de eventos | Concluída | `feat: interface tela e gerenciador de telas com repasse de eventos` | `mvp-v0.5.2` | `mvn -q clean compile` passou; probe Swing confirmou chamadas de atualização, desenho, clique, movimento e tecla; gerenciador sem tela atual não lança erro |
 
 ## Histórico do bloco 4.2
 
