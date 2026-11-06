@@ -4,11 +4,11 @@
 
 - **Fase:** 0 — Preparação do ambiente e estrutura inicial
 - **Bloco:** 0.2 — Ambiente do segundo desenvolvedor
-- **Última tarefa concluída:** 0.1.3 — Criar o ponto de entrada e a estrutura de pacotes
-- **Tarefa em execução:** 0.2.1 — Validar o ambiente e documentar requisitos no README
-- **Próxima tarefa pendente:** Nenhuma outra tarefa neste bloco
-- **Status do bloco:** Em andamento até commit e tag da tarefa 0.2.1
-- **Bloqueios:** Nenhum. A validação local substituiu a validação na máquina do Guilherme por autorização explícita do usuário.
+- **Última tarefa concluída:** 0.2.1 — Validar o ambiente e documentar requisitos no README
+- **Tarefa em execução:** Nenhuma
+- **Próxima tarefa pendente:** 1.1.1 — Criar o enum `Tipo` (aguarda autorização para a Fase 1 / Bloco 1.1)
+- **Status do bloco:** Concluído
+- **Bloqueios:** A próxima tarefa depende de autorização explícita para iniciar o próximo bloco.
 
 ## Decisões e estado Git verificado
 
@@ -26,7 +26,7 @@
 | 0.1.1 — Criar a branch do MVP e registrar o escopo | Concluída | `a735288` — `docs: registro do escopo e da branch do mvp` | `mvp-v0.0.1` | Conteúdo obrigatório conferido; `git diff --check` passou |
 | 0.1.2 — Configurar Maven (Java 17) e `.gitignore` | Concluída | `31b4df0` — `chore: configuracao do maven java 17 e gitignore do mvp` | `mvp-v0.0.2` | `mvn -q validate` passou com JDK 17; padrões `.gitignore` e ausência de dependências adicionais conferidos |
 | 0.1.3 — Criar o ponto de entrada e a estrutura de pacotes | Concluída | `chore: ponto de entrada e estrutura de pacotes do mvp` | `mvp-v0.0.3` | `mvn -q compile exec:java` imprimiu a mensagem exigida; pacotes previstos conferidos; pacotes fora do MVP ausentes; `target/` ignorado |
-| 0.2.1 — Validar o ambiente e documentar requisitos no README | Concluída | `docs: requisitos e execucao do mvp no readme` | `mvp-v0.0.4` | README conferido; `java -version`, `mvn -version` e `mvn -q compile exec:java` passaram localmente; substituição do critério externo autorizada pelo usuário |
+| 0.2.1 — Validar o ambiente e documentar requisitos no README | Concluída | `0b56689` — `docs: requisitos e execucao do mvp no readme` | `mvp-v0.0.4` | README conferido; `java -version`, `mvn -version` e `mvn -q compile exec:java` passaram localmente; substituição do critério externo autorizada pelo usuário |
 
 ## Histórico do bloco
 
@@ -40,4 +40,5 @@
 - 0.1.3: `mvn -q compile exec:java` executou com sucesso e imprimiu exatamente `RPG do Folclore Brasileiro (MVP) - iniciando`. Os sete diretórios de pacote previstos existem; `audio`, `ia`, `save` e `ui/efeitos` não existem; `target/` está ignorado.
 - 0.1.3 foi commitada em `8c20795` e recebeu a tag anotada `mvp-v0.0.3`; não foi feito push.
 - 0.2.1: README atualizado com descrição, aviso de idioma, JDK 17, Maven 3.8+ e comando de execução. A seção, os requisitos e o comando foram conferidos; JDK Temurin 17.0.21 e Maven 3.9.9 portáteis (checksums oficiais conferidos) executaram `java -version`, `mvn -version` e `mvn -q compile exec:java` com saída esperada. O usuário autorizou explicitamente substituir a execução na máquina do Guilherme pela validação local.
-- Commit e tag de 0.2.1 ainda pendentes; não será feito push.
+- 0.2.1 foi commitada em `0b56689` e recebeu a tag anotada `mvp-v0.0.4`; não foi feito push.
+- Próximo bloco pendente: Fase 1 / Bloco 1.1. Não iniciar até autorização explícita.
