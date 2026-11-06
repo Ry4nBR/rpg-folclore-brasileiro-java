@@ -1,5 +1,6 @@
 package br.folclore.batalha;
 
+import br.folclore.habilidades.ResultadoAcao;
 import br.folclore.modelo.Personagem;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +56,19 @@ public class Batalha {
         registrar(jogador.getNome() + " usou " + jogador.getNomeAtaqueBasico()
                 + " e causou " + dano + " de dano!");
         aposAcaoDoJogador();
+    }
+
+    public boolean acaoHabilidade() {
+        exigirEstado(EstadoBatalha.ESCOLHA_DO_JOGADOR);
+        if (!jogador.getHabilidade().temUsosRestantes()) {
+            registrar("Sem usos restantes de " + jogador.getHabilidade().getNome() + "!");
+            return false;
+        }
+
+        ResultadoAcao resultado = jogador.usarHabilidade(chefe);
+        registrar(resultado.getMensagem());
+        aposAcaoDoJogador();
+        return true;
     }
 
     private void aposAcaoDoJogador() {
