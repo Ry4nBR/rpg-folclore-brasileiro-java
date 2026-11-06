@@ -56,4 +56,18 @@ public abstract class Personagem {
     public int getDefesa() {
         return defesa;
     }
+
+    public boolean estaVivo() {
+        return pvAtual > 0;
+    }
+
+    public int receberDano(int dano) {
+        if (dano < 0) {
+            throw new IllegalArgumentException("O dano não pode ser negativo.");
+        }
+
+        int pvAntesDoDano = pvAtual;
+        pvAtual = Math.max(0, pvAtual - dano);
+        return pvAntesDoDano - pvAtual;
+    }
 }
