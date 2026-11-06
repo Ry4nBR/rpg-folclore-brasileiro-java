@@ -44,6 +44,18 @@ public class Batalha {
         return turno;
     }
 
+    public boolean estaEncerrada() {
+        return estado == EstadoBatalha.VITORIA || estado == EstadoBatalha.DERROTA;
+    }
+
+    public ResultadoBatalha getResultado() {
+        return switch (estado) {
+            case VITORIA -> ResultadoBatalha.VITORIA;
+            case DERROTA -> ResultadoBatalha.DERROTA;
+            default -> null;
+        };
+    }
+
     private void exigirEstado(EstadoBatalha esperado) {
         if (estado != esperado) {
             throw new IllegalStateException("A ação não pode ser executada no estado " + estado + ".");

@@ -4,9 +4,9 @@
 
 - **Fase:** 2 — Mecânicas de batalha
 - **Bloco:** 2.3 — Turno do chefe e encerramento
-- **Última tarefa concluída:** 2.3.1 — Criar o gancho `deveUsarHabilidade` em `Personagem`
-- **Tarefa em execução:** 2.3.2 — Implementar o turno do chefe e a checagem de derrota
-- **Próxima tarefa pendente:** 2.3.3 — Criar `ResultadoBatalha` e consulta de fim de combate
+- **Última tarefa concluída:** 2.3.3 — Criar `ResultadoBatalha` e consulta de fim de combate
+- **Tarefa em execução:** Nenhuma
+- **Próxima tarefa pendente:** Nenhuma neste bloco
 - **Status do bloco:** Em andamento
 - **Bloqueios:** Nenhum.
 
@@ -48,8 +48,8 @@
 | 2.2.1 — Implementar a ação Atacar e a checagem de vitória | Concluída | `5bf999b` — `feat: acao atacar na batalha com verificacao de vitoria` | `mvp-v0.2.3` | `mvn -q compile` passou; JShell validou dano, mensagem, estado após ataque, vitória e rejeição fora do estado |
 | 2.2.2 — Implementar a ação Habilidade | Concluída | `86546f7` — `feat: acao habilidade na batalha com limite de usos` | `mvp-v0.2.4` | `mvn -q compile` passou; JShell validou habilidades de dano e cura, consumo de uso, mensagens, estado, recusa sem usos e ausência de consumo de turno |
 | 2.3.1 — Criar o gancho `deveUsarHabilidade` em `Personagem` | Concluída | `211cc78` — `feat: gancho deveUsarHabilidade na classe personagem` | `mvp-v0.2.5` | `mvn -q compile` passou; JShell confirmou retorno `false` para personagens comuns em turnos variados |
-| 2.3.2 — Implementar o turno do chefe e a checagem de derrota | Concluída | `feat: turno do chefe e verificacao de derrota na batalha` | `mvp-v0.2.6` | `mvn -q compile` passou; JShell validou ataque básico, habilidade indicada pelo polimorfismo, retorno ao turno do jogador, derrota e estado inválido |
-| 2.3.3 — Criar `ResultadoBatalha` e consulta de fim de combate | Pendente | `feat: resultado de batalha e consulta de encerramento` | `mvp-v0.2.7` | Pendente |
+| 2.3.2 — Implementar o turno do chefe e a checagem de derrota | Concluída | `fe938de` — `feat: turno do chefe e verificacao de derrota na batalha` | `mvp-v0.2.6` | `mvn -q compile` passou; JShell validou ataque básico, habilidade indicada pelo polimorfismo, retorno ao turno do jogador, derrota e estado inválido |
+| 2.3.3 — Criar `ResultadoBatalha` e consulta de fim de combate | Concluída | `feat: resultado de batalha e consulta de encerramento` | `mvp-v0.2.7` | `mvn -q compile` passou; JShell confirmou estado em andamento, vitória e derrota |
 
 ## Histórico do bloco 2.2
 
