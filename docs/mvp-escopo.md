@@ -96,3 +96,10 @@ Conforme conferido manualmente no planejamento, Saci vence a Mula sem Cabeça em
 O trabalho do MVP é mantido na branch `mvp/prototipo`, sem integrar alterações em `dev` ou `main`. O repositório já contém tags `v0.*`; conforme a seção 9.4 do planejamento, as tags deste MVP usam o prefixo `mvp-` (por exemplo, `mvp-v0.0.1`) para evitar colisões. As tags são anotadas e apontam para o commit da tarefa correspondente.
 
 Para este ciclo, por autorização explícita do usuário, as tarefas são executadas diretamente em `mvp/prototipo`, sem branches curtas, PRs ou operações remotas; cada tarefa mantém seu commit e tag individuais.
+
+## Status: concluído na versão 1.0.0
+
+- **Data:** 06/11/2026.
+- **Branch:** `mvp/prototipo`.
+- **Tag anotada local:** `mvp-v1.0.0`, apontando para o commit final do MVP.
+- O encerramento foi feito localmente, sem PR, push ou publicação da tag, conforme autorização do usuário.

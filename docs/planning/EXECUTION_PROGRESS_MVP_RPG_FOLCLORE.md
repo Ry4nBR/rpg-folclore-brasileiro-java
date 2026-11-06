@@ -4,16 +4,17 @@
 
 - **Fase:** 8 — Testes, correções, validação e finalização do MVP
 - **Bloco:** 8.3 — Entrega
-- **Última tarefa concluída:** 8.3.2 — Finalizar o README do MVP
+- **Última tarefa concluída:** 8.3.3 — Fechar a versão 1.0.0 do MVP
 - **Tarefa em execução:** Nenhuma
-- **Próxima tarefa pendente:** Fase 8 / Bloco 8.3 / Tarefa 8.3.3 — Fechar a versão 1.0.0 localmente (autorizado)
-- **Status do bloco:** Bloco 8.3 em execução; tarefa 8.3.3 autorizada sem PR ou publicação remota
-- **Bloqueios:** Nenhum na Fase 7. Observação herdada: o cenário de derrota prescrito na tarefa 6.3.2 não ocorre naturalmente com o balanceamento atual; detalhes no histórico da Fase 6.
+- **Próxima tarefa pendente:** Nenhuma na Fase 8
+- **Status do bloco:** Fase 8 concluída localmente; sem PR ou publicação remota, conforme autorização
+- **Bloqueios:** Nenhum para o encerramento local. Não houve revisor externo para o teste cego do README; a execução local está registrada no histórico da tarefa 8.3.2.
 
 ## Decisões e estado Git verificado
 
 - Branch de trabalho: `mvp/prototipo`; a branch já existia localmente e no remoto.
 - A execução permanece na branch existente; não foram reescritos commits nem alteradas branches `develop` ou `main`.
+- A branch `dev` não existe neste repositório. As referências de `develop` e `main` permaneceram inalteradas; nenhuma tag do MVP foi integrada a elas.
 - Tags `v0.*` já existentes no repositório exigem o prefixo `mvp-`, conforme a seção 9.4 do planejamento. Prefixo decidido: `mvp-`.
 - A comparação inicial de `develop...mvp/prototipo` mostrou alterações amplas (incluindo remoções) além do documento de escopo previsto no aceite da tarefa 0.1.1. Divergência preservada conforme orientação do usuário; não será corrigida neste ciclo.
 - Autorização explícita do usuário: executar tarefas na `mvp/prototipo`, sem PRs ou branches de tarefa, apenas commits e tags. Não fazer push.
@@ -100,6 +101,7 @@
 | 8.2.1 — Criar e executar o checklist de validação | Concluída | `test: checklist de validacao funcional do mvp executada` | `mvp-v0.8.3` | Itens 1–20 e 22 validados; 21 e 23 adiados para 8.3.3 por decisão do usuário. `mvn -q clean compile`, demos, probes Swing de vitória/derrota/retry/menu/saída, fórmula, habilidades, turnos e fila passaram. |
 | 8.3.1 — Gerar o JAR executável | Concluída | `build: empacotamento do mvp em jar executavel` | `mvp-v0.8.4` | `mvn -q package` passou; manifesto contém `Main-Class: br.folclore.Main`; `java -jar` abriu o menu com JDK 17; vitória, derrota e retry passaram usando as classes empacotadas. |
 | 8.3.2 — Finalizar o README do MVP | Concluída | `docs: readme final do mvp com execucao controles e regras` | `mvp-v0.8.5` | README documenta os dois comandos de execução, controles, regras, branch e escopo; os seis links foram resolvidos. O comando Maven do README abriu o jogo. Não houve revisor externo disponível; o teste local foi feito usando o README como referência. |
+| 8.3.3 — Fechar a versão 1.0.0 do MVP | Concluída | `chore: conclusao da versao 1.0.0 do mvp` | `mvp-v1.0.0` | Escopo registra o encerramento local em 06/11/2026; checklist 21–23 conferida; 58 tags anotadas locais apontam para commits da branch. Sem PR ou publicação remota, conforme autorização. |
 
 ## Histórico do bloco 6.1
 
@@ -300,3 +302,9 @@
 - Incluídos requisitos, `mvn compile exec:java`, `mvn package`, `java -jar target/rpg-folclore-mvp.jar`, controles mouse/teclado, fórmula e ordem de combate, habilidades, condição de vitória/derrota, branch `mvp/prototipo`, itens fora do escopo e seis links para a documentação.
 - Os seis links foram resolvidos e os requisitos textuais conferidos. Uma execução local usando o comando literal `mvn compile exec:java` abriu a janela do jogo, que fechou normalmente; o comando do JAR e os fluxos empacotados foram validados na tarefa 8.3.1.
 - Não havia outra pessoa disponível para um teste cego independente; a limitação foi registrada e a execução local foi usada como substituição. Arquivo alterado: `README.md`. Não houve push.
+
+## Histórico da tarefa 8.3.3
+
+- `docs/mvp-escopo.md` registra o status concluído na versão 1.0.0, a data e a tag anotada local.
+- A checklist final foi conferida: 58 tarefas com commit/tag local; `dev` não existe, `develop` e `main` permaneceram intactas; `mvp-v1.0.0` aponta para o último commit de `mvp/prototipo`.
+- O encerramento ocorreu sem PR, push ou publicação remota, conforme decisão explícita do usuário. Arquivos alterados: `docs/mvp-escopo.md`, `docs/checklist-validacao-mvp.md` e este registro.

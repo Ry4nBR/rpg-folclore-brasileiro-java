@@ -24,10 +24,10 @@ Executado em 06/11/2026, na branch `mvp/prototipo`, com JDK 17. A validação fu
 | 18 | `java -jar target/rpg-folclore-mvp.jar` executa o fluxo completo. | OK | `mvn -q package` criou o JAR com `Main-Class: br.folclore.Main`; `java -jar` abriu o menu com apenas o JDK 17 no PATH, e vitória, derrota e retry passaram usando as classes do JAR. |
 | 19 | Nenhum arquivo da pasta `ui` contém fórmula de dano. | OK | Busca por fórmulas e expressões de dano em `src/main/java/br/folclore/ui` não encontrou ocorrências. |
 | 20 | Os quatro pilares de POO estão documentados com referência real a arquivos. | OK | Quatro pilares conferidos; 15 referências a arquivos resolvidas em `pilares-poo-mvp.md`. |
-| 21 | Todas as tarefas têm commit e tag na branch `mvp/prototipo`. | Aguardando 8.3.3 | Validar quando os commits e tags restantes da Fase 8 forem concluídos. |
-| 22 | `develop` e `main` não receberam commits ou tags do MVP. | OK | HEADs das duas branches conferidos; nenhuma operação desta execução as alterou. |
-| 23 | A tag final `mvp-v1.0.0` existe e aponta para o último commit do MVP. | Aguardando 8.3.3 | Conforme a decisão de usar o prefixo `mvp-`; validar no encerramento local. |
+| 21 | Todas as tarefas têm commit e tag na branch `mvp/prototipo`. | OK | As 58 tarefas têm commits e tags anotadas locais; não foram publicadas remotamente, conforme autorização. |
+| 22 | `dev` e `main` não receberam commits ou tags do MVP. | OK | A branch `dev` não existe; HEADs de `develop` e `main` permaneceram inalterados e sem tags do MVP. |
+| 23 | A tag final `mvp-v1.0.0` existe e aponta para o último commit do MVP. | OK | Tag anotada local apontando para o commit final; não publicada remotamente. |
 
 ## Revisão cruzada
 
-A revisão por outro desenvolvedor não está disponível nesta execução local individual. Como substituição, foram repetidos três itens em probes independentes: #6 (fórmula de dano), #13 (tentar novamente) e #15 (sair); todos passaram. As verificações pendentes #21 e #23 foram adiadas para 8.3.3 conforme decisão do usuário, sem publicação remota.
+A revisão por outro desenvolvedor não está disponível nesta execução local individual. Como substituição, foram repetidos três itens em probes independentes: #6 (fórmula de dano), #13 (tentar novamente) e #15 (sair); todos passaram. A tag final e o registro local foram conferidos sem PR ou publicação remota.
