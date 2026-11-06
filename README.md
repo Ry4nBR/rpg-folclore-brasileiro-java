@@ -1,5 +1,15 @@
 # RPG do Folclore Brasileiro
 
+## MVP
+
+Protótipo jogável de RPG por turnos inspirado no folclore brasileiro.
+
+> **Jogo em Português do Brasil.**
+
+**Requisitos:** JDK 17 e Maven 3.8 ou superior.
+
+**Executar:** `mvn -q compile exec:java`
+
 Projeto acadêmico de desenvolvimento de um RPG 2D com batalhas por turnos, inspirado no estilo de combate dos jogos clássicos de Pokémon para Game Boy Advance, mas com arte moderna e personagens do folclore brasileiro.
 
 O projeto tem como objetivo praticar e demonstrar os quatro pilares da Programação Orientada a Objetos (POO): **abstração, encapsulamento, herança e polimorfismo**.
