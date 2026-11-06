@@ -3,12 +3,12 @@
 ## Estado atual
 
 - **Fase:** 4 — Implementação do chefe e confronto principal
-- **Bloco:** 4.1 — Mula sem Cabeça
+- **Bloco:** 4.2 — Validações por console (sem interface)
 - **Última tarefa concluída:** 4.1.2 — Adicionar Galope Infernal e o comportamento do chefe
-- **Tarefa em execução:** Nenhuma
-- **Próxima tarefa pendente:** 4.2.1 — Criar `DemoPilares` para demonstrar o polimorfismo (aguarda autorização explícita)
-- **Status do bloco:** Concluído
-- **Bloqueios:** O Bloco 4.2 depende de autorização explícita.
+- **Tarefa em execução:** 4.2.1 — Criar `DemoPilares` para demonstrar o polimorfismo
+- **Próxima tarefa pendente:** 4.2.2 — Criar `DemoBatalhaVitoria`
+- **Status do bloco:** Em andamento
+- **Bloqueios:** Nenhum.
 
 ## Decisões e estado Git verificado
 
@@ -27,6 +27,7 @@
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 3.2.
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 3.3.
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 4.1.
+- Em 06/11/2026, o usuário autorizou continuar para o Bloco 4.2.
 
 ## Registro das tarefas
 
@@ -61,6 +62,9 @@
 | 3.3.1 — Criar `CatalogoDeHerois` | Concluída | `9e23d6e` — `feat: catalogo dos herois jogaveis` | `mvp-v0.3.5` | `mvn -q compile` e `mvn -q clean compile` passaram; JShell confirmou dois itens na ordem Saci/Lobisomem, instâncias independentes, PV cheio e usos restaurados |
 | 4.1.1 — Criar `MulaSemCabeca` com status base e ataque básico | Concluída | `40f35eb` — `feat: implementacao do chefe mula sem cabeca com ataque basico` | `mvp-v0.4.1` | `mvn -q compile` passou; JShell confirmou atributos, ataque Coice Flamejante e dano 8 contra defesa 6 |
 | 4.1.2 — Adicionar Galope Infernal e o comportamento do chefe | Concluída | `8f40986` — `feat: habilidade galope infernal e decisao de turno do chefe` | `mvp-v0.4.2` | `mvn -q compile` e `mvn -q clean compile` passaram; JShell confirmou uso nos turnos pares enquanto há usos e retorno `false` após os dois usos |
+| 4.2.1 — Criar `DemoPilares` para demonstrar o polimorfismo | Concluída | `test: demo de console dos pilares de poo` | `mvp-v0.4.3` | `mvn -q compile exec:java -Dexec.mainClass=br.folclore.demo.DemoPilares` passou; saída mostrou as três subclasses, ataques, danos e mensagens de habilidade diferentes |
+| 4.2.2 — Criar `DemoBatalhaVitoria` | Pendente | `test: demo de batalha com vitoria dos dois herois` | `mvp-v0.4.4` | Pendente |
+| 4.2.3 — Criar `DemoBatalhaDerrota` | Pendente | `test: demo de batalha com derrota e habilidade sem usos` | `mvp-v0.4.5` | Pendente |
 
 ## Histórico do bloco 4.1
 
