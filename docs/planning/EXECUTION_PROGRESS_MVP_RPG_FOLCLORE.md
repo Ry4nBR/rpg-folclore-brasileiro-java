@@ -3,11 +3,11 @@
 ## Estado atual
 
 - **Fase:** 5 — Construção das interfaces gráficas
-- **Bloco:** 5.2 — Tela inicial
+- **Bloco:** 5.3 — Seleção de personagem
 - **Última tarefa concluída:** 5.2.1 — Criar a `TelaInicial` com Jogar e Sair
 - **Tarefa em execução:** Nenhuma
-- **Próxima tarefa pendente:** Fase 5 / Bloco 5.3 (aguardando autorização)
-- **Status do bloco:** Bloco 5.2 concluído; aguardando autorização para o próximo bloco
+- **Próxima tarefa pendente:** 5.3.2 — Programar seleção, Confirmar e Voltar
+- **Status do bloco:** Em andamento
 - **Bloqueios:** Nenhum.
 
 ## Decisões e estado Git verificado
@@ -30,6 +30,7 @@
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 4.2.
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 5.1.
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 5.2.
+- Em 06/11/2026, o usuário autorizou continuar para o Bloco 5.3.
 
 ## Registro das tarefas
 
@@ -71,6 +72,7 @@
 | 5.1.2 — Criar `Tela`, `GerenciadorDeTelas` e o repasse de eventos | Concluída | `e4eec44` — `feat: interface tela e gerenciador de telas com repasse de eventos` | `mvp-v0.5.2` | `mvn -q clean compile` passou; probe Swing confirmou chamadas de atualização, desenho, clique, movimento e tecla; gerenciador sem tela atual não lança erro |
 | 5.1.3 — Criar o componente `Botao` | Concluída | `559d86f` — `feat: criacao do componente botao com hover e estado habilitado` | `mvp-v0.5.3` | `mvn -q clean compile` passou; tela temporária confirmou hover, clique habilitado e botão desabilitado em cinza que ignora clique |
 | 5.2.1 — Criar `TelaInicial` com Jogar e Sair | Concluída | `77fc9a9` — `feat: tela inicial com botoes jogar e sair` | `mvp-v0.5.4` | `mvn -q clean compile` passou; probe confirmou fundo, hover, clique em Jogar, ENTER e encerramento com código 0 ao acionar Sair |
+| 5.3.1 — Desenhar o layout da `TelaSelecaoPersonagem` | Concluída | `feat: layout da tela de selecao de personagem` | `mvp-v0.5.5` | `mvn -q clean compile` passou; probe confirmou cartões com atributos D2, habilidades/usos D3 e figuras ciano/laranja |
 
 ## Histórico do bloco 5.2
 
