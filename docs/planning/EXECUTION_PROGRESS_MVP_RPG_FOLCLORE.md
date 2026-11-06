@@ -4,9 +4,9 @@
 
 - **Fase:** 5 — Construção das interfaces gráficas
 - **Bloco:** 5.4 — Layout da tela de batalha (sem lógica)
-- **Última tarefa concluída:** 5.3.3 — Ligar o menu à seleção de personagem
+- **Última tarefa concluída:** 5.4.2 — Criar o componente `CaixaDeMensagens`
 - **Tarefa em execução:** Nenhuma
-- **Próxima tarefa pendente:** 5.4.2 — Criar o componente `CaixaDeMensagens`
+- **Próxima tarefa pendente:** 5.4.3 — Desenhar o layout da `TelaBatalha`
 - **Status do bloco:** Em andamento
 - **Bloqueios:** Nenhum.
 
@@ -76,7 +76,8 @@
 | 5.3.1 — Desenhar o layout da `TelaSelecaoPersonagem` | Concluída | `f2cd2c6` — `feat: layout da tela de selecao de personagem` | `mvp-v0.5.5` | `mvn -q clean compile` passou; probe confirmou cartões com atributos D2, habilidades/usos D3 e figuras ciano/laranja |
 | 5.3.2 — Programar seleção, Confirmar e Voltar | Concluída | `119d534` — `feat: selecao confirmacao e retorno na tela de personagem` | `mvp-v0.5.6` | `mvn -q clean compile` passou; probe confirmou confirmação bloqueada sem seleção, escolha e confirmação correta por mouse/setas/ENTER, borda amarela, hover e retorno por ESC/botão |
 | 5.3.3 — Ligar o menu à seleção de personagem | Concluída | `4783af3` — `feat: navegacao entre menu e selecao de personagem` | `mvp-v0.5.7` | `mvn -q clean compile` passou; três ciclos reais Menu → Seleção → Confirmar → Voltar imprimiram Saci, Lobisomem e Saci |
-| 5.4.1 — Criar o componente `BarraDeVida` | Concluída | `feat: componente barra de vida com cores por faixa` | `mvp-v0.5.8` | `mvn -q clean compile` passou; probe confirmou 60/60 verde, 25/60 amarela, 5/60 vermelha e PV máximo zero sem divisão por zero |
+| 5.4.1 — Criar o componente `BarraDeVida` | Concluída | `fb647bc` — `feat: componente barra de vida com cores por faixa` | `mvp-v0.5.8` | `mvn -q clean compile` passou; probe confirmou 60/60 verde, 25/60 amarela, 5/60 vermelha e PV máximo zero sem divisão por zero |
+| 5.4.2 — Criar o componente `CaixaDeMensagens` | Concluída | `feat: componente caixa de mensagens com quebra de linha` | `mvp-v0.5.9` | `mvn -q clean compile` passou; probe com texto de 200 caracteres confirmou quebra em múltiplas linhas e nenhum desenho fora da caixa |
 
 ## Histórico do bloco 5.3
 
