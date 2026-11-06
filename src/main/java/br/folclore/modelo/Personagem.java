@@ -1,5 +1,8 @@
 package br.folclore.modelo;
 
+import br.folclore.habilidades.Habilidade;
+import br.folclore.habilidades.ResultadoAcao;
+
 /**
  * Abstração: base comum de todo combatente.
  */
@@ -10,6 +13,7 @@ public abstract class Personagem {
     private int pvAtual;
     private final int ataque;
     private final int defesa;
+    private Habilidade habilidade;
 
     protected Personagem(String nome, Tipo tipo, int pvMaximo, int ataque, int defesa) {
         if (nome == null || nome.isBlank()) {
@@ -105,5 +109,25 @@ public abstract class Personagem {
         return getNome() + " (" + getTipo().getRotulo() + ") | PV "
                 + getPvAtual() + "/" + getPvMaximo()
                 + " | ATQ " + getAtaque() + " | DEF " + getDefesa();
+    }
+
+    public Habilidade getHabilidade() {
+        return habilidade;
+    }
+
+    protected void definirHabilidade(Habilidade habilidade) {
+        if (habilidade == null) {
+            throw new IllegalArgumentException("A habilidade não pode ser nula.");
+        }
+
+        this.habilidade = habilidade;
+    }
+
+    public ResultadoAcao usarHabilidade(Personagem alvo) {
+        if (habilidade == null) {
+            throw new IllegalStateException("O personagem não possui uma habilidade.");
+        }
+
+        return habilidade.executar(this, alvo);
     }
 }
