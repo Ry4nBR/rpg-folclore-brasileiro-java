@@ -2,12 +2,12 @@
 
 ## Estado atual
 
-- **Fase:** 5 — Construção das interfaces gráficas
-- **Bloco:** 5.5 — Tela de resultado
-- **Última tarefa concluída:** 5.5.1 — Criar a `TelaResultado`
+- **Fase:** 6 — Integração do combate
+- **Bloco:** 6.1 — Abertura da batalha
+- **Última tarefa concluída:** 6.1.1 — Abrir a `TelaBatalha` ao confirmar o personagem
 - **Tarefa em execução:** Nenhuma
-- **Próxima tarefa pendente:** Fase 6 / Bloco 6.1 — Abertura da batalha (aguardando autorização)
-- **Status do bloco:** Bloco 5.5 concluído; aguardando autorização para o próximo bloco
+- **Próxima tarefa pendente:** Fase 6 / Bloco 6.2 — Ações do jogador (aguardando autorização)
+- **Status do bloco:** Bloco 6.1 concluído; aguardando autorização para o próximo bloco
 - **Bloqueios:** Nenhum.
 
 ## Decisões e estado Git verificado
@@ -32,6 +32,7 @@
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 5.2.
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 5.3.
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 5.4.
+- O usuário autorizou continuar para o Bloco 6.1.
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 5.5.
 
 ## Registro das tarefas
@@ -81,6 +82,13 @@
 | 5.4.2 — Criar o componente `CaixaDeMensagens` | Concluída | `feat: componente caixa de mensagens com quebra de linha` | `mvp-v0.5.9` | `mvn -q clean compile` passou; probe com texto de 200 caracteres confirmou quebra em múltiplas linhas e nenhum desenho fora da caixa |
 | 5.4.3 — Desenhar o layout da `TelaBatalha` | Concluída | `134e541` — `feat: layout base da tela de batalha` | `mvp-v0.5.10` | `mvn -q clean compile` passou; probe confirmou degradê, combatentes coloridos, HUDs com PV cheio e nenhuma alteração ao estado da batalha |
 | 5.5.1 — Criar a `TelaResultado` | Concluída | `a318ef2` — `feat: tela de resultado com vitoria e derrota` | `mvp-v0.5.11` | `mvn -q clean compile` passou; probe confirmou títulos coloridos, retry apenas na derrota e callbacks de menu/reinício |
+
+## Histórico do bloco 6.1
+
+- 6.1.1 foi commitada em `09c3594` (`feat: abertura da batalha a partir da selecao de personagem`) e recebeu a tag anotada `mvp-v0.6.1`, apontando para esse commit.
+- Validação final: `mvn -q clean compile` e `git diff --check` passaram. Teste integrado pela seleção confirmou que Saci e Lobisomem abrem `TelaBatalha` com o personagem correto, PV atual igual ao máximo para jogador e chefe, e HUDs cheios renderizados.
+- Arquivo modificado: `src/main/java/br/folclore/ui/JanelaPrincipal.java`.
+- Não houve push. O próximo bloco pendente é 6.2 e aguarda autorização explícita.
 
 ## Histórico do bloco 5.5
 
