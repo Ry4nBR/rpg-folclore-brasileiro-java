@@ -4,9 +4,9 @@
 
 - **Fase:** 8 — Testes, correções, validação e finalização do MVP
 - **Bloco:** 8.1 — Documentação técnica
-- **Última tarefa concluída:** 8.1.1 — Documentar os diagramas do MVP em Mermaid
+- **Última tarefa concluída:** 8.1.2 — Documentar os quatro pilares da POO no MVP
 - **Tarefa em execução:** Nenhuma
-- **Próxima tarefa pendente:** 8.1.2 — Documentar os quatro pilares da POO no MVP
+- **Próxima tarefa pendente:** Fase 8 / Bloco 8.2 — Validação funcional (autorizado)
 - **Status do bloco:** Bloco 8.1 em execução; demais blocos da Fase 8 autorizados
 - **Bloqueios:** Nenhum na Fase 7. Observação herdada: o cenário de derrota prescrito na tarefa 6.3.2 não ocorre naturalmente com o balanceamento atual; detalhes no histórico da Fase 6.
 
@@ -95,6 +95,7 @@
 | 7.1.2 — Usar a sessão e exibir «Ginásio do Fogo concluído!» | Concluída | `1251519` — `feat: conclusao do ginasio do fogo ao vencer o chefe` | `mvp-v0.7.2` | `mvn -q clean compile`; probe integrou vitória, retorno ao menu, sessão limpa, nova partida e derrota sem mensagem de conclusão |
 | 7.2.1 — Implementar «Tentar novamente» com personagem e chefe novos | Concluída | `8a8dbbe` — `feat: tentar novamente apos derrota com instancias novas` | `mvp-v0.7.3` | `mvn -q clean compile`; probe confirmou retry direto para batalha com novo Saci (60/60 PV, 3 usos) e nova Mula (55/55 PV); `git diff --check` |
 | 8.1.1 — Documentar os diagramas do MVP em Mermaid | Concluída | `docs: diagramas de classes estados e telas do mvp` | `mvp-v0.8.1` | Os quatro diagramas foram revisados contra as classes atuais; pré-visualização do documento abriu. O validador automático exigiu autenticação e não pôde executar validação textual. |
+| 8.1.2 — Documentar os quatro pilares da POO no MVP | Concluída | `docs: explicacao dos pilares de poo aplicados ao mvp` | `mvp-v0.8.2` | `DemoPilares` executou; os 15 links foram resolvidos, os quatro pilares referenciados e `git diff --check` passou. |
 
 ## Histórico do bloco 6.1
 
