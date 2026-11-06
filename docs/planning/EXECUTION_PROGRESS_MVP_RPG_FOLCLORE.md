@@ -2,12 +2,12 @@
 
 ## Estado atual
 
-- **Fase:** 6 — Integração do combate
-- **Bloco:** 6.3 — Turno do chefe e encerramento
-- **Última tarefa concluída:** 6.3.2 — Encerrar a batalha e abrir a `TelaResultado`
+- **Fase:** 7 — Fluxo completo do ginásio
+- **Bloco:** 7.1 — Sessão e conclusão do ginásio
+- **Última tarefa concluída:** 7.1.1 — Criar `SessaoMvp`
 - **Tarefa em execução:** Nenhuma
-- **Próxima tarefa pendente:** Fase 7 / Bloco 7.1 — Sessão e conclusão do ginásio (aguardando autorização)
-- **Status do bloco:** Fase 6 concluída; aguardando autorização para a Fase 7
+- **Próxima tarefa pendente:** 7.1.2 — Usar a sessão e exibir «Ginásio do Fogo concluído!»
+- **Status do bloco:** Bloco 7.1 em execução; demais blocos da Fase 7 autorizados
 - **Bloqueios:** A derrota descrita no teste da tarefa 6.3.2 não ocorre naturalmente com os valores atuais; rota de derrota validada com PV zerado no cenário de teste. Ajuste de balanceamento não foi autorizado nem realizado.
 
 ## Decisões e estado Git verificado
@@ -35,6 +35,7 @@
 - O usuário autorizou continuar para o Bloco 6.1.
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 5.5.
 - Em 06/11/2026, o usuário autorizou executar todos os blocos restantes da Fase 6.
+- Em 06/11/2026, o usuário autorizou executar toda a Fase 7.
 
 ## Registro das tarefas
 
@@ -89,6 +90,7 @@
 | 6.2.3 — Criar o botão Habilidade e ligá-lo à batalha | Concluída | `af1fa21` — `feat: botao habilidade com contador de usos na tela de batalha` | `mvp-v0.6.4` | `mvn -q clean compile`; probe validou cura do Saci e contadores 3→2→0, Lobisomem 2→1, bloqueio sem usos/mensagens e rótulo dentro do botão; `git diff --check` |
 | 6.3.1 — Disparar o turno do chefe automaticamente | Concluída | `a9c7002` — `feat: turno automatico do chefe na tela de batalha` | `mvp-v0.6.5` | `mvn -q clean compile`; probe com quatro turnos confirmou básico, habilidade, básico, habilidade e uma única ação por mensagem; `git diff --check` |
 | 6.3.2 — Encerrar a batalha e abrir a `TelaResultado` | Concluída | `dc9f66d` — `feat: encerramento da batalha com tela de resultado` | `mvp-v0.6.6` | `mvn -q clean compile`; Saci e Lobisomem venceram; derrota, leitura das mensagens finais, callback único e telas corretas foram verificados; derrota foi forçada na probe pois a situação de derrota descrita no plano não ocorre naturalmente com os valores atuais |
+| 7.1.1 — Criar `SessaoMvp` | Concluída | `feat: sessao do mvp com marcacao de ginasio concluido` | `mvp-v0.7.1` | `mvn -q clean compile`; probe validou estado inicial, vitória, derrota sem alteração, reinício, criação do confronto e rejeição de nulo; `git diff --check` |
 
 ## Histórico do bloco 6.1
 
