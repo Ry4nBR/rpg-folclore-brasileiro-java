@@ -4,10 +4,10 @@
 
 - **Fase:** 8 — Testes, correções, validação e finalização do MVP
 - **Bloco:** 8.3 — Entrega
-- **Última tarefa concluída:** 8.3.1 — Gerar o JAR executável
+- **Última tarefa concluída:** 8.3.2 — Finalizar o README do MVP
 - **Tarefa em execução:** Nenhuma
-- **Próxima tarefa pendente:** Fase 8 / Bloco 8.3 / Tarefa 8.3.2 — Finalizar o README do MVP (autorizado)
-- **Status do bloco:** Bloco 8.3 em execução; demais tarefas da Fase 8 autorizadas
+- **Próxima tarefa pendente:** Fase 8 / Bloco 8.3 / Tarefa 8.3.3 — Fechar a versão 1.0.0 localmente (autorizado)
+- **Status do bloco:** Bloco 8.3 em execução; tarefa 8.3.3 autorizada sem PR ou publicação remota
 - **Bloqueios:** Nenhum na Fase 7. Observação herdada: o cenário de derrota prescrito na tarefa 6.3.2 não ocorre naturalmente com o balanceamento atual; detalhes no histórico da Fase 6.
 
 ## Decisões e estado Git verificado
@@ -99,6 +99,7 @@
 | 8.1.2 — Documentar os quatro pilares da POO no MVP | Concluída | `docs: explicacao dos pilares de poo aplicados ao mvp` | `mvp-v0.8.2` | `DemoPilares` executou; os 15 links foram resolvidos, os quatro pilares referenciados e `git diff --check` passou. |
 | 8.2.1 — Criar e executar o checklist de validação | Concluída | `test: checklist de validacao funcional do mvp executada` | `mvp-v0.8.3` | Itens 1–20 e 22 validados; 21 e 23 adiados para 8.3.3 por decisão do usuário. `mvn -q clean compile`, demos, probes Swing de vitória/derrota/retry/menu/saída, fórmula, habilidades, turnos e fila passaram. |
 | 8.3.1 — Gerar o JAR executável | Concluída | `build: empacotamento do mvp em jar executavel` | `mvp-v0.8.4` | `mvn -q package` passou; manifesto contém `Main-Class: br.folclore.Main`; `java -jar` abriu o menu com JDK 17; vitória, derrota e retry passaram usando as classes empacotadas. |
+| 8.3.2 — Finalizar o README do MVP | Concluída | `docs: readme final do mvp com execucao controles e regras` | `mvp-v0.8.5` | README documenta os dois comandos de execução, controles, regras, branch e escopo; os seis links foram resolvidos. O comando Maven do README abriu o jogo. Não houve revisor externo disponível; o teste local foi feito usando o README como referência. |
 
 ## Histórico do bloco 6.1
 
@@ -292,3 +293,10 @@
 - `pom.xml` define `finalName` `rpg-folclore-mvp` e configura `maven-jar-plugin` para gravar `Main-Class: br.folclore.Main`.
 - `mvn -q package` passou; o manifesto foi inspecionado e o JAR abriu a janela inicial com PATH restrito ao JDK 17. As classes do JAR completaram vitória, derrota, retorno ao menu e nova tentativa.
 - O item 18 da checklist foi atualizado com essa validação. Arquivos alterados: `pom.xml`, `docs/checklist-validacao-mvp.md` e este registro de progresso. Não houve push.
+
+## Histórico da tarefa 8.3.2
+
+- README reescrito para refletir o MVP jogável e remover afirmações antigas de planejamento que contradiziam o escopo entregue.
+- Incluídos requisitos, `mvn compile exec:java`, `mvn package`, `java -jar target/rpg-folclore-mvp.jar`, controles mouse/teclado, fórmula e ordem de combate, habilidades, condição de vitória/derrota, branch `mvp/prototipo`, itens fora do escopo e seis links para a documentação.
+- Os seis links foram resolvidos e os requisitos textuais conferidos. Uma execução local usando o comando literal `mvn compile exec:java` abriu a janela do jogo, que fechou normalmente; o comando do JAR e os fluxos empacotados foram validados na tarefa 8.3.1.
+- Não havia outra pessoa disponível para um teste cego independente; a limitação foi registrada e a execução local foi usada como substituição. Arquivo alterado: `README.md`. Não houve push.

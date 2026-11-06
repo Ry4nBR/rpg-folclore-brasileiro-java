@@ -2,107 +2,62 @@
 
 ## MVP
 
-Protótipo jogável de RPG por turnos inspirado no folclore brasileiro.
+Protótipo jogável em Português do Brasil para validar a arquitetura orientada a objetos, o combate por turnos e o fluxo de interface Swing:
+**Menu → Seleção de personagem → Batalha → Resultado → Menu**.
 
-> **Jogo em Português do Brasil.**
+O MVP está na branch `mvp/prototipo`. Ele contém um ginásio (Fogo), dois personagens jogáveis (Saci e Lobisomem) e um chefe (Mula sem Cabeça).
 
-**Requisitos:** JDK 17 e Maven 3.8 ou superior.
+### Requisitos
 
-**Executar:** `mvn -q compile exec:java`
+- JDK 17
+- Maven 3.8 ou superior
 
-Projeto acadêmico de desenvolvimento de um RPG 2D com batalhas por turnos, inspirado no estilo de combate dos jogos clássicos de Pokémon para Game Boy Advance, mas com arte moderna e personagens do folclore brasileiro.
+### Executar
 
-O projeto tem como objetivo praticar e demonstrar os quatro pilares da Programação Orientada a Objetos (POO): **abstração, encapsulamento, herança e polimorfismo**.
+Na raiz do repositório, rode uma das opções:
 
-> **Status:** em planejamento. A linguagem obrigatória, as tecnologias permitidas e alguns detalhes das mecânicas ainda precisam ser confirmados com o professor.
+```shell
+mvn compile exec:java
+```
 
-## Conceito do jogo
+Para gerar e executar o JAR:
 
-O jogador escolherá um dos três personagens iniciais e avançará por três ginásios elementais. As batalhas acontecerão por turnos, com habilidades próprias, efeitos visuais e progressão de atributos.
+```shell
+mvn package
+java -jar target/rpg-folclore-mvp.jar
+```
 
-A referência a Pokémon de GBA diz respeito principalmente à estrutura do combate. A direção visual desejada é moderna, com ilustrações 2D detalhadas e animações de habilidades, sem estética pixel art.
+### Controles
 
-## Personagens iniciais
+- **Mouse:** acionar **Jogar**/**Sair**, selecionar e confirmar o personagem, escolher **Atacar** ou **Habilidade** e acionar os botões das telas de resultado.
+- **Setas esquerda/direita:** escolher Saci ou Lobisomem na tela de seleção.
+- **Enter:** abrir a seleção no menu, confirmar o personagem ou avançar a mensagem atual da batalha.
+- **Espaço:** avançar a mensagem atual da batalha.
+- **Esc:** voltar ao menu a partir da tela de seleção.
 
-- Saci
-- Lobisomem
-- Negrinho do Pastoreio
+Durante a batalha, leia as mensagens em sequência; uma nova ação só pode ser escolhida depois que as mensagens pendentes forem avançadas. A tela de derrota oferece **Tentar novamente** e **Voltar ao menu**.
 
-## Criaturas planejadas
+### Regras do combate
 
-| Elemento | Criaturas |
-|---|---|
-| Fogo | Mãe de Ouro, Batatão, Mula sem Cabeça |
-| Planta | Curupira, Caipora, Capelobo |
-| Água | Iara, Boto-cor-de-rosa, Honorato |
+- O jogador escolhe Saci ou Lobisomem; ambos enfrentam a Mula sem Cabeça.
+- A ordem é fixa: primeiro o jogador, depois o chefe. Se o chefe for derrotado, ele não age naquele turno.
+- O dano é `max(1, ataque do atacante + poder do golpe − defesa do alvo)`.
+- O Saci usa **Rasteira de Vento** e pode usar **Ventos Revigorantes**, que cura 20% do PV máximo, até três vezes.
+- O Lobisomem usa **Garra Selvagem** e pode usar **Uivo Brutal** para causar dano, até duas vezes.
+- A Mula usa **Coice Flamejante** nos turnos ímpares e **Galope Infernal** nos turnos pares enquanto ainda tiver usos (dois). Sem usos, volta ao ataque básico.
+- Uma habilidade sem usos fica desabilitada e não consome o turno.
+- A vitória ocorre quando o PV da Mula chega a zero e conclui o Ginásio do Fogo. Se o PV do jogador chegar a zero, é possível tentar novamente com uma batalha nova.
+- O tipo dos personagens é exibido, mas não altera o dano.
 
-O elenco e os papéis de cada criatura ainda poderão ser ajustados durante a definição do escopo.
+### Escopo
 
-## Sistema de batalha
+Este MVP não inclui outros ginásios ou personagens, exploração, progressão por XP, troca ou desbloqueio de habilidades, salvamento, fuga, consulta de status, vantagens de tipo, sprites, animações ou áudio.
 
-A proposta inicial inclui as seguintes ações:
+### Documentação
 
-- **Atacar:** realizar um ataque básico.
-- **Habilidade:** utilizar uma habilidade desbloqueada.
-- **Ver status:** consultar os atributos do inimigo.
-- **Fugir:** tentar encerrar a batalha quando permitido.
-
-As habilidades terão efeitos visuais próprios. Por exemplo, o Saci poderá lançar um redemoinho animado que atravessa a tela e atinge o inimigo.
-
-## Progressão
-
-O jogo terá três ginásios:
-
-1. Ginásio do Fogo;
-2. Ginásio da Planta;
-3. Ginásio da Água.
-
-A proposta é desbloquear até quatro habilidades gradualmente e melhorar os atributos do personagem ao vencer ginásios. As regras exatas de progressão e as recompensas ainda serão definidas.
-
-## Aplicação dos quatro pilares da POO
-
-- **Abstração:** representar os conceitos comuns dos personagens por meio de classes e operações essenciais.
-- **Encapsulamento:** proteger atributos, como vida e ataque, e controlar sua alteração por métodos.
-- **Herança:** reutilizar comportamentos comuns em classes especializadas de personagens e criaturas.
-- **Polimorfismo:** permitir que personagens diferentes implementem comportamentos próprios para operações comuns, como utilizar habilidades.
-
-A arquitetura final deverá tornar esses conceitos claros no código e na apresentação do trabalho.
-
-## Tecnologias
-
-As tecnologias ainda precisam ser confirmadas com o professor.
-
-O README do projeto-base fornecido para estudo descreve uma implementação em Java, com Swing e Java 2D. Ainda será necessário confirmar a linguagem exigida para este projeto, quais APIs padrão podem ser utilizadas e se o código-base deverá ser aproveitado.
-
-**Nenhuma biblioteca ou framework externo está definido como permitido neste momento.**
-
-## Organização do desenvolvimento
-
-O trabalho será organizado em etapas documentadas. A proposta é manter:
-
-- Documentação de escopo e requisitos;
-- Plano de etapas de desenvolvimento;
-- Documentação detalhada de cada etapa;
-- Cards de tarefas com critérios de conclusão;
-- Commits claros e rastreáveis;
-- Divisão de responsabilidades entre os integrantes.
-
-## Documentação
-
-A documentação inicial do projeto será mantida em Markdown. Ela registra a ideia atual, as mecânicas propostas, os pilares da POO e as perguntas que precisam ser respondidas antes de fechar o escopo.
-
-## Status do projeto
-
-- [x] Definir o conceito inicial do jogo.
-- [x] Definir os três personagens iniciais.
-- [x] Listar três criaturas para cada elemento.
-- [ ] Confirmar linguagem e tecnologias permitidas.
-- [ ] Fechar as regras de combate.
-- [ ] Definir a progressão e as recompensas dos ginásios.
-- [ ] Definir a arquitetura de classes e o diagrama UML.
-- [ ] Planejar as etapas e os cards de desenvolvimento.
-- [ ] Implementar e testar o jogo.
-
-## Observação
-
-Este repositório está em fase de planejamento. As mecânicas e tecnologias descritas como propostas ainda não devem ser consideradas requisitos definitivos até serem confirmadas.
+- [Escopo e regras do MVP](docs/mvp-escopo.md)
+- [Planejamento de tarefas](docs/planejamento_nano_tarefas_mvp_rpg_folclore.md)
+- [Diagramas de classes, estados e telas](docs/diagrama-classes-mvp.md)
+- [Pilares da POO no MVP](docs/pilares-poo-mvp.md)
+- [Checklist de validação](docs/checklist-validacao-mvp.md)
+- [Progresso da execução](docs/planning/EXECUTION_PROGRESS_MVP_RPG_FOLCLORE.md)
