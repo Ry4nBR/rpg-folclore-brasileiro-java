@@ -61,5 +61,5 @@
 - 1.1.5 foi commitada e tagueada como `mvp-v0.1.5`.
 - 1.1.6: `atacar(Personagem)` e `getNomeAtaqueBasico()` são abstratos; `resumoDeStatus()` usa os getters e produziu exatamente `Saci (Vento) | PV 60/60 | ATQ 10 | DEF 6`.
 - Commits e tags do Bloco 1.1, respectivamente: `04e7098`/`mvp-v0.1.1`, `2b03cee`/`mvp-v0.1.2`, `757bcc6`/`mvp-v0.1.3`, `933e9fb`/`mvp-v0.1.4`, `7b32921`/`mvp-v0.1.5` e `ec72b3a`/`mvp-v0.1.6`. Todas as tags anotadas foram conferidas apontando para o commit da respectiva tarefa.
-- Validação geral do bloco: `mvn -q clean compile` passou. Worktree será conferido limpo após este registro final. Não houve push.
+- Validação geral do bloco: `mvn -q clean compile` passou. Worktree limpo após o commit deste relatório, conferido por `git status`. Não houve push.
 - Próximo bloco pendente: Fase 1 / Bloco 1.2. Aguardar autorização explícita.
