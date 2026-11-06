@@ -10,6 +10,9 @@ import java.util.Objects;
 public class Botao {
     private static final Color COR_NORMAL = new Color(45, 70, 90);
     private static final Color COR_HOVER = new Color(70, 130, 180);
+    private static final int TAMANHO_FONTE_ROTULO = 20;
+    private static final int TAMANHO_FONTE_MINIMO = 10;
+    private static final int MARGEM_ROTULO = 12;
 
     private final int x;
     private final int y;
@@ -42,7 +45,7 @@ public class Botao {
             contexto.setColor(habilitado ? Color.WHITE : Color.DARK_GRAY);
             contexto.drawRect(x, y, largura - 1, altura - 1);
 
-            contexto.setFont(new Font(Font.MONOSPACED, Font.BOLD, 20));
+            contexto.setFont(fonteDoRotulo(contexto));
             FontMetrics metricas = contexto.getFontMetrics();
             int textoX = x + (largura - metricas.stringWidth(rotulo)) / 2;
             int textoY = y + (altura - metricas.getHeight()) / 2 + metricas.getAscent();
@@ -50,6 +53,16 @@ public class Botao {
         } finally {
             contexto.dispose();
         }
+    }
+
+    private Font fonteDoRotulo(Graphics2D graphics) {
+        int tamanho = TAMANHO_FONTE_ROTULO;
+        Font fonte = new Font(Font.MONOSPACED, Font.BOLD, tamanho);
+        while (tamanho > TAMANHO_FONTE_MINIMO
+                && graphics.getFontMetrics(fonte).stringWidth(rotulo) > largura - MARGEM_ROTULO * 2) {
+            fonte = new Font(Font.MONOSPACED, Font.BOLD, --tamanho);
+        }
+        return fonte;
     }
 
     public boolean contem(int mouseX, int mouseY) {

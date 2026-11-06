@@ -3,6 +3,7 @@ package br.folclore.ui.telas;
 import br.folclore.batalha.Batalha;
 import br.folclore.batalha.EstadoBatalha;
 import br.folclore.batalha.ResultadoBatalha;
+import br.folclore.habilidades.Habilidade;
 import br.folclore.modelo.Personagem;
 import br.folclore.modelo.Tipo;
 import br.folclore.ui.ConfiguracoesUi;
@@ -33,19 +34,27 @@ public class TelaBatalha implements Tela {
     private final CaixaDeMensagens caixaDeMensagens = new CaixaDeMensagens(20, 410, 480, 110);
     private final Queue<String> fila = new ArrayDeque<>();
     private final Botao botaoAtacar;
+    private final Botao botaoHabilidade;
 
     public TelaBatalha(Batalha batalha, Consumer<ResultadoBatalha> aoEncerrar) {
         this.batalha = Objects.requireNonNull(batalha, "A batalha não pode ser nula.");
         this.aoEncerrar = Objects.requireNonNull(aoEncerrar, "A ação de encerramento não pode ser nula.");
         botaoAtacar = new Botao(520, 410, 200, 45, "Atacar", this::atacar);
+        botaoHabilidade = new Botao(740, 410, 200, 45, rotuloHabilidade(), this::usarHabilidade);
         botaoAtacar.setHabilitado(false);
+        botaoHabilidade.setHabilitado(false);
         absorverMensagens();
     }
 
     @Override
     public void atualizar() {
+        Habilidade habilidade = batalha.getJogador().getHabilidade();
+        botaoHabilidade.setRotulo(rotuloHabilidade());
         botaoAtacar.setHabilitado(
                 batalha.getEstado() == EstadoBatalha.ESCOLHA_DO_JOGADOR && podeAgir());
+        botaoHabilidade.setHabilitado(
+                batalha.getEstado() == EstadoBatalha.ESCOLHA_DO_JOGADOR
+                        && podeAgir() && habilidade.temUsosRestantes());
     }
 
     @Override
@@ -62,6 +71,7 @@ public class TelaBatalha implements Tela {
             desenharHud(contexto, batalha.getChefe(), 40, 40, 320, 70);
             desenharHud(contexto, batalha.getJogador(), 600, 320, 320, 80);
             botaoAtacar.desenhar(contexto);
+            botaoHabilidade.desenhar(contexto);
             caixaDeMensagens.desenhar(contexto);
         } finally {
             contexto.dispose();
@@ -120,6 +130,7 @@ public class TelaBatalha implements Tela {
     public void aoClicar(int x, int y) {
         if (podeAgir()) {
             botaoAtacar.clicar(x, y);
+            botaoHabilidade.clicar(x, y);
         } else {
             avancarMensagem();
         }
@@ -128,6 +139,7 @@ public class TelaBatalha implements Tela {
     @Override
     public void aoMoverMouse(int x, int y) {
         botaoAtacar.atualizarHover(x, y);
+        botaoHabilidade.atualizarHover(x, y);
     }
 
     @Override
@@ -160,6 +172,18 @@ public class TelaBatalha implements Tela {
 
     private void atacar() {
         batalha.acaoAtacar();
+        absorverMensagens();
+        atualizar();
+    }
+
+    private String rotuloHabilidade() {
+        Habilidade habilidade = batalha.getJogador().getHabilidade();
+        return habilidade.getNome() + " (" + habilidade.getUsosRestantes()
+                + "/" + habilidade.getUsosMaximos() + ")";
+    }
+
+    private void usarHabilidade() {
+        batalha.acaoHabilidade();
         absorverMensagens();
         atualizar();
     }
