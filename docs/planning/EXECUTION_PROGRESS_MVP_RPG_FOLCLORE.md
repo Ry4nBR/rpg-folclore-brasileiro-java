@@ -2,13 +2,13 @@
 
 ## Estado atual
 
-- **Fase:** 0 — Preparação do ambiente e estrutura inicial
-- **Bloco:** 0.2 — Ambiente do segundo desenvolvedor
-- **Última tarefa concluída:** 0.2.1 — Validar o ambiente e documentar requisitos no README
+- **Fase:** 1 — Modelagem das entidades e conceitos fundamentais de POO
+- **Bloco:** 1.1 — Personagem (Abstração e Encapsulamento)
+- **Última tarefa concluída:** 1.1.1 — Criar o enum `Tipo`
 - **Tarefa em execução:** Nenhuma
-- **Próxima tarefa pendente:** 1.1.1 — Criar o enum `Tipo` (aguarda autorização para a Fase 1 / Bloco 1.1)
-- **Status do bloco:** Concluído
-- **Bloqueios:** A próxima tarefa depende de autorização explícita para iniciar o próximo bloco.
+- **Próxima tarefa pendente:** 1.1.2 — Criar `Personagem` com atributos encapsulados
+- **Status do bloco:** Em andamento
+- **Bloqueios:** Nenhum.
 
 ## Decisões e estado Git verificado
 
@@ -18,6 +18,7 @@
 - A comparação inicial de `develop...mvp/prototipo` mostrou alterações amplas (incluindo remoções) além do documento de escopo previsto no aceite da tarefa 0.1.1. Divergência preservada conforme orientação do usuário; não será corrigida neste ciclo.
 - Autorização explícita do usuário: executar tarefas na `mvp/prototipo`, sem PRs ou branches de tarefa, apenas commits e tags. Não fazer push.
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 0.2.
+- Em 06/11/2026, o usuário autorizou continuar para a Fase 1 / Bloco 1.1 e confirmou que executará sozinho na própria máquina; tarefas atribuídas a Guilherme podem ser tratadas localmente conforme essa autorização.
 
 ## Registro das tarefas
 
@@ -27,6 +28,12 @@
 | 0.1.2 — Configurar Maven (Java 17) e `.gitignore` | Concluída | `31b4df0` — `chore: configuracao do maven java 17 e gitignore do mvp` | `mvp-v0.0.2` | `mvn -q validate` passou com JDK 17; padrões `.gitignore` e ausência de dependências adicionais conferidos |
 | 0.1.3 — Criar o ponto de entrada e a estrutura de pacotes | Concluída | `chore: ponto de entrada e estrutura de pacotes do mvp` | `mvp-v0.0.3` | `mvn -q compile exec:java` imprimiu a mensagem exigida; pacotes previstos conferidos; pacotes fora do MVP ausentes; `target/` ignorado |
 | 0.2.1 — Validar o ambiente e documentar requisitos no README | Concluída | `0b56689` — `docs: requisitos e execucao do mvp no readme` | `mvp-v0.0.4` | README conferido; `java -version`, `mvn -version` e `mvn -q compile exec:java` passaram localmente; substituição do critério externo autorizada pelo usuário |
+| 1.1.1 — Criar o enum `Tipo` | Concluída | `feat: criacao do enum tipo com rotulos em portugues` | `mvp-v0.1.1` | `mvn -q compile` passou; JShell confirmou por igualdade exata os rótulos Vento, Físico e Fogo |
+| 1.1.2 — Criar `Personagem` com atributos encapsulados | Pendente | `feat: classe abstrata personagem com atributos encapsulados` | `mvp-v0.1.2` | Pendente |
+| 1.1.3 — Implementar `estaVivo` e `receberDano` | Pendente | `feat: metodos estaVivo e receberDano em personagem` | `mvp-v0.1.3` | Pendente |
+| 1.1.4 — Implementar `curar` e `curarPercentualDaVidaMaxima` | Pendente | `feat: metodos curar e curarPercentualDaVidaMaxima em personagem` | `mvp-v0.1.4` | Pendente |
+| 1.1.5 — Implementar `calcularDano` | Pendente | `feat: criacao do metodo calcularDano na classe personagem` | `mvp-v0.1.5` | Pendente |
+| 1.1.6 — Declarar ataques abstratos e criar resumo de status | Pendente | `feat: metodos abstratos de ataque e resumo de status em personagem` | `mvp-v0.1.6` | Pendente |
 
 ## Histórico do bloco
 
@@ -42,3 +49,5 @@
 - 0.2.1: README atualizado com descrição, aviso de idioma, JDK 17, Maven 3.8+ e comando de execução. A seção, os requisitos e o comando foram conferidos; JDK Temurin 17.0.21 e Maven 3.9.9 portáteis (checksums oficiais conferidos) executaram `java -version`, `mvn -version` e `mvn -q compile exec:java` com saída esperada. O usuário autorizou explicitamente substituir a execução na máquina do Guilherme pela validação local.
 - 0.2.1 foi commitada em `0b56689` e recebeu a tag anotada `mvp-v0.0.4`; não foi feito push.
 - Próximo bloco pendente: Fase 1 / Bloco 1.1. Não iniciar até autorização explícita.
+- Ferramentas de build não estão instaladas globalmente; para este bloco estão sendo usadas distribuições portáteis JDK 17 e Maven 3.9.9, baixadas com verificação dos checksums oficiais para a pasta temporária da sessão. Remover após as validações.
+- 1.1.1: criado `Tipo` com os valores VENTO, FISICO e FOGO e respectivos rótulos. A primeira verificação textual pelo pipe do PowerShell exibiu acento corrompido por codificação do console; a validação foi refeita em JShell por igualdade Unicode exata e passou.
