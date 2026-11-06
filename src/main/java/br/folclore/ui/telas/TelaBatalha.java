@@ -35,6 +35,7 @@ public class TelaBatalha implements Tela {
     private final Queue<String> fila = new ArrayDeque<>();
     private final Botao botaoAtacar;
     private final Botao botaoHabilidade;
+    private boolean encerramentoNotificado;
 
     public TelaBatalha(Batalha batalha, Consumer<ResultadoBatalha> aoEncerrar) {
         this.batalha = Objects.requireNonNull(batalha, "A batalha não pode ser nula.");
@@ -51,6 +52,10 @@ public class TelaBatalha implements Tela {
         if (batalha.getEstado() == EstadoBatalha.TURNO_DO_CHEFE && podeAgir()) {
             batalha.executarTurnoDoChefe();
             absorverMensagens();
+        }
+        if (batalha.estaEncerrada() && podeAgir() && !encerramentoNotificado) {
+            encerramentoNotificado = true;
+            aoEncerrar.accept(batalha.getResultado());
         }
 
         Habilidade habilidade = batalha.getJogador().getHabilidade();

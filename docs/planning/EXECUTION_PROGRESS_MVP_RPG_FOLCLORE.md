@@ -3,12 +3,12 @@
 ## Estado atual
 
 - **Fase:** 6 — Integração do combate
-- **Bloco:** 6.2 — Ações do jogador
-- **Última tarefa concluída:** 6.3.1 — Disparar o turno do chefe automaticamente
+- **Bloco:** 6.3 — Turno do chefe e encerramento
+- **Última tarefa concluída:** 6.3.2 — Encerrar a batalha e abrir a `TelaResultado`
 - **Tarefa em execução:** Nenhuma
-- **Próxima tarefa pendente:** 6.3.2 — Encerrar a batalha e abrir a `TelaResultado`
-- **Status do bloco:** Bloco 6.2 em execução; demais tarefas da Fase 6 autorizadas
-- **Bloqueios:** Nenhum.
+- **Próxima tarefa pendente:** Fase 7 / Bloco 7.1 — Sessão e conclusão do ginásio (aguardando autorização)
+- **Status do bloco:** Fase 6 concluída; aguardando autorização para a Fase 7
+- **Bloqueios:** A derrota descrita no teste da tarefa 6.3.2 não ocorre naturalmente com os valores atuais; rota de derrota validada com PV zerado no cenário de teste. Ajuste de balanceamento não foi autorizado nem realizado.
 
 ## Decisões e estado Git verificado
 
@@ -87,14 +87,26 @@
 | 6.2.1 — Exibir as mensagens da batalha em fila | Concluída | `638fe63` — `feat: fila de mensagens de combate na tela de batalha` | `mvp-v0.6.2` | `mvn -q clean compile`, probe da abertura e avanço por ENTER, ESPAÇO e clique, `git diff --check` |
 | 6.2.2 — Criar o botão Atacar e ligá-lo à batalha | Concluída | `fe14c17` — `feat: botao atacar na tela de batalha` | `mvp-v0.6.3` | `mvn -q clean compile`; clique reduz PV do chefe, atualiza estado e desabilita o botão até o fim da fila; `git diff --check` |
 | 6.2.3 — Criar o botão Habilidade e ligá-lo à batalha | Concluída | `af1fa21` — `feat: botao habilidade com contador de usos na tela de batalha` | `mvp-v0.6.4` | `mvn -q clean compile`; probe validou cura do Saci e contadores 3→2→0, Lobisomem 2→1, bloqueio sem usos/mensagens e rótulo dentro do botão; `git diff --check` |
-| 6.3.1 — Disparar o turno do chefe automaticamente | Concluída | `feat: turno automatico do chefe na tela de batalha` | `mvp-v0.6.5` | `mvn -q clean compile`; probe com quatro turnos confirmou básico, habilidade, básico, habilidade e uma única ação por mensagem; `git diff --check` |
+| 6.3.1 — Disparar o turno do chefe automaticamente | Concluída | `a9c7002` — `feat: turno automatico do chefe na tela de batalha` | `mvp-v0.6.5` | `mvn -q clean compile`; probe com quatro turnos confirmou básico, habilidade, básico, habilidade e uma única ação por mensagem; `git diff --check` |
+| 6.3.2 — Encerrar a batalha e abrir a `TelaResultado` | Concluída | `feat: encerramento da batalha com tela de resultado` | `mvp-v0.6.6` | `mvn -q clean compile`; Saci e Lobisomem venceram; derrota, leitura das mensagens finais, callback único e telas corretas foram verificados; derrota foi forçada na probe pois a situação de derrota descrita no plano não ocorre naturalmente com os valores atuais |
 
 ## Histórico do bloco 6.1
 
 - 6.1.1 foi commitada em `09c3594` (`feat: abertura da batalha a partir da selecao de personagem`) e recebeu a tag anotada `mvp-v0.6.1`, apontando para esse commit.
 - Validação final: `mvn -q clean compile` e `git diff --check` passaram. Teste integrado pela seleção confirmou que Saci e Lobisomem abrem `TelaBatalha` com o personagem correto, PV atual igual ao máximo para jogador e chefe, e HUDs cheios renderizados.
 - Arquivo modificado: `src/main/java/br/folclore/ui/JanelaPrincipal.java`.
-- Não houve push. O próximo bloco pendente é 6.2 e aguarda autorização explícita.
+- Não houve push.
+
+## Histórico dos blocos 6.2 e 6.3
+
+- 6.2.1 foi commitada em `638fe63` e recebeu a tag anotada `mvp-v0.6.2`.
+- 6.2.2 foi commitada em `fe14c17` e recebeu a tag anotada `mvp-v0.6.3`.
+- 6.2.3 foi commitada em `af1fa21` e recebeu a tag anotada `mvp-v0.6.4`.
+- 6.3.1 foi commitada em `a9c7002` e recebeu a tag anotada `mvp-v0.6.5`.
+- Validações: `mvn -q clean compile`, `git diff --check` e probes Swing validaram fila e avanço de mensagens, ações de ataque e habilidade, contadores e cura, turno automático do chefe em quatro rodadas, resultados de vitória e derrota, leitura das mensagens finais e notificação única.
+- A derrota especificada como «usar apenas a cura do Saci até os usos acabarem» não é alcançável com o balanceamento atual: são três curas de 20 PV, enquanto o chefe causa 8 PV no ataque básico e 13 PV na habilidade; a derrota foi forçada na probe para verificar o encaminhamento à tela correta, sem alterar regras de combate.
+- Arquivos criados/modificados na Fase 6: `src/main/java/br/folclore/ui/JanelaPrincipal.java`, `src/main/java/br/folclore/ui/telas/TelaBatalha.java` e `src/main/java/br/folclore/ui/componentes/Botao.java`.
+- Não houve push. A Fase 6 está concluída; a Fase 7 aguarda autorização explícita.
 
 ## Histórico do bloco 5.5
 
