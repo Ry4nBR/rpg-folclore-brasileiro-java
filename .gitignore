@@ -7,3 +7,11 @@ desktop.ini
 *.swp
 *.swo
 *~
+
+# Artefatos de build e IDE
+target/
+out/
+.idea/
+*.iml
+.vscode/
+*.class
