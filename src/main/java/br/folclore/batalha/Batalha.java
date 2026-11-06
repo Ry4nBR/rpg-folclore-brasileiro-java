@@ -43,6 +43,29 @@ public class Batalha {
         return turno;
     }
 
+    private void exigirEstado(EstadoBatalha esperado) {
+        if (estado != esperado) {
+            throw new IllegalStateException("A ação não pode ser executada no estado " + estado + ".");
+        }
+    }
+
+    public void acaoAtacar() {
+        exigirEstado(EstadoBatalha.ESCOLHA_DO_JOGADOR);
+        int dano = jogador.atacar(chefe);
+        registrar(jogador.getNome() + " usou " + jogador.getNomeAtaqueBasico()
+                + " e causou " + dano + " de dano!");
+        aposAcaoDoJogador();
+    }
+
+    private void aposAcaoDoJogador() {
+        if (!chefe.estaVivo()) {
+            registrar(chefe.getNome() + " caiu em combate!");
+            estado = EstadoBatalha.VITORIA;
+        } else {
+            estado = EstadoBatalha.TURNO_DO_CHEFE;
+        }
+    }
+
     private void registrar(String msg) {
         mensagens.add(msg);
     }

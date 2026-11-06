@@ -3,12 +3,12 @@
 ## Estado atual
 
 - **Fase:** 2 — Mecânicas de batalha
-- **Bloco:** 2.1 — Estrutura da batalha
+- **Bloco:** 2.2 — Turno do jogador
 - **Última tarefa concluída:** 2.1.2 — Criar `Batalha` com estado, turno e registro de mensagens
-- **Tarefa em execução:** Nenhuma
-- **Próxima tarefa pendente:** 2.2.1 — Implementar a ação Atacar e a checagem de vitória (aguarda autorização explícita)
-- **Status do bloco:** Concluído
-- **Bloqueios:** O Bloco 2.2 depende de autorização explícita.
+- **Tarefa em execução:** 2.2.1 — Implementar a ação Atacar e a checagem de vitória
+- **Próxima tarefa pendente:** 2.2.2 — Implementar a ação Habilidade
+- **Status do bloco:** Em andamento
+- **Bloqueios:** Nenhum.
 
 ## Decisões e estado Git verificado
 
@@ -21,6 +21,7 @@
 - Em 06/11/2026, o usuário autorizou continuar para a Fase 1 / Bloco 1.1 e confirmou que executará sozinho na própria máquina; tarefas atribuídas a Guilherme podem ser tratadas localmente conforme essa autorização.
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 1.2.
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 2.1.
+- Em 06/11/2026, o usuário autorizou continuar para o Bloco 2.2.
 
 ## Registro das tarefas
 
@@ -43,6 +44,8 @@
 | 1.2.5 — Vincular uma habilidade ao `Personagem` | Concluída | `b70026e` — `feat: habilidade vinculada ao personagem com metodo usarHabilidade` | `mvp-v0.1.11` | `mvn -q compile` passou; JShell validou execução via `usarHabilidade`, habilidade privada, rejeição de nulo e erro sem habilidade |
 | 2.1.1 — Criar o enum `EstadoBatalha` | Concluída | `7d58fac` — `feat: enum de estados da batalha` | `mvp-v0.2.1` | `mvn -q compile` passou; JShell confirmou exatamente os quatro estados |
 | 2.1.2 — Criar `Batalha` com estado, turno e registro de mensagens | Concluída | `86d14db` — `feat: criacao da classe batalha com estado turno e mensagens` | `mvp-v0.2.2` | `mvn -q compile` e `mvn -q clean compile` passaram; JShell validou referências, valores iniciais, mensagem exata, cópia/limpeza da fila e rejeição de nulos |
+| 2.2.1 — Implementar a ação Atacar e a checagem de vitória | Em execução | `feat: acao atacar na batalha com verificacao de vitoria` | `mvp-v0.2.3` | Pendente |
+| 2.2.2 — Implementar a ação Habilidade | Pendente | `feat: acao habilidade na batalha com limite de usos` | `mvp-v0.2.4` | Pendente |
 
 ## Histórico do bloco 2.1
 
