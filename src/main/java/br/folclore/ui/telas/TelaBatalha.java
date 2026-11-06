@@ -12,6 +12,9 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.util.ArrayDeque;
+import java.util.Queue;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -26,10 +29,12 @@ public class TelaBatalha implements Tela {
     private final Batalha batalha;
     private final Consumer<ResultadoBatalha> aoEncerrar;
     private final CaixaDeMensagens caixaDeMensagens = new CaixaDeMensagens(20, 410, 480, 110);
+    private final Queue<String> fila = new ArrayDeque<>();
 
     public TelaBatalha(Batalha batalha, Consumer<ResultadoBatalha> aoEncerrar) {
         this.batalha = Objects.requireNonNull(batalha, "A batalha não pode ser nula.");
         this.aoEncerrar = Objects.requireNonNull(aoEncerrar, "A ação de encerramento não pode ser nula.");
+        absorverMensagens();
     }
 
     @Override
@@ -105,6 +110,7 @@ public class TelaBatalha implements Tela {
 
     @Override
     public void aoClicar(int x, int y) {
+        avancarMensagem();
     }
 
     @Override
@@ -113,5 +119,29 @@ public class TelaBatalha implements Tela {
 
     @Override
     public void aoPressionarTecla(int codigo) {
+        if (codigo == KeyEvent.VK_ENTER || codigo == KeyEvent.VK_SPACE) {
+            avancarMensagem();
+        }
+    }
+
+    private void absorverMensagens() {
+        fila.addAll(batalha.consumirMensagens());
+        atualizarMensagem();
+    }
+
+    private void avancarMensagem() {
+        if (!fila.isEmpty()) {
+            fila.remove();
+            atualizarMensagem();
+        }
+    }
+
+    private void atualizarMensagem() {
+        String mensagem = fila.peek();
+        caixaDeMensagens.definirTexto(mensagem == null ? "" : mensagem);
+    }
+
+    private boolean podeAgir() {
+        return fila.isEmpty();
     }
 }

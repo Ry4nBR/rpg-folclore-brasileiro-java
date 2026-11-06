@@ -3,11 +3,11 @@
 ## Estado atual
 
 - **Fase:** 6 — Integração do combate
-- **Bloco:** 6.1 — Abertura da batalha
-- **Última tarefa concluída:** 6.1.1 — Abrir a `TelaBatalha` ao confirmar o personagem
+- **Bloco:** 6.2 — Ações do jogador
+- **Última tarefa concluída:** 6.2.1 — Exibir as mensagens da batalha em fila
 - **Tarefa em execução:** Nenhuma
-- **Próxima tarefa pendente:** Fase 6 / Bloco 6.2 — Ações do jogador (aguardando autorização)
-- **Status do bloco:** Bloco 6.1 concluído; aguardando autorização para o próximo bloco
+- **Próxima tarefa pendente:** 6.2.2 — Criar o botão Atacar e ligá-lo à batalha
+- **Status do bloco:** Bloco 6.2 em execução; demais tarefas da Fase 6 autorizadas
 - **Bloqueios:** Nenhum.
 
 ## Decisões e estado Git verificado
@@ -34,6 +34,7 @@
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 5.4.
 - O usuário autorizou continuar para o Bloco 6.1.
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 5.5.
+- Em 06/11/2026, o usuário autorizou executar todos os blocos restantes da Fase 6.
 
 ## Registro das tarefas
 
@@ -82,6 +83,8 @@
 | 5.4.2 — Criar o componente `CaixaDeMensagens` | Concluída | `feat: componente caixa de mensagens com quebra de linha` | `mvp-v0.5.9` | `mvn -q clean compile` passou; probe com texto de 200 caracteres confirmou quebra em múltiplas linhas e nenhum desenho fora da caixa |
 | 5.4.3 — Desenhar o layout da `TelaBatalha` | Concluída | `134e541` — `feat: layout base da tela de batalha` | `mvp-v0.5.10` | `mvn -q clean compile` passou; probe confirmou degradê, combatentes coloridos, HUDs com PV cheio e nenhuma alteração ao estado da batalha |
 | 5.5.1 — Criar a `TelaResultado` | Concluída | `a318ef2` — `feat: tela de resultado com vitoria e derrota` | `mvp-v0.5.11` | `mvn -q clean compile` passou; probe confirmou títulos coloridos, retry apenas na derrota e callbacks de menu/reinício |
+| 6.1.1 — Abrir a `TelaBatalha` ao confirmar o personagem | Concluída | `09c3594` — `feat: abertura da batalha a partir da selecao de personagem` | `mvp-v0.6.1` | Saci e Lobisomem abrem a batalha com personagem correto e PV cheio |
+| 6.2.1 — Exibir as mensagens da batalha em fila | Concluída | `feat: fila de mensagens de combate na tela de batalha` | `mvp-v0.6.2` | `mvn -q clean compile`, probe da abertura e avanço por ENTER, ESPAÇO e clique, `git diff --check` |
 
 ## Histórico do bloco 6.1
 
