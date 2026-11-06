@@ -3,11 +3,11 @@
 ## Estado atual
 
 - **Fase:** 5 — Construção das interfaces gráficas
-- **Bloco:** 5.4 — Layout da tela de batalha (sem lógica)
-- **Última tarefa concluída:** 5.4.3 — Desenhar o layout da `TelaBatalha`
+- **Bloco:** 5.5 — Tela de resultado
+- **Última tarefa concluída:** 5.5.1 — Criar a `TelaResultado`
 - **Tarefa em execução:** Nenhuma
-- **Próxima tarefa pendente:** Fase 5 / Bloco 5.5 (aguardando autorização)
-- **Status do bloco:** Bloco 5.4 concluído; aguardando autorização para o próximo bloco
+- **Próxima tarefa pendente:** Fase 6 / Bloco 6.1 — Abertura da batalha (aguardando autorização)
+- **Status do bloco:** Bloco 5.5 concluído; aguardando autorização para o próximo bloco
 - **Bloqueios:** Nenhum.
 
 ## Decisões e estado Git verificado
@@ -32,6 +32,7 @@
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 5.2.
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 5.3.
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 5.4.
+- Em 06/11/2026, o usuário autorizou continuar para o Bloco 5.5.
 
 ## Registro das tarefas
 
@@ -79,6 +80,14 @@
 | 5.4.1 — Criar o componente `BarraDeVida` | Concluída | `fb647bc` — `feat: componente barra de vida com cores por faixa` | `mvp-v0.5.8` | `mvn -q clean compile` passou; probe confirmou 60/60 verde, 25/60 amarela, 5/60 vermelha e PV máximo zero sem divisão por zero |
 | 5.4.2 — Criar o componente `CaixaDeMensagens` | Concluída | `feat: componente caixa de mensagens com quebra de linha` | `mvp-v0.5.9` | `mvn -q clean compile` passou; probe com texto de 200 caracteres confirmou quebra em múltiplas linhas e nenhum desenho fora da caixa |
 | 5.4.3 — Desenhar o layout da `TelaBatalha` | Concluída | `134e541` — `feat: layout base da tela de batalha` | `mvp-v0.5.10` | `mvn -q clean compile` passou; probe confirmou degradê, combatentes coloridos, HUDs com PV cheio e nenhuma alteração ao estado da batalha |
+| 5.5.1 — Criar a `TelaResultado` | Concluída | `feat: tela de resultado com vitoria e derrota` | `mvp-v0.5.11` | `mvn -q clean compile` passou; probe confirmou títulos coloridos, retry apenas na derrota e callbacks de menu/reinício |
+
+## Histórico do bloco 5.5
+
+- 5.5.1 foi commitada com a mensagem `feat: tela de resultado com vitoria e derrota` e recebeu a tag anotada `mvp-v0.5.11`.
+- Validação final do Bloco 5.5: `mvn -q clean compile`, `git diff --check` e teste dos dois modos de resultado, visibilidade do botão de reinício e execução dos callbacks passaram.
+- Arquivo criado: `src/main/java/br/folclore/ui/telas/TelaResultado.java`.
+- Não houve push. A próxima fase/bloco aguarda autorização explícita.
 
 ## Histórico do bloco 5.4
 
