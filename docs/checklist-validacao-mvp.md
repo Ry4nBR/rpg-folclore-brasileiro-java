@@ -21,7 +21,7 @@ Executado em 06/11/2026, na branch `mvp/prototipo`, com JDK 17. A validação fu
 | 15 | **Sair** encerra a aplicação sem erro. | OK | O callback acionou `System.exit(0)`; o motor Java encerrou sem exceção e com código 0. |
 | 16 | `mvn -q compile` termina sem erros ou avisos relevantes. | OK | `mvn -q clean compile` e `mvn -q compile` passaram com JDK 17. |
 | 17 | `DemoPilares`, `DemoBatalhaVitoria` e `DemoBatalhaDerrota` executam com a saída esperada. | OK | As três demos foram executadas; vitórias/derrotas e conteúdo esperado foram conferidos. |
-| 18 | `java -jar target/rpg-folclore-mvp.jar` executa o fluxo completo. | OK | JAR temporário abriu o menu usando somente o JDK 17 no PATH; fluxo completo validado com eventos Swing. Será repetido após o empacotamento Maven em 8.3.1. |
+| 18 | `java -jar target/rpg-folclore-mvp.jar` executa o fluxo completo. | OK | `mvn -q package` criou o JAR com `Main-Class: br.folclore.Main`; `java -jar` abriu o menu com apenas o JDK 17 no PATH, e vitória, derrota e retry passaram usando as classes do JAR. |
 | 19 | Nenhum arquivo da pasta `ui` contém fórmula de dano. | OK | Busca por fórmulas e expressões de dano em `src/main/java/br/folclore/ui` não encontrou ocorrências. |
 | 20 | Os quatro pilares de POO estão documentados com referência real a arquivos. | OK | Quatro pilares conferidos; 15 referências a arquivos resolvidas em `pilares-poo-mvp.md`. |
 | 21 | Todas as tarefas têm commit e tag na branch `mvp/prototipo`. | Aguardando 8.3.3 | Validar quando os commits e tags restantes da Fase 8 forem concluídos. |

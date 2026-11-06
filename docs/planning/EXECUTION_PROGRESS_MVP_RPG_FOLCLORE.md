@@ -3,11 +3,11 @@
 ## Estado atual
 
 - **Fase:** 8 — Testes, correções, validação e finalização do MVP
-- **Bloco:** 8.2 — Validação funcional
-- **Última tarefa concluída:** 8.2.1 — Criar e executar o checklist de validação
+- **Bloco:** 8.3 — Entrega
+- **Última tarefa concluída:** 8.3.1 — Gerar o JAR executável
 - **Tarefa em execução:** Nenhuma
-- **Próxima tarefa pendente:** Fase 8 / Bloco 8.3 / Tarefa 8.3.1 — Gerar o JAR executável (autorizado)
-- **Status do bloco:** Bloco 8.2 concluído; demais blocos da Fase 8 autorizados
+- **Próxima tarefa pendente:** Fase 8 / Bloco 8.3 / Tarefa 8.3.2 — Finalizar o README do MVP (autorizado)
+- **Status do bloco:** Bloco 8.3 em execução; demais tarefas da Fase 8 autorizadas
 - **Bloqueios:** Nenhum na Fase 7. Observação herdada: o cenário de derrota prescrito na tarefa 6.3.2 não ocorre naturalmente com o balanceamento atual; detalhes no histórico da Fase 6.
 
 ## Decisões e estado Git verificado
@@ -98,6 +98,7 @@
 | 8.1.1 — Documentar os diagramas do MVP em Mermaid | Concluída | `docs: diagramas de classes estados e telas do mvp` | `mvp-v0.8.1` | Os quatro diagramas foram revisados contra as classes atuais; pré-visualização do documento abriu. O validador automático exigiu autenticação e não pôde executar validação textual. |
 | 8.1.2 — Documentar os quatro pilares da POO no MVP | Concluída | `docs: explicacao dos pilares de poo aplicados ao mvp` | `mvp-v0.8.2` | `DemoPilares` executou; os 15 links foram resolvidos, os quatro pilares referenciados e `git diff --check` passou. |
 | 8.2.1 — Criar e executar o checklist de validação | Concluída | `test: checklist de validacao funcional do mvp executada` | `mvp-v0.8.3` | Itens 1–20 e 22 validados; 21 e 23 adiados para 8.3.3 por decisão do usuário. `mvn -q clean compile`, demos, probes Swing de vitória/derrota/retry/menu/saída, fórmula, habilidades, turnos e fila passaram. |
+| 8.3.1 — Gerar o JAR executável | Concluída | `build: empacotamento do mvp em jar executavel` | `mvp-v0.8.4` | `mvn -q package` passou; manifesto contém `Main-Class: br.folclore.Main`; `java -jar` abriu o menu com JDK 17; vitória, derrota e retry passaram usando as classes empacotadas. |
 
 ## Histórico do bloco 6.1
 
@@ -281,7 +282,13 @@
 
 - Checklist de 23 itens executado em 06/11/2026 com JDK 17. Os itens 1–20 e 22 passaram; os itens 21 e 23 ficam pendentes até 8.3.3 conforme autorização do usuário para fechar o MVP localmente, sem PR ou push.
 - Probes Swing validaram seleção dos dois heróis, início e reinício de batalha, HUDs, fórmula de dano, habilidades/contadores, ações do chefe, fila de mensagens, vitória, derrota, nova tentativa, retorno ao menu e encerramento.
-- `mvn -q clean compile`, `mvn -q compile`, `DemoPilares`, `DemoBatalhaVitoria` e `DemoBatalhaDerrota` passaram. O JAR temporário abriu o menu sob PATH contendo apenas o JDK 17; o fluxo funcional foi exercitado com eventos Swing e será repetido com o JAR produzido por Maven em 8.3.1.
+- `mvn -q clean compile`, `mvn -q compile`, `DemoPilares`, `DemoBatalhaVitoria` e `DemoBatalhaDerrota` passaram. O JAR temporário abriu o menu sob PATH contendo apenas o JDK 17; em 8.3.1, o JAR Maven também abriu o menu e passou pelo fluxo de vitória, derrota e retry.
 - A busca na pasta `ui` não encontrou fórmula de dano; os quatro pilares e 15 referências a arquivos foram conferidos. HEADs de `develop` e `main` permaneceram inalterados.
 - Revisão substitutiva repetiu os itens 6, 13 e 15. Tentativas iniciais de probe com coordenada fora do cartão e comparações de texto afetadas pela codificação do terminal foram corrigidas no teste; as verificações finais passaram sem alteração de código.
 - Arquivo criado: `docs/checklist-validacao-mvp.md`. Não houve push.
+
+## Histórico da tarefa 8.3.1
+
+- `pom.xml` define `finalName` `rpg-folclore-mvp` e configura `maven-jar-plugin` para gravar `Main-Class: br.folclore.Main`.
+- `mvn -q package` passou; o manifesto foi inspecionado e o JAR abriu a janela inicial com PATH restrito ao JDK 17. As classes do JAR completaram vitória, derrota, retorno ao menu e nova tentativa.
+- O item 18 da checklist foi atualizado com essa validação. Arquivos alterados: `pom.xml`, `docs/checklist-validacao-mvp.md` e este registro de progresso. Não houve push.

@@ -15,6 +15,7 @@
     </properties>
 
     <build>
+        <finalName>rpg-folclore-mvp</finalName>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -22,6 +23,18 @@
                 <version>3.1.0</version>
                 <configuration>
                     <mainClass>${exec.mainClass}</mainClass>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.4.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>${exec.mainClass}</mainClass>
+                        </manifest>
+                    </archive>
                 </configuration>
             </plugin>
         </plugins>
