@@ -1,5 +1,7 @@
 package br.folclore.modelo;
 
+import br.folclore.habilidades.HabilidadeCura;
+
 public class Saci extends Personagem {
     private static final int PV_BASE = 60;
     private static final int ATAQUE_BASE = 10;
@@ -8,6 +10,7 @@ public class Saci extends Personagem {
 
     public Saci() {
         super("Saci", Tipo.VENTO, PV_BASE, ATAQUE_BASE, DEFESA_BASE);
+        definirHabilidade(new HabilidadeCura("Ventos Revigorantes", 3, 20));
     }
 
     @Override
