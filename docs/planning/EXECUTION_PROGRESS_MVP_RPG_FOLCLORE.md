@@ -6,9 +6,9 @@
 - **Bloco:** 3.3 — Catálogo
 - **Última tarefa concluída:** 3.3.1 — Criar `CatalogoDeHerois`
 - **Tarefa em execução:** Nenhuma
-- **Próxima tarefa pendente:** Nenhuma neste bloco
-- **Status do bloco:** Em andamento
-- **Bloqueios:** Nenhum.
+- **Próxima tarefa pendente:** 4.1.1 — Criar `MulaSemCabeca` com status base e ataque básico (aguarda autorização explícita)
+- **Status do bloco:** Concluído
+- **Bloqueios:** O Bloco 4.1 depende de autorização explícita.
 
 ## Decisões e estado Git verificado
 
@@ -57,7 +57,14 @@
 | 3.1.2 — Adicionar a habilidade Ventos Revigorantes ao Saci | Concluída | `0a91078` — `feat: habilidade ventos revigorantes do saci` | `mvp-v0.3.2` | `mvn -q compile` passou; JShell confirmou cura de 12 PV (40→52), três usos consumidos e falha no uso seguinte |
 | 3.2.1 — Criar a classe `Lobisomem` com status base e ataque básico | Concluída | `d07c905` — `feat: implementacao do personagem lobisomem com ataque basico` | `mvp-v0.3.3` | `mvn -q compile` passou; JShell confirmou resumo, ataque e dano 14 contra defesa 5 |
 | 3.2.2 — Adicionar a habilidade Uivo Brutal ao Lobisomem | Concluída | `1dcea68` — `feat: habilidade uivo brutal do lobisomem` | `mvp-v0.3.4` | `mvn -q compile` passou; JShell confirmou dano 19, dois usos e falha na terceira tentativa |
-| 3.3.1 — Criar `CatalogoDeHerois` | Concluída | `feat: catalogo dos herois jogaveis` | `mvp-v0.3.5` | `mvn -q compile` passou; JShell confirmou dois itens na ordem Saci/Lobisomem, instâncias independentes, PV cheio e usos restaurados |
+| 3.3.1 — Criar `CatalogoDeHerois` | Concluída | `9e23d6e` — `feat: catalogo dos herois jogaveis` | `mvp-v0.3.5` | `mvn -q compile` e `mvn -q clean compile` passaram; JShell confirmou dois itens na ordem Saci/Lobisomem, instâncias independentes, PV cheio e usos restaurados |
+
+## Histórico do bloco 3.3
+
+- 3.3.1 foi commitada em `9e23d6e` e recebeu a tag anotada `mvp-v0.3.5`.
+- Validação final do Bloco 3.3: `mvn -q clean compile` e `git diff --check` passaram; a tag anotada foi conferida apontando para o commit da tarefa. JShell validou tamanho e ordem do catálogo, novas instâncias por chamada, PV cheio, habilidades com usos restaurados e independência de estado.
+- Arquivo de código criado: `src/main/java/br/folclore/modelo/CatalogoDeHerois.java`.
+- Não houve push. O próximo bloco pendente é 4.1 e aguarda autorização explícita.
 
 ## Histórico do bloco 3.2
 
