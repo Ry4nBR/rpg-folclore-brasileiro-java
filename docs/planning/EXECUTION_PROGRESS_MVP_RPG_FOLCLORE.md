@@ -2,13 +2,13 @@
 
 ## Estado atual
 
-- **Fase:** 1 — Modelagem das entidades e conceitos fundamentais de POO
-- **Bloco:** 1.2 — Habilidades (Polimorfismo)
-- **Última tarefa concluída:** 1.2.5 — Vincular uma habilidade ao `Personagem`
+- **Fase:** 2 — Mecânicas de batalha
+- **Bloco:** 2.1 — Estrutura da batalha
+- **Última tarefa concluída:** 2.1.2 — Criar `Batalha` com estado, turno e registro de mensagens
 - **Tarefa em execução:** Nenhuma
-- **Próxima tarefa pendente:** 2.1.1 — Criar o enum `EstadoBatalha` (aguarda autorização para a Fase 2 / Bloco 2.1)
+- **Próxima tarefa pendente:** 2.2.1 — Implementar a ação Atacar e a checagem de vitória (aguarda autorização explícita)
 - **Status do bloco:** Concluído
-- **Bloqueios:** O próximo bloco depende de autorização explícita.
+- **Bloqueios:** O Bloco 2.2 depende de autorização explícita.
 
 ## Decisões e estado Git verificado
 
@@ -20,6 +20,7 @@
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 0.2.
 - Em 06/11/2026, o usuário autorizou continuar para a Fase 1 / Bloco 1.1 e confirmou que executará sozinho na própria máquina; tarefas atribuídas a Guilherme podem ser tratadas localmente conforme essa autorização.
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 1.2.
+- Em 06/11/2026, o usuário autorizou continuar para o Bloco 2.1.
 
 ## Registro das tarefas
 
@@ -40,6 +41,16 @@
 | 1.2.3 — Implementar `HabilidadeDano` | Concluída | `b12e478` — `feat: implementacao da habilidade de dano` | `mvp-v0.1.9` | `mvn -q compile` passou; JShell validou dois danos, usos consumidos, mensagem e terceira falha sem alterar o alvo |
 | 1.2.4 — Implementar `HabilidadeCura` | Concluída | `36f6672` — `feat: implementacao da habilidade de cura` | `mvp-v0.1.10` | `mvn -q compile` passou; JShell validou cura de 12 PV saindo de 40, cura efetiva de 2 saindo de 58, alvo ignorado e falha sem usos |
 | 1.2.5 — Vincular uma habilidade ao `Personagem` | Concluída | `b70026e` — `feat: habilidade vinculada ao personagem com metodo usarHabilidade` | `mvp-v0.1.11` | `mvn -q compile` passou; JShell validou execução via `usarHabilidade`, habilidade privada, rejeição de nulo e erro sem habilidade |
+| 2.1.1 — Criar o enum `EstadoBatalha` | Concluída | `7d58fac` — `feat: enum de estados da batalha` | `mvp-v0.2.1` | `mvn -q compile` passou; JShell confirmou exatamente os quatro estados |
+| 2.1.2 — Criar `Batalha` com estado, turno e registro de mensagens | Concluída | `86d14db` — `feat: criacao da classe batalha com estado turno e mensagens` | `mvp-v0.2.2` | `mvn -q compile` e `mvn -q clean compile` passaram; JShell validou referências, valores iniciais, mensagem exata, cópia/limpeza da fila e rejeição de nulos |
+
+## Histórico do bloco 2.1
+
+- 2.1.1 foi commitada em `7d58fac` e recebeu a tag anotada `mvp-v0.2.1`.
+- 2.1.2 foi commitada em `86d14db` e recebeu a tag anotada `mvp-v0.2.2`.
+- Validação final do Bloco 2.1: `mvn -q clean compile` e `git diff --check` passaram; as tags anotadas foram conferidas apontando para os commits das respectivas tarefas. O teste JShell da mensagem foi executado com escapes Unicode para contornar a codificação do pipe do terminal.
+- Arquivos criados: `src/main/java/br/folclore/batalha/EstadoBatalha.java` e `src/main/java/br/folclore/batalha/Batalha.java`.
+- Não houve push. O próximo bloco pendente é 2.2 e aguarda autorização explícita.
 
 ## Histórico do bloco
 
