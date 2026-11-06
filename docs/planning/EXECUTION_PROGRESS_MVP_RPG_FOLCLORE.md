@@ -4,9 +4,9 @@
 
 - **Fase:** 4 — Implementação do chefe e confronto principal
 - **Bloco:** 4.1 — Mula sem Cabeça
-- **Última tarefa concluída:** 3.3.1 — Criar `CatalogoDeHerois`
-- **Tarefa em execução:** 4.1.1 — Criar `MulaSemCabeca` com status base e ataque básico
-- **Próxima tarefa pendente:** 4.1.2 — Adicionar Galope Infernal e o comportamento do chefe
+- **Última tarefa concluída:** 4.1.1 — Criar `MulaSemCabeca` com status base e ataque básico
+- **Tarefa em execução:** 4.1.2 — Adicionar Galope Infernal e o comportamento do chefe
+- **Próxima tarefa pendente:** Nenhuma neste bloco
 - **Status do bloco:** Em andamento
 - **Bloqueios:** Nenhum.
 
@@ -59,8 +59,8 @@
 | 3.2.1 — Criar a classe `Lobisomem` com status base e ataque básico | Concluída | `d07c905` — `feat: implementacao do personagem lobisomem com ataque basico` | `mvp-v0.3.3` | `mvn -q compile` passou; JShell confirmou resumo, ataque e dano 14 contra defesa 5 |
 | 3.2.2 — Adicionar a habilidade Uivo Brutal ao Lobisomem | Concluída | `1dcea68` — `feat: habilidade uivo brutal do lobisomem` | `mvp-v0.3.4` | `mvn -q compile` passou; JShell confirmou dano 19, dois usos e falha na terceira tentativa |
 | 3.3.1 — Criar `CatalogoDeHerois` | Concluída | `9e23d6e` — `feat: catalogo dos herois jogaveis` | `mvp-v0.3.5` | `mvn -q compile` e `mvn -q clean compile` passaram; JShell confirmou dois itens na ordem Saci/Lobisomem, instâncias independentes, PV cheio e usos restaurados |
-| 4.1.1 — Criar `MulaSemCabeca` com status base e ataque básico | Concluída | `feat: implementacao do chefe mula sem cabeca com ataque basico` | `mvp-v0.4.1` | `mvn -q compile` passou; JShell confirmou atributos, ataque Coice Flamejante e dano 8 contra defesa 6 |
-| 4.1.2 — Adicionar Galope Infernal e o comportamento do chefe | Pendente | `feat: habilidade galope infernal e decisao de turno do chefe` | `mvp-v0.4.2` | Pendente |
+| 4.1.1 — Criar `MulaSemCabeca` com status base e ataque básico | Concluída | `40f35eb` — `feat: implementacao do chefe mula sem cabeca com ataque basico` | `mvp-v0.4.1` | `mvn -q compile` passou; JShell confirmou atributos, ataque Coice Flamejante e dano 8 contra defesa 6 |
+| 4.1.2 — Adicionar Galope Infernal e o comportamento do chefe | Concluída | `feat: habilidade galope infernal e decisao de turno do chefe` | `mvp-v0.4.2` | `mvn -q compile` passou; JShell confirmou uso nos turnos pares enquanto há usos e retorno `false` após os dois usos |
 
 ## Histórico do bloco 3.3
 

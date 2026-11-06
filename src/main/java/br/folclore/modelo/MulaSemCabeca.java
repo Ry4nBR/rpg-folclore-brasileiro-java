@@ -1,5 +1,7 @@
 package br.folclore.modelo;
 
+import br.folclore.habilidades.HabilidadeDano;
+
 public class MulaSemCabeca extends Personagem {
     private static final int PV_BASE = 55;
     private static final int ATAQUE_BASE = 9;
@@ -8,6 +10,7 @@ public class MulaSemCabeca extends Personagem {
 
     public MulaSemCabeca() {
         super("Mula sem Cabeça", Tipo.FOGO, PV_BASE, ATAQUE_BASE, DEFESA_BASE);
+        definirHabilidade(new HabilidadeDano("Galope Infernal", 2, 10));
     }
 
     @Override
@@ -18,5 +21,10 @@ public class MulaSemCabeca extends Personagem {
     @Override
     public int atacar(Personagem alvo) {
         return alvo.receberDano(calcularDano(alvo, PODER_ATAQUE_BASICO));
+    }
+
+    @Override
+    public boolean deveUsarHabilidade(int turno) {
+        return turno % 2 == 0 && getHabilidade().temUsosRestantes();
     }
 }
