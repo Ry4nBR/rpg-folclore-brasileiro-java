@@ -93,4 +93,17 @@ public abstract class Personagem {
     public int calcularDano(Personagem alvo, int poderBase) {
         return Math.max(1, getAtaque() + poderBase - alvo.getDefesa());
     }
+
+    /**
+     * Executa o ataque básico contra o alvo e retorna o dano causado.
+     */
+    public abstract int atacar(Personagem alvo);
+
+    public abstract String getNomeAtaqueBasico();
+
+    public String resumoDeStatus() {
+        return getNome() + " (" + getTipo().getRotulo() + ") | PV "
+                + getPvAtual() + "/" + getPvMaximo()
+                + " | ATQ " + getAtaque() + " | DEF " + getDefesa();
+    }
 }

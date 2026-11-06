@@ -4,9 +4,9 @@
 
 - **Fase:** 1 — Modelagem das entidades e conceitos fundamentais de POO
 - **Bloco:** 1.1 — Personagem (Abstração e Encapsulamento)
-- **Última tarefa concluída:** 1.1.5 — Implementar `calcularDano`
+- **Última tarefa concluída:** 1.1.6 — Declarar ataques abstratos e criar resumo de status
 - **Tarefa em execução:** Nenhuma
-- **Próxima tarefa pendente:** 1.1.6 — Declarar ataques abstratos e criar resumo de status
+- **Próxima tarefa pendente:** Nenhuma dentro do Bloco 1.1
 - **Status do bloco:** Em andamento
 - **Bloqueios:** Nenhum.
 
@@ -33,7 +33,7 @@
 | 1.1.3 — Implementar `estaVivo` e `receberDano` | Concluída | `feat: metodos estaVivo e receberDano em personagem` | `mvp-v0.1.3` | `mvn -q compile` passou; JShell validou dano 10, fatal 999 (aplicado 60, PV 0 e morto) e rejeição de dano negativo |
 | 1.1.4 — Implementar `curar` e `curarPercentualDaVidaMaxima` | Concluída | `feat: metodos curar e curarPercentualDaVidaMaxima em personagem` | `mvp-v0.1.4` | `mvn -q compile` passou; JShell validou cura de 12/2 PV, saturação no máximo, rejeição de quantidade negativa e proteção contra overflow |
 | 1.1.5 — Implementar `calcularDano` | Concluída | `feat: criacao do metodo calcularDano na classe personagem` | `mvp-v0.1.5` | `mvn -q compile` passou; JShell confirmou dano 11, mínimo 1 e que o alvo não é alterado |
-| 1.1.6 — Declarar ataques abstratos e criar resumo de status | Pendente | `feat: metodos abstratos de ataque e resumo de status em personagem` | `mvp-v0.1.6` | Pendente |
+| 1.1.6 — Declarar ataques abstratos e criar resumo de status | Concluída | `feat: metodos abstratos de ataque e resumo de status em personagem` | `mvp-v0.1.6` | `mvn -q compile` passou; JShell confirmou os dois métodos abstratos e o resumo exato |
 
 ## Histórico do bloco
 
@@ -58,3 +58,6 @@
 - 1.1.4: cura percentual usa cálculo intermediário em `long`, e a cura limita soma ao PV máximo sem overflow; resultado preserva a regra de divisão inteira e valor mínimo 1.
 - 1.1.4 foi commitada e tagueada como `mvp-v0.1.4`.
 - 1.1.5: `calcularDano` aplica a fórmula D4 e somente calcula o valor; o PV do alvo permanece inalterado.
+- 1.1.5 foi commitada e tagueada como `mvp-v0.1.5`.
+- 1.1.6: `atacar(Personagem)` e `getNomeAtaqueBasico()` são abstratos; `resumoDeStatus()` usa os getters e produziu exatamente `Saci (Vento) | PV 60/60 | ATQ 10 | DEF 6`.
+- 1.1.6 foi validada; o commit e a tag individuais serão registrados antes da revisão final do bloco.
