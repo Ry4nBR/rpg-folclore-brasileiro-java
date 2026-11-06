@@ -1,7 +1,10 @@
 package br.folclore;
 
+import br.folclore.ui.JanelaPrincipal;
+import javax.swing.SwingUtilities;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("RPG do Folclore Brasileiro (MVP) - iniciando");
+        SwingUtilities.invokeLater(() -> new JanelaPrincipal().setVisible(true));
     }
 }

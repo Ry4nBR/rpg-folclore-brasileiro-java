@@ -2,12 +2,12 @@
 
 ## Estado atual
 
-- **Fase:** 4 — Implementação do chefe e confronto principal
-- **Bloco:** 4.2 — Validações por console (sem interface)
+- **Fase:** 5 — Construção das interfaces gráficas
+- **Bloco:** 5.1 — Janela, telas e botões
 - **Última tarefa concluída:** 4.2.3 — Criar `DemoBatalhaDerrota`
 - **Tarefa em execução:** Nenhuma
-- **Próxima tarefa pendente:** Fase 5 / Bloco 5.1 (aguardando autorização)
-- **Status do bloco:** Bloco 4.2 concluído; aguardando autorização para o próximo bloco
+- **Próxima tarefa pendente:** 5.1.2 — Criar `Tela`, `GerenciadorDeTelas` e o repasse de eventos
+- **Status do bloco:** Em andamento
 - **Bloqueios:** Nenhum.
 
 ## Decisões e estado Git verificado
@@ -28,6 +28,7 @@
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 3.3.
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 4.1.
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 4.2.
+- Em 06/11/2026, o usuário autorizou continuar para o Bloco 5.1.
 
 ## Registro das tarefas
 
@@ -65,6 +66,7 @@
 | 4.2.1 — Criar `DemoPilares` para demonstrar o polimorfismo | Concluída | `cd33c97` — `test: demo de console dos pilares de poo` | `mvp-v0.4.3` | `mvn -q compile exec:java -Dexec.mainClass=br.folclore.demo.DemoPilares` passou; saída mostrou as três subclasses, ataques, danos e mensagens de habilidade diferentes |
 | 4.2.2 — Criar `DemoBatalhaVitoria` | Concluída | `d3f496f` — `test: demo de batalha com vitoria dos dois herois` | `mvp-v0.4.4` | `mvn -q compile exec:java -Dexec.mainClass=br.folclore.demo.DemoBatalhaVitoria` passou; Saci venceu em 5 turnos com 18 PV e Lobisomem em 4 turnos |
 | 4.2.3 — Criar `DemoBatalhaDerrota` | Concluída | `test: demo de batalha com derrota e habilidade sem usos` | `mvp-v0.4.5` | `mvn -q compile exec:java -Dexec.mainClass=br.folclore.demo.DemoBatalhaDerrota` passou; saída imprime `DERROTA` e `Sem usos restantes de Uivo Brutal!`; a terceira ação foi recusada sem alterar o estado |
+| 5.1.1 — Criar janela principal, painel de desenho e loop | Concluída | `feat: janela principal com painel e loop de renderizacao` | `mvp-v0.5.1` | `mvn -q clean compile` passou; probe Swing via `Main` confirmou janela visível com título correto, painel 960x540, fundo preto e fechamento |
 
 ## Histórico do bloco 4.2
 
