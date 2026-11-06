@@ -1,11 +1,13 @@
 package br.folclore.ui.telas;
 
 import br.folclore.batalha.Batalha;
+import br.folclore.batalha.EstadoBatalha;
 import br.folclore.batalha.ResultadoBatalha;
 import br.folclore.modelo.Personagem;
 import br.folclore.modelo.Tipo;
 import br.folclore.ui.ConfiguracoesUi;
 import br.folclore.ui.componentes.BarraDeVida;
+import br.folclore.ui.componentes.Botao;
 import br.folclore.ui.componentes.CaixaDeMensagens;
 import java.awt.Color;
 import java.awt.Font;
@@ -30,15 +32,20 @@ public class TelaBatalha implements Tela {
     private final Consumer<ResultadoBatalha> aoEncerrar;
     private final CaixaDeMensagens caixaDeMensagens = new CaixaDeMensagens(20, 410, 480, 110);
     private final Queue<String> fila = new ArrayDeque<>();
+    private final Botao botaoAtacar;
 
     public TelaBatalha(Batalha batalha, Consumer<ResultadoBatalha> aoEncerrar) {
         this.batalha = Objects.requireNonNull(batalha, "A batalha não pode ser nula.");
         this.aoEncerrar = Objects.requireNonNull(aoEncerrar, "A ação de encerramento não pode ser nula.");
+        botaoAtacar = new Botao(520, 410, 200, 45, "Atacar", this::atacar);
+        botaoAtacar.setHabilitado(false);
         absorverMensagens();
     }
 
     @Override
     public void atualizar() {
+        botaoAtacar.setHabilitado(
+                batalha.getEstado() == EstadoBatalha.ESCOLHA_DO_JOGADOR && podeAgir());
     }
 
     @Override
@@ -54,6 +61,7 @@ public class TelaBatalha implements Tela {
 
             desenharHud(contexto, batalha.getChefe(), 40, 40, 320, 70);
             desenharHud(contexto, batalha.getJogador(), 600, 320, 320, 80);
+            botaoAtacar.desenhar(contexto);
             caixaDeMensagens.desenhar(contexto);
         } finally {
             contexto.dispose();
@@ -110,11 +118,16 @@ public class TelaBatalha implements Tela {
 
     @Override
     public void aoClicar(int x, int y) {
-        avancarMensagem();
+        if (podeAgir()) {
+            botaoAtacar.clicar(x, y);
+        } else {
+            avancarMensagem();
+        }
     }
 
     @Override
     public void aoMoverMouse(int x, int y) {
+        botaoAtacar.atualizarHover(x, y);
     }
 
     @Override
@@ -143,5 +156,11 @@ public class TelaBatalha implements Tela {
 
     private boolean podeAgir() {
         return fila.isEmpty();
+    }
+
+    private void atacar() {
+        batalha.acaoAtacar();
+        absorverMensagens();
+        atualizar();
     }
 }

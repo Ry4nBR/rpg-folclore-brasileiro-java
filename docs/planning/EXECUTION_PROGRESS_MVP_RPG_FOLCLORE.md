@@ -4,9 +4,9 @@
 
 - **Fase:** 6 — Integração do combate
 - **Bloco:** 6.2 — Ações do jogador
-- **Última tarefa concluída:** 6.2.1 — Exibir as mensagens da batalha em fila
+- **Última tarefa concluída:** 6.2.2 — Criar o botão Atacar e ligá-lo à batalha
 - **Tarefa em execução:** Nenhuma
-- **Próxima tarefa pendente:** 6.2.2 — Criar o botão Atacar e ligá-lo à batalha
+- **Próxima tarefa pendente:** 6.2.3 — Criar o botão Habilidade e ligá-lo à batalha
 - **Status do bloco:** Bloco 6.2 em execução; demais tarefas da Fase 6 autorizadas
 - **Bloqueios:** Nenhum.
 
@@ -84,7 +84,8 @@
 | 5.4.3 — Desenhar o layout da `TelaBatalha` | Concluída | `134e541` — `feat: layout base da tela de batalha` | `mvp-v0.5.10` | `mvn -q clean compile` passou; probe confirmou degradê, combatentes coloridos, HUDs com PV cheio e nenhuma alteração ao estado da batalha |
 | 5.5.1 — Criar a `TelaResultado` | Concluída | `a318ef2` — `feat: tela de resultado com vitoria e derrota` | `mvp-v0.5.11` | `mvn -q clean compile` passou; probe confirmou títulos coloridos, retry apenas na derrota e callbacks de menu/reinício |
 | 6.1.1 — Abrir a `TelaBatalha` ao confirmar o personagem | Concluída | `09c3594` — `feat: abertura da batalha a partir da selecao de personagem` | `mvp-v0.6.1` | Saci e Lobisomem abrem a batalha com personagem correto e PV cheio |
-| 6.2.1 — Exibir as mensagens da batalha em fila | Concluída | `feat: fila de mensagens de combate na tela de batalha` | `mvp-v0.6.2` | `mvn -q clean compile`, probe da abertura e avanço por ENTER, ESPAÇO e clique, `git diff --check` |
+| 6.2.1 — Exibir as mensagens da batalha em fila | Concluída | `638fe63` — `feat: fila de mensagens de combate na tela de batalha` | `mvp-v0.6.2` | `mvn -q clean compile`, probe da abertura e avanço por ENTER, ESPAÇO e clique, `git diff --check` |
+| 6.2.2 — Criar o botão Atacar e ligá-lo à batalha | Concluída | `feat: botao atacar na tela de batalha` | `mvp-v0.6.3` | `mvn -q clean compile`; clique reduz PV do chefe, atualiza estado e desabilita o botão até o fim da fila; `git diff --check` |
 
 ## Histórico do bloco 6.1
 
