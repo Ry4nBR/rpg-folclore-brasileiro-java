@@ -4,9 +4,9 @@
 
 - **Fase:** 3 — Implementação dos dois personagens jogáveis
 - **Bloco:** 3.2 — Lobisomem
-- **Última tarefa concluída:** 3.1.2 — Adicionar a habilidade Ventos Revigorantes ao Saci
-- **Tarefa em execução:** 3.2.1 — Criar a classe `Lobisomem` com status base e ataque básico
-- **Próxima tarefa pendente:** 3.2.2 — Adicionar a habilidade Uivo Brutal ao Lobisomem
+- **Última tarefa concluída:** 3.2.2 — Adicionar a habilidade Uivo Brutal ao Lobisomem
+- **Tarefa em execução:** Nenhuma
+- **Próxima tarefa pendente:** 3.3.1 — Criar `CatalogoDeHerois` (aguarda autorização explícita)
 - **Status do bloco:** Em andamento
 - **Bloqueios:** Nenhum.
 
@@ -54,8 +54,8 @@
 | 2.3.3 — Criar `ResultadoBatalha` e consulta de fim de combate | Concluída | `d0e5c96` — `feat: resultado de batalha e consulta de encerramento` | `mvp-v0.2.7` | `mvn -q compile` passou; JShell confirmou estado em andamento, vitória e derrota |
 | 3.1.1 — Criar a classe `Saci` com status base e ataque básico | Concluída | `7590b7e` — `feat: implementacao do personagem saci com ataque basico` | `mvp-v0.3.1` | `mvn -q compile` passou; JShell confirmou resumo, ataque e dano de 10 contra defesa 6 |
 | 3.1.2 — Adicionar a habilidade Ventos Revigorantes ao Saci | Concluída | `0a91078` — `feat: habilidade ventos revigorantes do saci` | `mvp-v0.3.2` | `mvn -q compile` passou; JShell confirmou cura de 12 PV (40→52), três usos consumidos e falha no uso seguinte |
-| 3.2.1 — Criar a classe `Lobisomem` com status base e ataque básico | Concluída | `feat: implementacao do personagem lobisomem com ataque basico` | `mvp-v0.3.3` | `mvn -q compile` passou; JShell confirmou resumo, ataque e dano 14 contra defesa 5 |
-| 3.2.2 — Adicionar a habilidade Uivo Brutal ao Lobisomem | Pendente | `feat: habilidade uivo brutal do lobisomem` | `mvp-v0.3.4` | Pendente |
+| 3.2.1 — Criar a classe `Lobisomem` com status base e ataque básico | Concluída | `d07c905` — `feat: implementacao do personagem lobisomem com ataque basico` | `mvp-v0.3.3` | `mvn -q compile` passou; JShell confirmou resumo, ataque e dano 14 contra defesa 5 |
+| 3.2.2 — Adicionar a habilidade Uivo Brutal ao Lobisomem | Concluída | `feat: habilidade uivo brutal do lobisomem` | `mvp-v0.3.4` | `mvn -q compile` passou; JShell confirmou dano 19, dois usos e falha na terceira tentativa |
 
 ## Histórico do bloco 3.1
 
