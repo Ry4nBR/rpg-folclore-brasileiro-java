@@ -6,9 +6,9 @@
 - **Bloco:** 1.2 — Habilidades (Polimorfismo)
 - **Última tarefa concluída:** 1.2.5 — Vincular uma habilidade ao `Personagem`
 - **Tarefa em execução:** Nenhuma
-- **Próxima tarefa pendente:** Nenhuma dentro do Bloco 1.2
-- **Status do bloco:** Em andamento
-- **Bloqueios:** Nenhum.
+- **Próxima tarefa pendente:** 2.1.1 — Criar o enum `EstadoBatalha` (aguarda autorização para a Fase 2 / Bloco 2.1)
+- **Status do bloco:** Concluído
+- **Bloqueios:** O próximo bloco depende de autorização explícita.
 
 ## Decisões e estado Git verificado
 
@@ -35,11 +35,11 @@
 | 1.1.4 — Implementar `curar` e `curarPercentualDaVidaMaxima` | Concluída | `933e9fb` — `feat: metodos curar e curarPercentualDaVidaMaxima em personagem` | `mvp-v0.1.4` | `mvn -q compile` passou; JShell validou cura de 12/2 PV, saturação no máximo, rejeição de quantidade negativa e proteção contra overflow |
 | 1.1.5 — Implementar `calcularDano` | Concluída | `7b32921` — `feat: criacao do metodo calcularDano na classe personagem` | `mvp-v0.1.5` | `mvn -q compile` passou; JShell confirmou dano 11, mínimo 1 e que o alvo não é alterado |
 | 1.1.6 — Declarar ataques abstratos e criar resumo de status | Concluída | `ec72b3a` — `feat: metodos abstratos de ataque e resumo de status em personagem` | `mvp-v0.1.6` | `mvn -q compile` passou; JShell confirmou os dois métodos abstratos e o resumo exato |
-| 1.2.1 — Criar `ResultadoAcao` e a interface `Habilidade` | Concluída | `feat: criacao de resultadoAcao e da interface habilidade` | `mvp-v0.1.7` | `mvn -q compile` passou; JShell confirmou criação, getters, campos finais e ausência de setters |
-| 1.2.2 — Criar `HabilidadeBase` com controle de usos | Concluída | `feat: classe abstrata habilidadeBase com controle de usos` | `mvp-v0.1.8` | `mvn -q compile` passou; JShell validou contador, consumo até zero, exceção ao exceder e rejeição de usos não positivos |
-| 1.2.3 — Implementar `HabilidadeDano` | Concluída | `feat: implementacao da habilidade de dano` | `mvp-v0.1.9` | `mvn -q compile` passou; JShell validou dois danos, usos consumidos, mensagem e terceira falha sem alterar o alvo |
-| 1.2.4 — Implementar `HabilidadeCura` | Concluída | `feat: implementacao da habilidade de cura` | `mvp-v0.1.10` | `mvn -q compile` passou; JShell validou cura de 12 PV saindo de 40, cura efetiva de 2 saindo de 58, alvo ignorado e falha sem usos |
-| 1.2.5 — Vincular uma habilidade ao `Personagem` | Concluída | `feat: habilidade vinculada ao personagem com metodo usarHabilidade` | `mvp-v0.1.11` | `mvn -q compile` passou; JShell validou execução via `usarHabilidade`, habilidade privada, rejeição de nulo e erro sem habilidade |
+| 1.2.1 — Criar `ResultadoAcao` e a interface `Habilidade` | Concluída | `d0be221` — `feat: criacao de resultadoAcao e da interface habilidade` | `mvp-v0.1.7` | `mvn -q compile` passou; JShell confirmou criação, getters, campos finais e ausência de setters |
+| 1.2.2 — Criar `HabilidadeBase` com controle de usos | Concluída | `ae67467` — `feat: classe abstrata habilidadeBase com controle de usos` | `mvp-v0.1.8` | `mvn -q compile` passou; JShell validou contador, consumo até zero, exceção ao exceder e rejeição de usos não positivos |
+| 1.2.3 — Implementar `HabilidadeDano` | Concluída | `b12e478` — `feat: implementacao da habilidade de dano` | `mvp-v0.1.9` | `mvn -q compile` passou; JShell validou dois danos, usos consumidos, mensagem e terceira falha sem alterar o alvo |
+| 1.2.4 — Implementar `HabilidadeCura` | Concluída | `36f6672` — `feat: implementacao da habilidade de cura` | `mvp-v0.1.10` | `mvn -q compile` passou; JShell validou cura de 12 PV saindo de 40, cura efetiva de 2 saindo de 58, alvo ignorado e falha sem usos |
+| 1.2.5 — Vincular uma habilidade ao `Personagem` | Concluída | `b70026e` — `feat: habilidade vinculada ao personagem com metodo usarHabilidade` | `mvp-v0.1.11` | `mvn -q compile` passou; JShell validou execução via `usarHabilidade`, habilidade privada, rejeição de nulo e erro sem habilidade |
 
 ## Histórico do bloco
 
@@ -55,7 +55,7 @@
 - 0.2.1: README atualizado com descrição, aviso de idioma, JDK 17, Maven 3.8+ e comando de execução. A seção, os requisitos e o comando foram conferidos; JDK Temurin 17.0.21 e Maven 3.9.9 portáteis (checksums oficiais conferidos) executaram `java -version`, `mvn -version` e `mvn -q compile exec:java` com saída esperada. O usuário autorizou explicitamente substituir a execução na máquina do Guilherme pela validação local.
 - 0.2.1 foi commitada em `0b56689` e recebeu a tag anotada `mvp-v0.0.4`; não foi feito push.
 - O Bloco 1.1 foi autorizado em 06/11/2026 e executado sem avançar para o Bloco 1.2.
-- Ferramentas de build não estão instaladas globalmente; para este bloco estão sendo usadas distribuições portáteis JDK 17 e Maven 3.9.9, baixadas com verificação dos checksums oficiais para a pasta temporária da sessão. Remover após as validações.
+- Ferramentas de build não estão instaladas globalmente; para as validações foram usadas distribuições portáteis JDK 17 e Maven 3.9.9 com checksums oficiais conferidos. Os arquivos temporários foram removidos ao final.
 - 1.2.1: criado `ResultadoAcao` imutável com enum `Efeito`, valor e mensagem, além do contrato `Habilidade`.
 - 1.2.1 foi commitada e tagueada como `mvp-v0.1.7`.
 - 1.2.2: criado `HabilidadeBase` abstrato, com nome e limite fixos, contador inicializado e consumo protegido contra usos abaixo de zero.
@@ -65,7 +65,8 @@
 - 1.2.4: criado `HabilidadeCura`; a habilidade cura o usuário, ignora o alvo e retorna FALHA sem consumir uso quando esgotada.
 - 1.2.4 foi commitada e tagueada como `mvp-v0.1.10`.
 - 1.2.5: `Personagem` agora mantém a habilidade privada, permite definição não nula por subclasses e delega seu uso, lançando `IllegalStateException` quando não houver habilidade.
-- 1.2.5 foi validada; o commit e a tag individuais serão registrados antes da revisão final do bloco.
+- Commits e tags do Bloco 1.2: `d0be221`/`mvp-v0.1.7`, `ae67467`/`mvp-v0.1.8`, `b12e478`/`mvp-v0.1.9`, `36f6672`/`mvp-v0.1.10` e `b70026e`/`mvp-v0.1.11`. Todas as tags anotadas foram conferidas apontando para os commits das tarefas.
+- Validação geral do bloco: `mvn -q clean compile` passou. Não houve push; ferramentas e arquivos de download temporários foram removidos após as validações.
 - 1.1.1: criado `Tipo` com os valores VENTO, FISICO e FOGO e respectivos rótulos. A primeira verificação textual pelo pipe do PowerShell exibiu acento corrompido por codificação do console; a validação foi refeita em JShell por igualdade Unicode exata e passou.
 - 1.1.2: criado `Personagem` com campos privados, construtor protegido validado e getters sem setters; JShell confirmou cenário válido e rejeição de nome vazio/em branco, tipo nulo, PV não positivo e ataque/defesa negativos.
 - 1.1.2 foi commitada e tagueada como `mvp-v0.1.2`.
