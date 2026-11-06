@@ -68,13 +68,13 @@
 | 4.2.3 — Criar `DemoBatalhaDerrota` | Concluída | `test: demo de batalha com derrota e habilidade sem usos` | `mvp-v0.4.5` | `mvn -q compile exec:java -Dexec.mainClass=br.folclore.demo.DemoBatalhaDerrota` passou; saída imprime `DERROTA` e `Sem usos restantes de Uivo Brutal!`; a terceira ação foi recusada sem alterar o estado |
 | 5.1.1 — Criar janela principal, painel de desenho e loop | Concluída | `52cd8f7` — `feat: janela principal com painel e loop de renderizacao` | `mvp-v0.5.1` | `mvn -q clean compile` passou; probe Swing via `Main` confirmou janela visível com título correto, painel 960x540, fundo preto e fechamento |
 | 5.1.2 — Criar `Tela`, `GerenciadorDeTelas` e o repasse de eventos | Concluída | `e4eec44` — `feat: interface tela e gerenciador de telas com repasse de eventos` | `mvp-v0.5.2` | `mvn -q clean compile` passou; probe Swing confirmou chamadas de atualização, desenho, clique, movimento e tecla; gerenciador sem tela atual não lança erro |
-| 5.1.3 — Criar o componente `Botao` | Concluída | `feat: criacao do componente botao com hover e estado habilitado` | `mvp-v0.5.3` | `mvn -q clean compile` passou; tela temporária confirmou hover, clique habilitado e botão desabilitado em cinza que ignora clique |
+| 5.1.3 — Criar o componente `Botao` | Concluída | `559d86f` — `feat: criacao do componente botao com hover e estado habilitado` | `mvp-v0.5.3` | `mvn -q clean compile` passou; tela temporária confirmou hover, clique habilitado e botão desabilitado em cinza que ignora clique |
 
 ## Histórico do bloco 5.1
 
 - 5.1.1 foi commitada em `52cd8f7` e recebeu a tag anotada `mvp-v0.5.1`.
 - 5.1.2 foi commitada em `e4eec44` e recebeu a tag anotada `mvp-v0.5.2`.
-- 5.1.3 foi commitada com a mensagem `feat: criacao do componente botao com hover e estado habilitado` e recebeu a tag anotada `mvp-v0.5.3`.
+- 5.1.3 foi commitada em `559d86f` e recebeu a tag anotada `mvp-v0.5.3`.
 - Validação final do Bloco 5.1: `mvn -q clean compile` e `git diff --check` passaram; testes Swing confirmaram janela 960x540, renderização preta, atualização/desenho, repasse de clique/movimento/tecla e comportamento visual e funcional dos botões.
 - Arquivos criados/modificados no bloco: `src/main/java/br/folclore/Main.java`, `src/main/java/br/folclore/ui/ConfiguracoesUi.java`, `src/main/java/br/folclore/ui/JanelaPrincipal.java`, `src/main/java/br/folclore/ui/PainelDoJogo.java`, `src/main/java/br/folclore/ui/GerenciadorDeTelas.java`, `src/main/java/br/folclore/ui/telas/Tela.java` e `src/main/java/br/folclore/ui/componentes/Botao.java`.
 - Não houve push. O próximo bloco pendente é 5.2 e aguarda autorização explícita.
