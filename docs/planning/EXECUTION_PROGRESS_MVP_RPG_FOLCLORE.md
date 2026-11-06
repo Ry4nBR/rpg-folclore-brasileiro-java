@@ -3,12 +3,12 @@
 ## Estado atual
 
 - **Fase:** 1 — Modelagem das entidades e conceitos fundamentais de POO
-- **Bloco:** 1.1 — Personagem (Abstração e Encapsulamento)
-- **Última tarefa concluída:** 1.1.6 — Declarar ataques abstratos e criar resumo de status
+- **Bloco:** 1.2 — Habilidades (Polimorfismo)
+- **Última tarefa concluída:** 1.2.1 — Criar `ResultadoAcao` e a interface `Habilidade`
 - **Tarefa em execução:** Nenhuma
-- **Próxima tarefa pendente:** 1.2.1 — Criar `ResultadoAcao` e a interface `Habilidade` (aguarda autorização para o Bloco 1.2)
-- **Status do bloco:** Concluído
-- **Bloqueios:** O próximo bloco depende de autorização explícita.
+- **Próxima tarefa pendente:** 1.2.2 — Criar `HabilidadeBase` com controle de usos
+- **Status do bloco:** Em andamento
+- **Bloqueios:** Nenhum.
 
 ## Decisões e estado Git verificado
 
@@ -19,6 +19,7 @@
 - Autorização explícita do usuário: executar tarefas na `mvp/prototipo`, sem PRs ou branches de tarefa, apenas commits e tags. Não fazer push.
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 0.2.
 - Em 06/11/2026, o usuário autorizou continuar para a Fase 1 / Bloco 1.1 e confirmou que executará sozinho na própria máquina; tarefas atribuídas a Guilherme podem ser tratadas localmente conforme essa autorização.
+- Em 06/11/2026, o usuário autorizou continuar para o Bloco 1.2.
 
 ## Registro das tarefas
 
@@ -34,6 +35,11 @@
 | 1.1.4 — Implementar `curar` e `curarPercentualDaVidaMaxima` | Concluída | `933e9fb` — `feat: metodos curar e curarPercentualDaVidaMaxima em personagem` | `mvp-v0.1.4` | `mvn -q compile` passou; JShell validou cura de 12/2 PV, saturação no máximo, rejeição de quantidade negativa e proteção contra overflow |
 | 1.1.5 — Implementar `calcularDano` | Concluída | `7b32921` — `feat: criacao do metodo calcularDano na classe personagem` | `mvp-v0.1.5` | `mvn -q compile` passou; JShell confirmou dano 11, mínimo 1 e que o alvo não é alterado |
 | 1.1.6 — Declarar ataques abstratos e criar resumo de status | Concluída | `ec72b3a` — `feat: metodos abstratos de ataque e resumo de status em personagem` | `mvp-v0.1.6` | `mvn -q compile` passou; JShell confirmou os dois métodos abstratos e o resumo exato |
+| 1.2.1 — Criar `ResultadoAcao` e a interface `Habilidade` | Concluída | `feat: criacao de resultadoAcao e da interface habilidade` | `mvp-v0.1.7` | `mvn -q compile` passou; JShell confirmou criação, getters, campos finais e ausência de setters |
+| 1.2.2 — Criar `HabilidadeBase` com controle de usos | Pendente | `feat: classe abstrata habilidadeBase com controle de usos` | `mvp-v0.1.8` | Pendente |
+| 1.2.3 — Implementar `HabilidadeDano` | Pendente | `feat: implementacao da habilidade de dano` | `mvp-v0.1.9` | Pendente |
+| 1.2.4 — Implementar `HabilidadeCura` | Pendente | `feat: implementacao da habilidade de cura` | `mvp-v0.1.10` | Pendente |
+| 1.2.5 — Vincular uma habilidade ao `Personagem` | Pendente | `feat: habilidade vinculada ao personagem com metodo usarHabilidade` | `mvp-v0.1.11` | Pendente |
 
 ## Histórico do bloco
 
@@ -50,6 +56,7 @@
 - 0.2.1 foi commitada em `0b56689` e recebeu a tag anotada `mvp-v0.0.4`; não foi feito push.
 - O Bloco 1.1 foi autorizado em 06/11/2026 e executado sem avançar para o Bloco 1.2.
 - Ferramentas de build não estão instaladas globalmente; para este bloco estão sendo usadas distribuições portáteis JDK 17 e Maven 3.9.9, baixadas com verificação dos checksums oficiais para a pasta temporária da sessão. Remover após as validações.
+- 1.2.1: criado `ResultadoAcao` imutável com enum `Efeito`, valor e mensagem, além do contrato `Habilidade`.
 - 1.1.1: criado `Tipo` com os valores VENTO, FISICO e FOGO e respectivos rótulos. A primeira verificação textual pelo pipe do PowerShell exibiu acento corrompido por codificação do console; a validação foi refeita em JShell por igualdade Unicode exata e passou.
 - 1.1.2: criado `Personagem` com campos privados, construtor protegido validado e getters sem setters; JShell confirmou cenário válido e rejeição de nome vazio/em branco, tipo nulo, PV não positivo e ataque/defesa negativos.
 - 1.1.2 foi commitada e tagueada como `mvp-v0.1.2`.
