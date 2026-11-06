@@ -2,6 +2,7 @@ package br.folclore.ui;
 
 import br.folclore.batalha.Batalha;
 import br.folclore.batalha.ResultadoBatalha;
+import br.folclore.modelo.CatalogoDeHerois;
 import br.folclore.modelo.Personagem;
 import br.folclore.progressao.SessaoMvp;
 import br.folclore.ui.telas.TelaBatalha;
@@ -13,6 +14,7 @@ import javax.swing.JFrame;
 public class JanelaPrincipal extends JFrame {
     private final GerenciadorDeTelas gerenciadorDeTelas = new GerenciadorDeTelas();
     private final SessaoMvp sessao = new SessaoMvp();
+    private String escolhidoNome;
 
     public JanelaPrincipal() {
         super(ConfiguracoesUi.TITULO);
@@ -36,6 +38,7 @@ public class JanelaPrincipal extends JFrame {
     }
 
     private void abrirBatalha(Personagem escolhido) {
+        escolhidoNome = escolhido.getNome();
         Batalha batalha = sessao.criarBatalha(escolhido);
         gerenciadorDeTelas.trocarPara(new TelaBatalha(batalha, this::aoFimDaBatalha));
     }
@@ -46,7 +49,16 @@ public class JanelaPrincipal extends JFrame {
                 resultado == ResultadoBatalha.VITORIA,
                 sessao.isGinasioConcluido(),
                 this::abrirMenu,
-                this::abrirSelecao));
+                this::tentarNovamente));
+    }
+
+    private void tentarNovamente() {
+        Personagem escolhido = CatalogoDeHerois.criarTodos().stream()
+                .filter(personagem -> personagem.getNome().equals(escolhidoNome))
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException(
+                        "O personagem escolhido não está disponível para uma nova tentativa."));
+        abrirBatalha(escolhido);
     }
 
 }
