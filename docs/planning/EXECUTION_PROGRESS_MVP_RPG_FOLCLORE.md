@@ -3,11 +3,11 @@
 ## Estado atual
 
 - **Fase:** 8 — Testes, correções, validação e finalização do MVP
-- **Bloco:** 8.1 — Documentação técnica
-- **Última tarefa concluída:** 8.1.2 — Documentar os quatro pilares da POO no MVP
+- **Bloco:** 8.2 — Validação funcional
+- **Última tarefa concluída:** 8.2.1 — Criar e executar o checklist de validação
 - **Tarefa em execução:** Nenhuma
-- **Próxima tarefa pendente:** Fase 8 / Bloco 8.2 — Validação funcional (autorizado)
-- **Status do bloco:** Bloco 8.1 em execução; demais blocos da Fase 8 autorizados
+- **Próxima tarefa pendente:** Fase 8 / Bloco 8.3 / Tarefa 8.3.1 — Gerar o JAR executável (autorizado)
+- **Status do bloco:** Bloco 8.2 concluído; demais blocos da Fase 8 autorizados
 - **Bloqueios:** Nenhum na Fase 7. Observação herdada: o cenário de derrota prescrito na tarefa 6.3.2 não ocorre naturalmente com o balanceamento atual; detalhes no histórico da Fase 6.
 
 ## Decisões e estado Git verificado
@@ -17,6 +17,7 @@
 - Tags `v0.*` já existentes no repositório exigem o prefixo `mvp-`, conforme a seção 9.4 do planejamento. Prefixo decidido: `mvp-`.
 - A comparação inicial de `develop...mvp/prototipo` mostrou alterações amplas (incluindo remoções) além do documento de escopo previsto no aceite da tarefa 0.1.1. Divergência preservada conforme orientação do usuário; não será corrigida neste ciclo.
 - Autorização explícita do usuário: executar tarefas na `mvp/prototipo`, sem PRs ou branches de tarefa, apenas commits e tags. Não fazer push.
+- Decisão do usuário para a Fase 8: adiar os itens 21 e 23 da checklist até a tarefa 8.3.3, concluindo o fechamento local sem PR ou publicação remota.
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 0.2.
 - Em 06/11/2026, o usuário autorizou continuar para a Fase 1 / Bloco 1.1 e confirmou que executará sozinho na própria máquina; tarefas atribuídas a Guilherme podem ser tratadas localmente conforme essa autorização.
 - Em 06/11/2026, o usuário autorizou continuar para o Bloco 1.2.
@@ -96,6 +97,7 @@
 | 7.2.1 — Implementar «Tentar novamente» com personagem e chefe novos | Concluída | `8a8dbbe` — `feat: tentar novamente apos derrota com instancias novas` | `mvp-v0.7.3` | `mvn -q clean compile`; probe confirmou retry direto para batalha com novo Saci (60/60 PV, 3 usos) e nova Mula (55/55 PV); `git diff --check` |
 | 8.1.1 — Documentar os diagramas do MVP em Mermaid | Concluída | `docs: diagramas de classes estados e telas do mvp` | `mvp-v0.8.1` | Os quatro diagramas foram revisados contra as classes atuais; pré-visualização do documento abriu. O validador automático exigiu autenticação e não pôde executar validação textual. |
 | 8.1.2 — Documentar os quatro pilares da POO no MVP | Concluída | `docs: explicacao dos pilares de poo aplicados ao mvp` | `mvp-v0.8.2` | `DemoPilares` executou; os 15 links foram resolvidos, os quatro pilares referenciados e `git diff --check` passou. |
+| 8.2.1 — Criar e executar o checklist de validação | Concluída | `test: checklist de validacao funcional do mvp executada` | `mvp-v0.8.3` | Itens 1–20 e 22 validados; 21 e 23 adiados para 8.3.3 por decisão do usuário. `mvn -q clean compile`, demos, probes Swing de vitória/derrota/retry/menu/saída, fórmula, habilidades, turnos e fila passaram. |
 
 ## Histórico do bloco 6.1
 
@@ -274,3 +276,12 @@
 - Commits e tags do Bloco 1.1, respectivamente: `04e7098`/`mvp-v0.1.1`, `2b03cee`/`mvp-v0.1.2`, `757bcc6`/`mvp-v0.1.3`, `933e9fb`/`mvp-v0.1.4`, `7b32921`/`mvp-v0.1.5` e `ec72b3a`/`mvp-v0.1.6`. Todas as tags anotadas foram conferidas apontando para o commit da respectiva tarefa.
 - Validação geral do bloco: `mvn -q clean compile` passou. Worktree limpo após o commit deste relatório, conferido por `git status`. Não houve push.
 - Próximo bloco pendente: Fase 1 / Bloco 1.2. Aguardar autorização explícita.
+
+## Histórico da tarefa 8.2.1
+
+- Checklist de 23 itens executado em 06/11/2026 com JDK 17. Os itens 1–20 e 22 passaram; os itens 21 e 23 ficam pendentes até 8.3.3 conforme autorização do usuário para fechar o MVP localmente, sem PR ou push.
+- Probes Swing validaram seleção dos dois heróis, início e reinício de batalha, HUDs, fórmula de dano, habilidades/contadores, ações do chefe, fila de mensagens, vitória, derrota, nova tentativa, retorno ao menu e encerramento.
+- `mvn -q clean compile`, `mvn -q compile`, `DemoPilares`, `DemoBatalhaVitoria` e `DemoBatalhaDerrota` passaram. O JAR temporário abriu o menu sob PATH contendo apenas o JDK 17; o fluxo funcional foi exercitado com eventos Swing e será repetido com o JAR produzido por Maven em 8.3.1.
+- A busca na pasta `ui` não encontrou fórmula de dano; os quatro pilares e 15 referências a arquivos foram conferidos. HEADs de `develop` e `main` permaneceram inalterados.
+- Revisão substitutiva repetiu os itens 6, 13 e 15. Tentativas iniciais de probe com coordenada fora do cartão e comparações de texto afetadas pela codificação do terminal foram corrigidas no teste; as verificações finais passaram sem alteração de código.
+- Arquivo criado: `docs/checklist-validacao-mvp.md`. Não houve push.
