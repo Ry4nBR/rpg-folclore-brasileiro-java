@@ -5,11 +5,13 @@ import br.folclore.modelo.CatalogoDeHerois;
 import br.folclore.modelo.Personagem;
 import br.folclore.modelo.Tipo;
 import br.folclore.ui.ConfiguracoesUi;
+import br.folclore.ui.componentes.Botao;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -19,6 +21,7 @@ public class TelaSelecaoPersonagem implements Tela {
     private static final Color COR_CARTAO = new Color(36, 52, 48);
     private static final Color COR_VENTO = new Color(0, 210, 220);
     private static final Color COR_FISICO = new Color(240, 130, 45);
+    private static final Color COR_SELECAO = new Color(255, 215, 0);
     private static final int LARGURA_CARTAO = 260;
     private static final int ALTURA_CARTAO = 320;
     private static final int[] POSICOES_X = {190, 510};
@@ -27,10 +30,16 @@ public class TelaSelecaoPersonagem implements Tela {
     private final Consumer<Personagem> aoConfirmar;
     private final Runnable aoVoltar;
     private final List<Personagem> opcoes = CatalogoDeHerois.criarTodos();
+    private final Botao botaoConfirmar;
+    private final Botao botaoVoltar;
+    private int indiceSelecionado = -1;
 
     public TelaSelecaoPersonagem(Consumer<Personagem> aoConfirmar, Runnable aoVoltar) {
         this.aoConfirmar = Objects.requireNonNull(aoConfirmar, "A ação de confirmar não pode ser nula.");
         this.aoVoltar = Objects.requireNonNull(aoVoltar, "A ação de voltar não pode ser nula.");
+        botaoConfirmar = new Botao(380, 450, 200, 50, "Confirmar", this::confirmarSelecao);
+        botaoConfirmar.setHabilitado(false);
+        botaoVoltar = new Botao(40, 470, 160, 40, "Voltar", aoVoltar);
     }
 
     @Override
@@ -48,18 +57,20 @@ public class TelaSelecaoPersonagem implements Tela {
             desenharCentralizado(contexto, "Escolha seu personagem", 65);
 
             for (int indice = 0; indice < opcoes.size(); indice++) {
-                desenharCartao(contexto, opcoes.get(indice), POSICOES_X[indice]);
+                desenharCartao(contexto, opcoes.get(indice), POSICOES_X[indice], indice);
             }
+            botaoConfirmar.desenhar(contexto);
+            botaoVoltar.desenhar(contexto);
         } finally {
             contexto.dispose();
         }
     }
 
-    private void desenharCartao(Graphics2D graphics, Personagem personagem, int x) {
+    private void desenharCartao(Graphics2D graphics, Personagem personagem, int x, int indice) {
         graphics.setColor(COR_CARTAO);
         graphics.fillRoundRect(x, POSICAO_Y, LARGURA_CARTAO, ALTURA_CARTAO, 18, 18);
-        graphics.setStroke(new BasicStroke(2));
-        graphics.setColor(Color.WHITE);
+        graphics.setStroke(new BasicStroke(indice == indiceSelecionado ? 4 : 2));
+        graphics.setColor(indice == indiceSelecionado ? COR_SELECAO : Color.WHITE);
         graphics.drawRoundRect(x, POSICAO_Y, LARGURA_CARTAO, ALTURA_CARTAO, 18, 18);
 
         int figuraX = x + (LARGURA_CARTAO - 120) / 2;
@@ -105,13 +116,49 @@ public class TelaSelecaoPersonagem implements Tela {
 
     @Override
     public void aoClicar(int x, int y) {
+        for (int indice = 0; indice < opcoes.size(); indice++) {
+            if (contemNoCartao(indice, x, y)) {
+                selecionar(indice);
+                break;
+            }
+        }
+        botaoConfirmar.clicar(x, y);
+        botaoVoltar.clicar(x, y);
     }
 
     @Override
     public void aoMoverMouse(int x, int y) {
+        botaoConfirmar.atualizarHover(x, y);
+        botaoVoltar.atualizarHover(x, y);
     }
 
     @Override
     public void aoPressionarTecla(int codigo) {
+        if (codigo == KeyEvent.VK_LEFT) {
+            selecionar(indiceSelecionado <= 0 ? opcoes.size() - 1 : indiceSelecionado - 1);
+        } else if (codigo == KeyEvent.VK_RIGHT) {
+            selecionar(indiceSelecionado < 0 || indiceSelecionado == opcoes.size() - 1
+                    ? 0 : indiceSelecionado + 1);
+        } else if (codigo == KeyEvent.VK_ENTER) {
+            confirmarSelecao();
+        } else if (codigo == KeyEvent.VK_ESCAPE) {
+            aoVoltar.run();
+        }
+    }
+
+    private boolean contemNoCartao(int indice, int x, int y) {
+        return x >= POSICOES_X[indice] && x < POSICOES_X[indice] + LARGURA_CARTAO
+                && y >= POSICAO_Y && y < POSICAO_Y + ALTURA_CARTAO;
+    }
+
+    private void selecionar(int indice) {
+        indiceSelecionado = indice;
+        botaoConfirmar.setHabilitado(true);
+    }
+
+    private void confirmarSelecao() {
+        if (indiceSelecionado >= 0) {
+            aoConfirmar.accept(opcoes.get(indiceSelecionado));
+        }
     }
 }

@@ -4,9 +4,10 @@
 
 - **Fase:** 5 — Construção das interfaces gráficas
 - **Bloco:** 5.3 — Seleção de personagem
-- **Última tarefa concluída:** 5.2.1 — Criar a `TelaInicial` com Jogar e Sair
+- **Última tarefa concluída:** 5.3.1 — Desenhar o layout da `TelaSelecaoPersonagem`
+- **Última tarefa concluída:** 5.3.2 — Programar seleção, Confirmar e Voltar
 - **Tarefa em execução:** Nenhuma
-- **Próxima tarefa pendente:** 5.3.2 — Programar seleção, Confirmar e Voltar
+- **Próxima tarefa pendente:** 5.3.3 — Ligar o menu à seleção de personagem
 - **Status do bloco:** Em andamento
 - **Bloqueios:** Nenhum.
 
@@ -72,7 +73,8 @@
 | 5.1.2 — Criar `Tela`, `GerenciadorDeTelas` e o repasse de eventos | Concluída | `e4eec44` — `feat: interface tela e gerenciador de telas com repasse de eventos` | `mvp-v0.5.2` | `mvn -q clean compile` passou; probe Swing confirmou chamadas de atualização, desenho, clique, movimento e tecla; gerenciador sem tela atual não lança erro |
 | 5.1.3 — Criar o componente `Botao` | Concluída | `559d86f` — `feat: criacao do componente botao com hover e estado habilitado` | `mvp-v0.5.3` | `mvn -q clean compile` passou; tela temporária confirmou hover, clique habilitado e botão desabilitado em cinza que ignora clique |
 | 5.2.1 — Criar `TelaInicial` com Jogar e Sair | Concluída | `77fc9a9` — `feat: tela inicial com botoes jogar e sair` | `mvp-v0.5.4` | `mvn -q clean compile` passou; probe confirmou fundo, hover, clique em Jogar, ENTER e encerramento com código 0 ao acionar Sair |
-| 5.3.1 — Desenhar o layout da `TelaSelecaoPersonagem` | Concluída | `feat: layout da tela de selecao de personagem` | `mvp-v0.5.5` | `mvn -q clean compile` passou; probe confirmou cartões com atributos D2, habilidades/usos D3 e figuras ciano/laranja |
+| 5.3.1 — Desenhar o layout da `TelaSelecaoPersonagem` | Concluída | `f2cd2c6` — `feat: layout da tela de selecao de personagem` | `mvp-v0.5.5` | `mvn -q clean compile` passou; probe confirmou cartões com atributos D2, habilidades/usos D3 e figuras ciano/laranja |
+| 5.3.2 — Programar seleção, Confirmar e Voltar | Concluída | `feat: selecao confirmacao e retorno na tela de personagem` | `mvp-v0.5.6` | `mvn -q clean compile` passou; probe confirmou confirmação bloqueada sem seleção, escolha e confirmação correta por mouse/setas/ENTER, borda amarela, hover e retorno por ESC/botão |
 
 ## Histórico do bloco 5.2
 
