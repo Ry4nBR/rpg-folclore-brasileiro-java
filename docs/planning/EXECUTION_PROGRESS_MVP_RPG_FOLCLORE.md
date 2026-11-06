@@ -70,11 +70,11 @@
 | 5.1.1 — Criar janela principal, painel de desenho e loop | Concluída | `52cd8f7` — `feat: janela principal com painel e loop de renderizacao` | `mvp-v0.5.1` | `mvn -q clean compile` passou; probe Swing via `Main` confirmou janela visível com título correto, painel 960x540, fundo preto e fechamento |
 | 5.1.2 — Criar `Tela`, `GerenciadorDeTelas` e o repasse de eventos | Concluída | `e4eec44` — `feat: interface tela e gerenciador de telas com repasse de eventos` | `mvp-v0.5.2` | `mvn -q clean compile` passou; probe Swing confirmou chamadas de atualização, desenho, clique, movimento e tecla; gerenciador sem tela atual não lança erro |
 | 5.1.3 — Criar o componente `Botao` | Concluída | `559d86f` — `feat: criacao do componente botao com hover e estado habilitado` | `mvp-v0.5.3` | `mvn -q clean compile` passou; tela temporária confirmou hover, clique habilitado e botão desabilitado em cinza que ignora clique |
-| 5.2.1 — Criar `TelaInicial` com Jogar e Sair | Concluída | `feat: tela inicial com botoes jogar e sair` | `mvp-v0.5.4` | `mvn -q clean compile` passou; probe confirmou fundo, hover, clique em Jogar, ENTER e encerramento com código 0 ao acionar Sair |
+| 5.2.1 — Criar `TelaInicial` com Jogar e Sair | Concluída | `77fc9a9` — `feat: tela inicial com botoes jogar e sair` | `mvp-v0.5.4` | `mvn -q clean compile` passou; probe confirmou fundo, hover, clique em Jogar, ENTER e encerramento com código 0 ao acionar Sair |
 
 ## Histórico do bloco 5.2
 
-- 5.2.1 foi commitada com a mensagem `feat: tela inicial com botoes jogar e sair` e recebeu a tag anotada `mvp-v0.5.4`.
+- 5.2.1 foi commitada em `77fc9a9` e recebeu a tag anotada `mvp-v0.5.4`.
 - Validação final do Bloco 5.2: `mvn -q clean compile` e `git diff --check` passaram; testes Swing confirmaram o fundo verde-escuro, destaque de hover, ação de Jogar por clique e ENTER e encerramento limpo ao clicar em Sair.
 - Arquivos criados/modificados no bloco: `src/main/java/br/folclore/ui/telas/TelaInicial.java` e `src/main/java/br/folclore/ui/JanelaPrincipal.java`.
 - Não houve push. O próximo bloco pendente é 5.3 e aguarda autorização explícita.
