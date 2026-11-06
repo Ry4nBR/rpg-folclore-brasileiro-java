@@ -4,9 +4,9 @@
 
 - **Fase:** 1 — Modelagem das entidades e conceitos fundamentais de POO
 - **Bloco:** 1.2 — Habilidades (Polimorfismo)
-- **Última tarefa concluída:** 1.2.2 — Criar `HabilidadeBase` com controle de usos
+- **Última tarefa concluída:** 1.2.3 — Implementar `HabilidadeDano`
 - **Tarefa em execução:** Nenhuma
-- **Próxima tarefa pendente:** 1.2.3 — Implementar `HabilidadeDano`
+- **Próxima tarefa pendente:** 1.2.4 — Implementar `HabilidadeCura`
 - **Status do bloco:** Em andamento
 - **Bloqueios:** Nenhum.
 
@@ -37,7 +37,7 @@
 | 1.1.6 — Declarar ataques abstratos e criar resumo de status | Concluída | `ec72b3a` — `feat: metodos abstratos de ataque e resumo de status em personagem` | `mvp-v0.1.6` | `mvn -q compile` passou; JShell confirmou os dois métodos abstratos e o resumo exato |
 | 1.2.1 — Criar `ResultadoAcao` e a interface `Habilidade` | Concluída | `feat: criacao de resultadoAcao e da interface habilidade` | `mvp-v0.1.7` | `mvn -q compile` passou; JShell confirmou criação, getters, campos finais e ausência de setters |
 | 1.2.2 — Criar `HabilidadeBase` com controle de usos | Concluída | `feat: classe abstrata habilidadeBase com controle de usos` | `mvp-v0.1.8` | `mvn -q compile` passou; JShell validou contador, consumo até zero, exceção ao exceder e rejeição de usos não positivos |
-| 1.2.3 — Implementar `HabilidadeDano` | Pendente | `feat: implementacao da habilidade de dano` | `mvp-v0.1.9` | Pendente |
+| 1.2.3 — Implementar `HabilidadeDano` | Concluída | `feat: implementacao da habilidade de dano` | `mvp-v0.1.9` | `mvn -q compile` passou; JShell validou dois danos, usos consumidos, mensagem e terceira falha sem alterar o alvo |
 | 1.2.4 — Implementar `HabilidadeCura` | Pendente | `feat: implementacao da habilidade de cura` | `mvp-v0.1.10` | Pendente |
 | 1.2.5 — Vincular uma habilidade ao `Personagem` | Pendente | `feat: habilidade vinculada ao personagem com metodo usarHabilidade` | `mvp-v0.1.11` | Pendente |
 
@@ -59,6 +59,8 @@
 - 1.2.1: criado `ResultadoAcao` imutável com enum `Efeito`, valor e mensagem, além do contrato `Habilidade`.
 - 1.2.1 foi commitada e tagueada como `mvp-v0.1.7`.
 - 1.2.2: criado `HabilidadeBase` abstrato, com nome e limite fixos, contador inicializado e consumo protegido contra usos abaixo de zero.
+- 1.2.2 foi commitada e tagueada como `mvp-v0.1.8`.
+- 1.2.3: criado `HabilidadeDano`; execução sem usos retorna FALHA com valor zero e não altera PV nem contador.
 - 1.1.1: criado `Tipo` com os valores VENTO, FISICO e FOGO e respectivos rótulos. A primeira verificação textual pelo pipe do PowerShell exibiu acento corrompido por codificação do console; a validação foi refeita em JShell por igualdade Unicode exata e passou.
 - 1.1.2: criado `Personagem` com campos privados, construtor protegido validado e getters sem setters; JShell confirmou cenário válido e rejeição de nome vazio/em branco, tipo nulo, PV não positivo e ataque/defesa negativos.
 - 1.1.2 foi commitada e tagueada como `mvp-v0.1.2`.
