@@ -4,11 +4,11 @@
 
 - **Fase:** 4 — Implementação do chefe e confronto principal
 - **Bloco:** 4.1 — Mula sem Cabeça
-- **Última tarefa concluída:** 4.1.1 — Criar `MulaSemCabeca` com status base e ataque básico
-- **Tarefa em execução:** 4.1.2 — Adicionar Galope Infernal e o comportamento do chefe
-- **Próxima tarefa pendente:** Nenhuma neste bloco
-- **Status do bloco:** Em andamento
-- **Bloqueios:** Nenhum.
+- **Última tarefa concluída:** 4.1.2 — Adicionar Galope Infernal e o comportamento do chefe
+- **Tarefa em execução:** Nenhuma
+- **Próxima tarefa pendente:** 4.2.1 — Criar `DemoPilares` para demonstrar o polimorfismo (aguarda autorização explícita)
+- **Status do bloco:** Concluído
+- **Bloqueios:** O Bloco 4.2 depende de autorização explícita.
 
 ## Decisões e estado Git verificado
 
@@ -60,7 +60,15 @@
 | 3.2.2 — Adicionar a habilidade Uivo Brutal ao Lobisomem | Concluída | `1dcea68` — `feat: habilidade uivo brutal do lobisomem` | `mvp-v0.3.4` | `mvn -q compile` passou; JShell confirmou dano 19, dois usos e falha na terceira tentativa |
 | 3.3.1 — Criar `CatalogoDeHerois` | Concluída | `9e23d6e` — `feat: catalogo dos herois jogaveis` | `mvp-v0.3.5` | `mvn -q compile` e `mvn -q clean compile` passaram; JShell confirmou dois itens na ordem Saci/Lobisomem, instâncias independentes, PV cheio e usos restaurados |
 | 4.1.1 — Criar `MulaSemCabeca` com status base e ataque básico | Concluída | `40f35eb` — `feat: implementacao do chefe mula sem cabeca com ataque basico` | `mvp-v0.4.1` | `mvn -q compile` passou; JShell confirmou atributos, ataque Coice Flamejante e dano 8 contra defesa 6 |
-| 4.1.2 — Adicionar Galope Infernal e o comportamento do chefe | Concluída | `feat: habilidade galope infernal e decisao de turno do chefe` | `mvp-v0.4.2` | `mvn -q compile` passou; JShell confirmou uso nos turnos pares enquanto há usos e retorno `false` após os dois usos |
+| 4.1.2 — Adicionar Galope Infernal e o comportamento do chefe | Concluída | `8f40986` — `feat: habilidade galope infernal e decisao de turno do chefe` | `mvp-v0.4.2` | `mvn -q compile` e `mvn -q clean compile` passaram; JShell confirmou uso nos turnos pares enquanto há usos e retorno `false` após os dois usos |
+
+## Histórico do bloco 4.1
+
+- 4.1.1 foi commitada em `40f35eb` e recebeu a tag anotada `mvp-v0.4.1`.
+- 4.1.2 foi commitada em `8f40986` e recebeu a tag anotada `mvp-v0.4.2`.
+- Validação final do Bloco 4.1: `mvn -q clean compile` e `git diff --check` passaram; as duas tags anotadas foram conferidas apontando para os commits das respectivas tarefas. JShell validou os atributos e o ataque básico do chefe, além da regra determinística e do esgotamento do Galope Infernal.
+- Arquivo de código criado/modificado: `src/main/java/br/folclore/modelo/MulaSemCabeca.java`.
+- Não houve push. O próximo bloco pendente é 4.2 e aguarda autorização explícita.
 
 ## Histórico do bloco 3.3
 
