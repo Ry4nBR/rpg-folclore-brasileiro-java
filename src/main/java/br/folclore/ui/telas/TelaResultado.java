@@ -14,11 +14,14 @@ public class TelaResultado implements Tela {
     private static final Color COR_DERROTA = new Color(225, 65, 65);
 
     private final boolean vitoria;
+    private final boolean ginasioConcluido;
     private final Botao botaoMenu;
     private final Botao botaoTentarNovamente;
 
-    public TelaResultado(boolean vitoria, Runnable aoMenu, Runnable aoTentarNovamente) {
+    public TelaResultado(boolean vitoria, boolean ginasioConcluido,
+                         Runnable aoMenu, Runnable aoTentarNovamente) {
         this.vitoria = vitoria;
+        this.ginasioConcluido = ginasioConcluido;
         Objects.requireNonNull(aoMenu, "A ação de voltar ao menu não pode ser nula.");
         Objects.requireNonNull(aoTentarNovamente, "A ação de tentar novamente não pode ser nula.");
         botaoMenu = new Botao(360, 380, 240, 50, "Voltar ao menu", aoMenu);
@@ -43,9 +46,7 @@ public class TelaResultado implements Tela {
 
             contexto.setColor(Color.WHITE);
             contexto.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 22));
-            desenharCentralizado(contexto,
-                    vitoria ? "Ginásio do Fogo concluído!" : "Você foi derrotado. Tente novamente!",
-                    255);
+            desenharCentralizado(contexto, textoDoResultado(), 255);
 
             if (botaoTentarNovamente != null) {
                 botaoTentarNovamente.desenhar(contexto);
@@ -54,6 +55,13 @@ public class TelaResultado implements Tela {
         } finally {
             contexto.dispose();
         }
+    }
+
+    private String textoDoResultado() {
+        if (vitoria && ginasioConcluido) {
+            return "Ginásio do Fogo concluído!";
+        }
+        return vitoria ? "Você venceu a batalha!" : "Você foi derrotado. Tente novamente!";
     }
 
     private void desenharCentralizado(Graphics2D graphics, String texto, int y) {

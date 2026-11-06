@@ -2,8 +2,8 @@ package br.folclore.ui;
 
 import br.folclore.batalha.Batalha;
 import br.folclore.batalha.ResultadoBatalha;
-import br.folclore.modelo.MulaSemCabeca;
 import br.folclore.modelo.Personagem;
+import br.folclore.progressao.SessaoMvp;
 import br.folclore.ui.telas.TelaBatalha;
 import br.folclore.ui.telas.TelaInicial;
 import br.folclore.ui.telas.TelaResultado;
@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 
 public class JanelaPrincipal extends JFrame {
     private final GerenciadorDeTelas gerenciadorDeTelas = new GerenciadorDeTelas();
+    private final SessaoMvp sessao = new SessaoMvp();
 
     public JanelaPrincipal() {
         super(ConfiguracoesUi.TITULO);
@@ -24,6 +25,7 @@ public class JanelaPrincipal extends JFrame {
     }
 
     private void abrirMenu() {
+        sessao.reiniciar();
         gerenciadorDeTelas.trocarPara(new TelaInicial(this::abrirSelecao));
     }
 
@@ -34,14 +36,17 @@ public class JanelaPrincipal extends JFrame {
     }
 
     private void abrirBatalha(Personagem escolhido) {
-        Batalha batalha = new Batalha(escolhido, new MulaSemCabeca());
+        Batalha batalha = sessao.criarBatalha(escolhido);
         gerenciadorDeTelas.trocarPara(new TelaBatalha(batalha, this::aoFimDaBatalha));
     }
 
     private void aoFimDaBatalha(ResultadoBatalha resultado) {
+        sessao.registrarResultado(resultado);
         gerenciadorDeTelas.trocarPara(new TelaResultado(
                 resultado == ResultadoBatalha.VITORIA,
+                sessao.isGinasioConcluido(),
                 this::abrirMenu,
                 this::abrirSelecao));
     }
+
 }
