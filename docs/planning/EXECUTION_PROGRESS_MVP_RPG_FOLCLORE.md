@@ -78,13 +78,13 @@
 | 5.3.3 — Ligar o menu à seleção de personagem | Concluída | `4783af3` — `feat: navegacao entre menu e selecao de personagem` | `mvp-v0.5.7` | `mvn -q clean compile` passou; três ciclos reais Menu → Seleção → Confirmar → Voltar imprimiram Saci, Lobisomem e Saci |
 | 5.4.1 — Criar o componente `BarraDeVida` | Concluída | `fb647bc` — `feat: componente barra de vida com cores por faixa` | `mvp-v0.5.8` | `mvn -q clean compile` passou; probe confirmou 60/60 verde, 25/60 amarela, 5/60 vermelha e PV máximo zero sem divisão por zero |
 | 5.4.2 — Criar o componente `CaixaDeMensagens` | Concluída | `feat: componente caixa de mensagens com quebra de linha` | `mvp-v0.5.9` | `mvn -q clean compile` passou; probe com texto de 200 caracteres confirmou quebra em múltiplas linhas e nenhum desenho fora da caixa |
-| 5.4.3 — Desenhar o layout da `TelaBatalha` | Concluída | `feat: layout base da tela de batalha` | `mvp-v0.5.10` | `mvn -q clean compile` passou; probe confirmou degradê, combatentes coloridos, HUDs com PV cheio e nenhuma alteração ao estado da batalha |
+| 5.4.3 — Desenhar o layout da `TelaBatalha` | Concluída | `134e541` — `feat: layout base da tela de batalha` | `mvp-v0.5.10` | `mvn -q clean compile` passou; probe confirmou degradê, combatentes coloridos, HUDs com PV cheio e nenhuma alteração ao estado da batalha |
 
 ## Histórico do bloco 5.4
 
 - 5.4.1 foi commitada em `fb647bc` e recebeu a tag anotada `mvp-v0.5.8`.
 - 5.4.2 foi commitada em `5dd605f` e recebeu a tag anotada `mvp-v0.5.9`.
-- 5.4.3 foi commitada com a mensagem `feat: layout base da tela de batalha` e recebeu a tag anotada `mvp-v0.5.10`.
+- 5.4.3 foi commitada em `134e541` e recebeu a tag anotada `mvp-v0.5.10`.
 - Validação final do Bloco 5.4: `mvn -q clean compile`, `git diff --check`, testes visuais das faixas de PV e quebra de texto de 200 caracteres, e probe da tela de batalha confirmando os dois HUDs cheios e estado de combate inalterado.
 - Arquivos criados no bloco: `src/main/java/br/folclore/ui/componentes/BarraDeVida.java`, `src/main/java/br/folclore/ui/componentes/CaixaDeMensagens.java` e `src/main/java/br/folclore/ui/telas/TelaBatalha.java`.
 - Não houve push. O próximo bloco pendente é 5.5 e aguarda autorização explícita.
