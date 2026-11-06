@@ -86,4 +86,11 @@ public abstract class Personagem {
         int quantidade = (int) Math.min(pvMaximo, valor);
         return curar(quantidade);
     }
+
+    /**
+     * Calcula o dano como max(1, ataque do atacante + poder base - defesa do alvo).
+     */
+    public int calcularDano(Personagem alvo, int poderBase) {
+        return Math.max(1, getAtaque() + poderBase - alvo.getDefesa());
+    }
 }
