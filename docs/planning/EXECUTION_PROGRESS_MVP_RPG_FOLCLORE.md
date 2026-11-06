@@ -4,11 +4,11 @@
 
 - **Fase:** 2 — Mecânicas de batalha
 - **Bloco:** 2.2 — Turno do jogador
-- **Última tarefa concluída:** 2.1.2 — Criar `Batalha` com estado, turno e registro de mensagens
-- **Tarefa em execução:** 2.2.1 — Implementar a ação Atacar e a checagem de vitória
-- **Próxima tarefa pendente:** 2.2.2 — Implementar a ação Habilidade
-- **Status do bloco:** Em andamento
-- **Bloqueios:** Nenhum.
+- **Última tarefa concluída:** 2.2.2 — Implementar a ação Habilidade
+- **Tarefa em execução:** Nenhuma
+- **Próxima tarefa pendente:** 2.3.1 — Criar o gancho `deveUsarHabilidade` em `Personagem` (aguarda autorização explícita)
+- **Status do bloco:** Concluído
+- **Bloqueios:** O Bloco 2.3 depende de autorização explícita.
 
 ## Decisões e estado Git verificado
 
@@ -44,8 +44,16 @@
 | 1.2.5 — Vincular uma habilidade ao `Personagem` | Concluída | `b70026e` — `feat: habilidade vinculada ao personagem com metodo usarHabilidade` | `mvp-v0.1.11` | `mvn -q compile` passou; JShell validou execução via `usarHabilidade`, habilidade privada, rejeição de nulo e erro sem habilidade |
 | 2.1.1 — Criar o enum `EstadoBatalha` | Concluída | `7d58fac` — `feat: enum de estados da batalha` | `mvp-v0.2.1` | `mvn -q compile` passou; JShell confirmou exatamente os quatro estados |
 | 2.1.2 — Criar `Batalha` com estado, turno e registro de mensagens | Concluída | `86d14db` — `feat: criacao da classe batalha com estado turno e mensagens` | `mvp-v0.2.2` | `mvn -q compile` e `mvn -q clean compile` passaram; JShell validou referências, valores iniciais, mensagem exata, cópia/limpeza da fila e rejeição de nulos |
-| 2.2.1 — Implementar a ação Atacar e a checagem de vitória | Em execução | `feat: acao atacar na batalha com verificacao de vitoria` | `mvp-v0.2.3` | Pendente |
-| 2.2.2 — Implementar a ação Habilidade | Pendente | `feat: acao habilidade na batalha com limite de usos` | `mvp-v0.2.4` | Pendente |
+| 2.2.1 — Implementar a ação Atacar e a checagem de vitória | Concluída | `5bf999b` — `feat: acao atacar na batalha com verificacao de vitoria` | `mvp-v0.2.3` | `mvn -q compile` passou; JShell validou dano, mensagem, estado após ataque, vitória e rejeição fora do estado |
+| 2.2.2 — Implementar a ação Habilidade | Concluída | `86546f7` — `feat: acao habilidade na batalha com limite de usos` | `mvp-v0.2.4` | `mvn -q compile` passou; JShell validou habilidades de dano e cura, consumo de uso, mensagens, estado, recusa sem usos e ausência de consumo de turno |
+
+## Histórico do bloco 2.2
+
+- 2.2.1 foi commitada em `5bf999b` e recebeu a tag anotada `mvp-v0.2.3`.
+- 2.2.2 foi commitada em `86546f7` e recebeu a tag anotada `mvp-v0.2.4`.
+- Validação final do Bloco 2.2: `mvn -q clean compile` e `git diff --check` passaram; as tags anotadas foram conferidas apontando para os commits das respectivas tarefas.
+- Arquivo de código modificado: `src/main/java/br/folclore/batalha/Batalha.java`. O progresso deste bloco está registrado neste documento.
+- Não houve push. O próximo bloco pendente é 2.3 e aguarda autorização explícita.
 
 ## Histórico do bloco 2.1
 
