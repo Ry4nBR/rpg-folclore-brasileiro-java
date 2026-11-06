@@ -48,6 +48,11 @@ public class TelaBatalha implements Tela {
 
     @Override
     public void atualizar() {
+        if (batalha.getEstado() == EstadoBatalha.TURNO_DO_CHEFE && podeAgir()) {
+            batalha.executarTurnoDoChefe();
+            absorverMensagens();
+        }
+
         Habilidade habilidade = batalha.getJogador().getHabilidade();
         botaoHabilidade.setRotulo(rotuloHabilidade());
         botaoAtacar.setHabilitado(
