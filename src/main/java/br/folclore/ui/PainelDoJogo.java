@@ -10,6 +10,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Objects;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -17,12 +18,19 @@ public class PainelDoJogo extends JPanel {
     private final GerenciadorDeTelas gerenciadorDeTelas;
 
     public PainelDoJogo() {
-        this(null);
+        this(new GerenciadorDeTelas(), null);
     }
 
     public PainelDoJogo(Tela telaInicial) {
-        gerenciadorDeTelas = new GerenciadorDeTelas();
-        gerenciadorDeTelas.trocarPara(telaInicial);
+        this(new GerenciadorDeTelas(), telaInicial);
+    }
+
+    public PainelDoJogo(GerenciadorDeTelas gerenciadorDeTelas, Tela telaInicial) {
+        this.gerenciadorDeTelas = Objects.requireNonNull(gerenciadorDeTelas,
+                "O gerenciador de telas não pode ser nulo.");
+        if (telaInicial != null) {
+            gerenciadorDeTelas.trocarPara(telaInicial);
+        }
         setPreferredSize(new Dimension(ConfiguracoesUi.LARGURA, ConfiguracoesUi.ALTURA));
         setFocusable(true);
         setDoubleBuffered(true);
