@@ -3,7 +3,7 @@
 ## Estado atual
 
 - **Fase:** 7 — Fluxo completo do ginásio
-- **Bloco:** 7.1 — Sessão e conclusão do ginásio
+- **Bloco:** 7.2 — Derrota e reinício
 - **Última tarefa concluída:** 7.2.1 — Implementar «Tentar novamente» com personagem e chefe novos
 - **Tarefa em execução:** Nenhuma
 - **Próxima tarefa pendente:** Fase 8 / Bloco 8.1 — Documentação técnica (aguardando autorização)
@@ -92,7 +92,7 @@
 | 6.3.2 — Encerrar a batalha e abrir a `TelaResultado` | Concluída | `dc9f66d` — `feat: encerramento da batalha com tela de resultado` | `mvp-v0.6.6` | `mvn -q clean compile`; Saci e Lobisomem venceram; derrota, leitura das mensagens finais, callback único e telas corretas foram verificados; derrota foi forçada na probe pois a situação de derrota descrita no plano não ocorre naturalmente com os valores atuais |
 | 7.1.1 — Criar `SessaoMvp` | Concluída | `fdbec73` — `feat: sessao do mvp com marcacao de ginasio concluido` | `mvp-v0.7.1` | `mvn -q clean compile`; probe validou estado inicial, vitória, derrota sem alteração, reinício, criação do confronto e rejeição de nulo; `git diff --check` |
 | 7.1.2 — Usar a sessão e exibir «Ginásio do Fogo concluído!» | Concluída | `1251519` — `feat: conclusao do ginasio do fogo ao vencer o chefe` | `mvp-v0.7.2` | `mvn -q clean compile`; probe integrou vitória, retorno ao menu, sessão limpa, nova partida e derrota sem mensagem de conclusão |
-| 7.2.1 — Implementar «Tentar novamente» com personagem e chefe novos | Concluída | `feat: tentar novamente apos derrota com instancias novas` | `mvp-v0.7.3` | `mvn -q clean compile`; probe confirmou retry direto para batalha com novo Saci (60/60 PV, 3 usos) e nova Mula (55/55 PV); `git diff --check` |
+| 7.2.1 — Implementar «Tentar novamente» com personagem e chefe novos | Concluída | `8a8dbbe` — `feat: tentar novamente apos derrota com instancias novas` | `mvp-v0.7.3` | `mvn -q clean compile`; probe confirmou retry direto para batalha com novo Saci (60/60 PV, 3 usos) e nova Mula (55/55 PV); `git diff --check` |
 
 ## Histórico do bloco 6.1
 
@@ -109,7 +109,7 @@
 
 - 7.1.2 foi commitada em `1251519` e recebeu a tag anotada `mvp-v0.7.2`.
 - A validação integrada confirmou vitória com a mensagem de conclusão, retorno ao menu limpando a sessão, nova partida e derrota sem mensagem de ginásio concluído.
-- 7.2.1 foi validada com derrota e nova tentativa: a interface abre outra batalha diretamente, com novas instâncias do Saci, da habilidade e da Mula sem Cabeça, PVs cheios e usos restaurados.
+- 7.2.1 foi commitada em `8a8dbbe` e recebeu a tag anotada `mvp-v0.7.3`. A validação com derrota confirmou que a interface abre outra batalha diretamente, com novas instâncias do Saci, da habilidade e da Mula sem Cabeça, PVs cheios e usos restaurados.
 - Os testes usaram o fluxo de interface com Java Swing; `mvn -q clean compile` e `git diff --check` passaram.
 - Arquivos criados/modificados na Fase 7: `src/main/java/br/folclore/progressao/SessaoMvp.java`, `src/main/java/br/folclore/ui/JanelaPrincipal.java` e `src/main/java/br/folclore/ui/telas/TelaResultado.java`.
 - Não houve push. A Fase 7 está concluída; a Fase 8 aguarda autorização explícita.
