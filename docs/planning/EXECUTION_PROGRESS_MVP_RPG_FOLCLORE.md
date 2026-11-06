@@ -74,13 +74,13 @@
 | 5.2.1 — Criar `TelaInicial` com Jogar e Sair | Concluída | `77fc9a9` — `feat: tela inicial com botoes jogar e sair` | `mvp-v0.5.4` | `mvn -q clean compile` passou; probe confirmou fundo, hover, clique em Jogar, ENTER e encerramento com código 0 ao acionar Sair |
 | 5.3.1 — Desenhar o layout da `TelaSelecaoPersonagem` | Concluída | `f2cd2c6` — `feat: layout da tela de selecao de personagem` | `mvp-v0.5.5` | `mvn -q clean compile` passou; probe confirmou cartões com atributos D2, habilidades/usos D3 e figuras ciano/laranja |
 | 5.3.2 — Programar seleção, Confirmar e Voltar | Concluída | `119d534` — `feat: selecao confirmacao e retorno na tela de personagem` | `mvp-v0.5.6` | `mvn -q clean compile` passou; probe confirmou confirmação bloqueada sem seleção, escolha e confirmação correta por mouse/setas/ENTER, borda amarela, hover e retorno por ESC/botão |
-| 5.3.3 — Ligar o menu à seleção de personagem | Concluída | `feat: navegacao entre menu e selecao de personagem` | `mvp-v0.5.7` | `mvn -q clean compile` passou; três ciclos reais Menu → Seleção → Confirmar → Voltar imprimiram Saci, Lobisomem e Saci |
+| 5.3.3 — Ligar o menu à seleção de personagem | Concluída | `4783af3` — `feat: navegacao entre menu e selecao de personagem` | `mvp-v0.5.7` | `mvn -q clean compile` passou; três ciclos reais Menu → Seleção → Confirmar → Voltar imprimiram Saci, Lobisomem e Saci |
 
 ## Histórico do bloco 5.3
 
 - 5.3.1 foi commitada em `f2cd2c6` e recebeu a tag anotada `mvp-v0.5.5`.
 - 5.3.2 foi commitada em `119d534` e recebeu a tag anotada `mvp-v0.5.6`.
-- 5.3.3 foi commitada com a mensagem `feat: navegacao entre menu e selecao de personagem` e recebeu a tag anotada `mvp-v0.5.7`.
+- 5.3.3 foi commitada em `4783af3` e recebeu a tag anotada `mvp-v0.5.7`.
 - Validação final do Bloco 5.3: `mvn -q clean compile`, `git diff --check`, conferência de atributos e habilidades dos dois cartões e três ciclos reais de navegação pela janela passaram.
 - Arquivos criados/modificados no bloco: `src/main/java/br/folclore/ui/telas/TelaSelecaoPersonagem.java`, `src/main/java/br/folclore/ui/JanelaPrincipal.java` e `src/main/java/br/folclore/ui/PainelDoJogo.java` (injeção do gerenciador compartilhado).
 - Não houve push. O próximo bloco pendente é 5.4 e aguarda autorização explícita.
