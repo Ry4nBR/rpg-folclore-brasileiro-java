@@ -1,8 +1,10 @@
 package br.folclore.batalha;
 
 import br.folclore.habilidades.ResultadoAcao;
+import br.folclore.ia.DecisaoIA;
 import br.folclore.ia.IaPadrao;
 import br.folclore.ia.InteligenciaArtificial;
+import br.folclore.ia.TipoDeDecisao;
 import br.folclore.modelo.Personagem;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -103,9 +105,16 @@ public class Batalha {
 
     public void executarTurnoDoInimigo() {
         exigirEstado(EstadoBatalha.TURNO_DO_INIMIGO);
-        int dano = inimigo.atacar(jogador);
-        registrar(inimigo.getNome() + " usou " + inimigo.getNomeAtaqueBasico()
-                + " e causou " + dano + " de dano!");
+        DecisaoIA decisao = ia.decidir(inimigo, jogador, turno);
+        if (decisao.getTipo() == TipoDeDecisao.ATACAR) {
+            int dano = inimigo.atacar(jogador);
+            registrar(inimigo.getNome() + " usou " + inimigo.getNomeAtaqueBasico()
+                    + " e causou " + dano + " de dano!");
+        } else {
+            ResultadoAcao resultado = inimigo.usarHabilidade(decisao.getIndiceHabilidade(), jogador);
+            registrar(resultado.getMensagem());
+        }
+
         if (!jogador.estaVivo()) {
             registrar(jogador.getNome() + " foi derrotado!");
             estado = EstadoBatalha.DERROTA;
