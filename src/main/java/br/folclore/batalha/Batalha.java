@@ -63,6 +63,7 @@ public class Batalha {
         if (resultado.getEfeito() == ResultadoAcao.Efeito.FALHA) {
             return;
         }
+        aposAcaoDoJogador();
     }
 
     private void aposAcaoDoJogador() {
