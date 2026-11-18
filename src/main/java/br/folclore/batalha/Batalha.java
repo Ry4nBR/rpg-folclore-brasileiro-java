@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Gerencia uma batalha por turnos.
+ * A ordem dos turnos é fixa: o jogador age primeiro, depois o inimigo.
+ * A velocidade dos combatentes não altera essa ordem.
+ */
 public class Batalha {
     private final Personagem jogador;
     private final Personagem inimigo;
