@@ -108,11 +108,13 @@ public class TelaSelecaoPersonagem implements Tela {
         }
         botaoConfirmar.setHabilitado(indiceSelecionado >= 0);
         botaoConfirmar.clicar(x, y);
+        botaoVoltar.clicar(x, y);
     }
 
     @Override
     public void aoMoverMouse(int x, int y) {
         botaoConfirmar.atualizarHover(x, y);
+        botaoVoltar.atualizarHover(x, y);
     }
 
     @Override
@@ -125,6 +127,8 @@ public class TelaSelecaoPersonagem implements Tela {
             indiceSelecionado = (indiceSelecionado + 1) % opcoes.size();
         } else if (codigo == KeyEvent.VK_ENTER) {
             confirmarSelecao();
+        } else if (codigo == KeyEvent.VK_ESCAPE) {
+            gerenciador.trocarPara(new TelaInicial(gerenciador));
         }
         botaoConfirmar.setHabilitado(indiceSelecionado >= 0);
     }
