@@ -5,6 +5,10 @@ import java.awt.image.BufferedImage;
 public final class RepositorioDeRetratos {
     private static final String DIRETORIO_RETRATOS = "/retratos/";
 
+    static {
+        obter("saci");
+    }
+
     private RepositorioDeRetratos() {
     }
 
