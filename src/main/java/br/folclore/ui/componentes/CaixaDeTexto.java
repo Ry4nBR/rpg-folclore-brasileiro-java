@@ -15,6 +15,7 @@ public final class CaixaDeTexto {
     private static final int RECUO_BORDA_INTERNA = 4;
     private static final int MARGEM_TEXTO = 12;
     private static final int RECUO_VERTICAL_TEXTO = 22;
+    private static final int FRAMES_POR_CARACTERE = 2;
     private static final Font FONTE_TEXTO = new Font(Font.MONOSPACED, Font.PLAIN, 16);
     private static final FontMetrics METRICAS_TEXTO = criarMetricasTexto();
 
@@ -23,6 +24,9 @@ public final class CaixaDeTexto {
     private final int largura;
     private final int altura;
     private List<String> linhas = Collections.emptyList();
+    private int totalCaracteres;
+    private int caracteresRevelados;
+    private int framesDesdeUltimoCaractere;
 
     public CaixaDeTexto(int x, int y, int largura, int altura) {
         this.x = x;
@@ -36,6 +40,30 @@ public final class CaixaDeTexto {
             throw new IllegalArgumentException("O texto não pode ser nulo.");
         }
         linhas = quebrarLinhas(texto, METRICAS_TEXTO);
+        totalCaracteres = linhas.stream()
+                .mapToInt(linha -> linha.codePointCount(0, linha.length())).sum();
+        caracteresRevelados = 0;
+        framesDesdeUltimoCaractere = 0;
+    }
+
+    public void atualizar() {
+        if (estaCompleta()) {
+            return;
+        }
+        framesDesdeUltimoCaractere++;
+        if (framesDesdeUltimoCaractere == FRAMES_POR_CARACTERE) {
+            caracteresRevelados++;
+            framesDesdeUltimoCaractere = 0;
+        }
+    }
+
+    public boolean estaCompleta() {
+        return caracteresRevelados >= totalCaracteres;
+    }
+
+    public void completar() {
+        caracteresRevelados = totalCaracteres;
+        framesDesdeUltimoCaractere = 0;
     }
 
     public void desenhar(Graphics2D g) {
@@ -58,11 +86,18 @@ public final class CaixaDeTexto {
             contexto.setColor(Color.BLACK);
             int linhaY = y + RECUO_VERTICAL_TEXTO;
             int limiteInferior = y + altura - MARGEM_TEXTO;
+            int caracteresRestantes = caracteresRevelados;
             for (String linha : linhas) {
                 if (linhaY > limiteInferior) {
                     break;
                 }
-                contexto.drawString(linha, x + MARGEM_TEXTO, linhaY);
+                int caracteresNaLinha = linha.codePointCount(0, linha.length());
+                int caracteresNaLinhaVisiveis = Math.min(caracteresNaLinha, caracteresRestantes);
+                if (caracteresNaLinhaVisiveis > 0) {
+                    int fimVisivel = linha.offsetByCodePoints(0, caracteresNaLinhaVisiveis);
+                    contexto.drawString(linha.substring(0, fimVisivel), x + MARGEM_TEXTO, linhaY);
+                }
+                caracteresRestantes -= caracteresNaLinhaVisiveis;
                 linhaY += METRICAS_TEXTO.getHeight();
             }
         } finally {
@@ -109,14 +144,16 @@ public final class CaixaDeTexto {
 
     private void quebrarPalavra(String palavra, int larguraDisponivel, FontMetrics metricas,
                                 List<String> resultado, StringBuilder linha) {
-        for (int i = 0; i < palavra.length(); i++) {
-            char caractere = palavra.charAt(i);
+        for (int i = 0; i < palavra.length();) {
+            int caractere = palavra.codePointAt(i);
+            i += Character.charCount(caractere);
             if (linha.length() > 0
-                    && metricas.stringWidth(linha.toString() + caractere) > larguraDisponivel) {
+                    && metricas.stringWidth(linha.toString() + new String(Character.toChars(caractere)))
+                            > larguraDisponivel) {
                 resultado.add(linha.toString());
                 linha.setLength(0);
             }
-            linha.append(caractere);
+            linha.appendCodePoint(caractere);
         }
     }
 
