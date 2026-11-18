@@ -13,12 +13,16 @@ public class TelaInicial implements Tela {
     private final GerenciadorDeTelas gerenciador;
     private final Botao botaoNovoJogo;
     private final Botao botaoContinuar;
+    private final Botao botaoSair;
+    private int indiceSelecionado;
 
     public TelaInicial(GerenciadorDeTelas gerenciador) {
         this.gerenciador = gerenciador;
         botaoNovoJogo = new Botao(380, 250, 200, 50, "Novo Jogo",
                 () -> System.out.println("Novo Jogo selecionado"));
-        botaoContinuar = new Botao(380, 315, 200, 50, "Continuar", null);
+        botaoContinuar = new Botao(380, 315, 200, 50, "Continuar",
+                () -> System.out.println("Continuar selecionado"));
+        botaoSair = new Botao(380, 380, 200, 50, "Sair", () -> System.exit(0));
     }
 
     @Override
@@ -43,11 +47,13 @@ public class TelaInicial implements Tela {
     @Override
     public void aoClicar(int x, int y) {
         botaoNovoJogo.clicar(x, y);
+        botaoContinuar.clicar(x, y);
     }
 
     @Override
     public void aoMoverMouse(int x, int y) {
         botaoNovoJogo.atualizarHover(x, y);
+        botaoContinuar.atualizarHover(x, y);
     }
 
     @Override
