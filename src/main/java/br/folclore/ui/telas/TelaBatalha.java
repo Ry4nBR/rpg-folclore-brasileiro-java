@@ -47,6 +47,7 @@ public class TelaBatalha implements Tela {
     private String mensagemAtual;
     private boolean exibindoSubmenuHabilidades;
     private boolean exibindoPainelStatus;
+    private boolean notificacaoEncerramentoEnviada;
     private String textoStatus;
 
     public TelaBatalha(GerenciadorDeTelas gerenciador, Batalha batalha,
@@ -89,6 +90,11 @@ public class TelaBatalha implements Tela {
         }
         caixaDeTexto.atualizar();
         atualizarHabilitacaoBotoes();
+        if (!notificacaoEncerramentoEnviada && batalha.estaEncerrada()
+                && mensagemAtual == null && filaMensagens.isEmpty()) {
+            notificacaoEncerramentoEnviada = true;
+            aoEncerrar.accept(batalha.getResultado());
+        }
     }
 
     @Override
