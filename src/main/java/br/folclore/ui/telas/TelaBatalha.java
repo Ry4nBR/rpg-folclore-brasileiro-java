@@ -36,6 +36,7 @@ public class TelaBatalha implements Tela {
     private final Botao botaoAtacar;
     private final Botao botaoHabilidade;
     private final Botao botaoVerStatus;
+    private final Botao botaoFecharStatus;
     private final Botao botaoVoltarHabilidades;
     private final List<Botao> botoesHabilidade = new ArrayList<>();
     private final List<String> rotulosHabilidade = new ArrayList<>();
@@ -43,6 +44,8 @@ public class TelaBatalha implements Tela {
     private int mensagensLidasDoRegistro;
     private String mensagemAtual;
     private boolean exibindoSubmenuHabilidades;
+    private boolean exibindoPainelStatus;
+    private String textoStatus;
 
     public TelaBatalha(GerenciadorDeTelas gerenciador, Batalha batalha,
                        Consumer<ResultadoBatalha> aoEncerrar) {
@@ -55,7 +58,10 @@ public class TelaBatalha implements Tela {
         this.botaoAtacar = new Botao(520, 410, 200, 45, "Atacar", () -> batalha.acaoAtacar());
         this.botaoHabilidade = new Botao(740, 410, 200, 45, "Habilidade",
                 this::abrirSubmenuHabilidades);
-        this.botaoVerStatus = new Botao(520, 465, 200, 45, "Ver status", null);
+        this.botaoVerStatus = new Botao(520, 465, 200, 45, "Ver status",
+                this::abrirPainelStatus);
+        this.botaoFecharStatus = new Botao(380, 290, 200, 45, "Fechar",
+                this::fecharPainelStatus);
         this.botaoVoltarHabilidades = new Botao(740, 465, 200, 45, "Voltar",
                 this::voltarAoMenuPrincipal);
         batalha.iniciar();
@@ -90,6 +96,44 @@ public class TelaBatalha implements Tela {
             botaoHabilidade.desenhar(g);
             botaoVerStatus.desenhar(g);
         }
+        if (exibindoPainelStatus) {
+            desenharPainelStatus(g);
+        }
+    }
+
+    private void abrirPainelStatus() {
+        textoStatus = batalha.acaoVerStatus();
+        exibindoPainelStatus = true;
+    }
+
+    private void fecharPainelStatus() {
+        exibindoPainelStatus = false;
+    }
+
+    private void desenharPainelStatus(Graphics2D g) {
+        int x = 180;
+        int y = 170;
+        int largura = 600;
+        int altura = 190;
+        g.setColor(new Color(20, 24, 30, 235));
+        g.fillRect(x, y, largura, altura);
+        g.setColor(Color.WHITE);
+        g.drawRect(x, y, largura - 1, altura - 1);
+
+        Font fonteAnterior = g.getFont();
+        int tamanhoFonte = 18;
+        Font fonte = new Font(Font.MONOSPACED, Font.BOLD, tamanhoFonte);
+        FontMetrics metricas = g.getFontMetrics(fonte);
+        while (metricas.stringWidth(textoStatus) > largura - 40 && tamanhoFonte > 10) {
+            tamanhoFonte--;
+            fonte = new Font(Font.MONOSPACED, Font.BOLD, tamanhoFonte);
+            metricas = g.getFontMetrics(fonte);
+        }
+        g.setFont(fonte);
+        int textoX = x + (largura - metricas.stringWidth(textoStatus)) / 2;
+        g.drawString(textoStatus, textoX, y + 75);
+        g.setFont(fonteAnterior);
+        botaoFecharStatus.desenhar(g);
     }
 
     private void abrirSubmenuHabilidades() {
@@ -206,6 +250,10 @@ public class TelaBatalha implements Tela {
 
     @Override
     public void aoClicar(int x, int y) {
+        if (exibindoPainelStatus) {
+            botaoFecharStatus.clicar(x, y);
+            return;
+        }
         if (exibindoSubmenuHabilidades) {
             for (Botao botao : botoesHabilidade) {
                 botao.clicar(x, y);
@@ -214,6 +262,7 @@ public class TelaBatalha implements Tela {
         } else {
             botaoAtacar.clicar(x, y);
             botaoHabilidade.clicar(x, y);
+            botaoVerStatus.clicar(x, y);
         }
         if (x >= CAIXA_TEXTO_X && x < CAIXA_TEXTO_X + CAIXA_TEXTO_LARGURA
                 && y >= CAIXA_TEXTO_Y && y < CAIXA_TEXTO_Y + CAIXA_TEXTO_ALTURA) {
@@ -225,6 +274,8 @@ public class TelaBatalha implements Tela {
     public void aoMoverMouse(int x, int y) {
         botaoAtacar.atualizarHover(x, y);
         botaoHabilidade.atualizarHover(x, y);
+        botaoVerStatus.atualizarHover(x, y);
+        botaoFecharStatus.atualizarHover(x, y);
         for (Botao botao : botoesHabilidade) {
             botao.atualizarHover(x, y);
         }
@@ -233,7 +284,11 @@ public class TelaBatalha implements Tela {
 
     @Override
     public void aoPressionarTecla(int codigo) {
-        if (codigo == KeyEvent.VK_ESCAPE && exibindoSubmenuHabilidades) {
+        if (exibindoPainelStatus) {
+            if (codigo == KeyEvent.VK_ESCAPE) {
+                fecharPainelStatus();
+            }
+        } else if (codigo == KeyEvent.VK_ESCAPE && exibindoSubmenuHabilidades) {
             voltarAoMenuPrincipal();
         } else if (codigo == KeyEvent.VK_ENTER) {
             avancarMensagem();
