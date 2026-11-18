@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -17,6 +19,12 @@ public class PainelDoJogo extends JPanel {
         setPreferredSize(new Dimension(ConfiguracoesUi.LARGURA, ConfiguracoesUi.ALTURA));
         setFocusable(true);
         setDoubleBuffered(true);
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent event) {
+                gerenciadorDeTelas.aoClicar(event.getX(), event.getY());
+            }
+        });
         Timer timer = new Timer(1000 / ConfiguracoesUi.FPS, event -> {
             gerenciadorDeTelas.atualizar();
             repaint();
