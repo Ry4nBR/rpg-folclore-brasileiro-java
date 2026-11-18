@@ -18,7 +18,11 @@ public class PainelDoJogo extends JPanel {
     private final GerenciadorDeTelas gerenciadorDeTelas;
 
     public PainelDoJogo() {
-        gerenciadorDeTelas = new GerenciadorDeTelas();
+        this(new GerenciadorDeTelas());
+    }
+
+    public PainelDoJogo(GerenciadorDeTelas gerenciadorDeTelas) {
+        this.gerenciadorDeTelas = gerenciadorDeTelas;
         setPreferredSize(new Dimension(ConfiguracoesUi.LARGURA, ConfiguracoesUi.ALTURA));
         setFocusable(true);
         setDoubleBuffered(true);

@@ -1,5 +1,6 @@
 package br.folclore.ui;
 
+import br.folclore.ui.telas.TelaInicial;
 import javax.swing.JFrame;
 
 public class JanelaPrincipal extends JFrame {
@@ -8,7 +9,9 @@ public class JanelaPrincipal extends JFrame {
         super(ConfiguracoesUi.TITULO);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
-        add(new PainelDoJogo());
+        GerenciadorDeTelas gerenciadorDeTelas = new GerenciadorDeTelas();
+        gerenciadorDeTelas.trocarPara(new TelaInicial(gerenciadorDeTelas));
+        add(new PainelDoJogo(gerenciadorDeTelas));
         pack();
         setLocationRelativeTo(null);
     }
