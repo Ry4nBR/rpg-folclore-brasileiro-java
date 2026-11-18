@@ -28,6 +28,15 @@ public class Batalha {
         this.fugaPermitida = !inimigo.ehChefe();
     }
 
+    public void iniciar() {
+        if (inimigo.ehChefe()) {
+            registrar("O chefe " + inimigo.getNome() + " desafia você!");
+        } else {
+            registrar(inimigo.getNome() + " apareceu!");
+        }
+        estado = EstadoBatalha.ESCOLHA_DO_JOGADOR;
+    }
+
     public Personagem getJogador() {
         return jogador;
     }
