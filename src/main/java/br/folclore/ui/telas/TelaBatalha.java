@@ -4,20 +4,34 @@ import br.folclore.batalha.Batalha;
 import br.folclore.batalha.ResultadoBatalha;
 import br.folclore.ui.GerenciadorDeTelas;
 import br.folclore.ui.componentes.BarraDeVida;
+import br.folclore.ui.componentes.CaixaDeTexto;
 import br.folclore.ui.componentes.CarregadorDeImagens;
 import br.folclore.ui.componentes.PosicoesDeBatalha;
 import br.folclore.ui.componentes.RepositorioDeSprites;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayDeque;
+import java.util.List;
+import java.util.Queue;
 import java.util.function.Consumer;
 
 public class TelaBatalha implements Tela {
+    private static final int CAIXA_TEXTO_X = 20;
+    private static final int CAIXA_TEXTO_Y = 400;
+    private static final int CAIXA_TEXTO_LARGURA = 480;
+    private static final int CAIXA_TEXTO_ALTURA = 120;
+
     private final GerenciadorDeTelas gerenciador;
     private final Batalha batalha;
     private final Consumer<ResultadoBatalha> aoEncerrar;
     private final BufferedImage fundo;
+    private final CaixaDeTexto caixaDeTexto;
+    private final Queue<String> filaMensagens = new ArrayDeque<>();
+    private int mensagensLidasDoRegistro;
+    private String mensagemAtual;
 
     public TelaBatalha(GerenciadorDeTelas gerenciador, Batalha batalha,
                        Consumer<ResultadoBatalha> aoEncerrar) {
@@ -25,11 +39,20 @@ public class TelaBatalha implements Tela {
         this.batalha = batalha;
         this.aoEncerrar = aoEncerrar;
         this.fundo = CarregadorDeImagens.carregar("/fundos/batalha_generico.png");
+        this.caixaDeTexto = new CaixaDeTexto(CAIXA_TEXTO_X, CAIXA_TEXTO_Y,
+                CAIXA_TEXTO_LARGURA, CAIXA_TEXTO_ALTURA);
         batalha.iniciar();
+        sincronizarMensagens();
+        mostrarProximaMensagem();
     }
 
     @Override
     public void atualizar() {
+        sincronizarMensagens();
+        if (mensagemAtual == null) {
+            mostrarProximaMensagem();
+        }
+        caixaDeTexto.atualizar();
     }
 
     @Override
@@ -42,6 +65,7 @@ public class TelaBatalha implements Tela {
                 PosicoesDeBatalha.INIMIGO_X, PosicoesDeBatalha.INIMIGO_Y, false);
         desenharHudInimigo(g);
         desenharHudJogador(g);
+        caixaDeTexto.desenhar(g);
     }
 
     private void desenharPlataformas(Graphics2D g) {
@@ -98,6 +122,10 @@ public class TelaBatalha implements Tela {
 
     @Override
     public void aoClicar(int x, int y) {
+        if (x >= CAIXA_TEXTO_X && x < CAIXA_TEXTO_X + CAIXA_TEXTO_LARGURA
+                && y >= CAIXA_TEXTO_Y && y < CAIXA_TEXTO_Y + CAIXA_TEXTO_ALTURA) {
+            avancarMensagem();
+        }
     }
 
     @Override
@@ -106,5 +134,32 @@ public class TelaBatalha implements Tela {
 
     @Override
     public void aoPressionarTecla(int codigo) {
+        if (codigo == KeyEvent.VK_ENTER) {
+            avancarMensagem();
+        }
+    }
+
+    private void avancarMensagem() {
+        sincronizarMensagens();
+        if (!caixaDeTexto.estaCompleta()) {
+            caixaDeTexto.completar();
+            return;
+        }
+        mostrarProximaMensagem();
+    }
+
+    private void sincronizarMensagens() {
+        List<String> registro = batalha.getRegistro();
+        while (mensagensLidasDoRegistro < registro.size()) {
+            filaMensagens.add(registro.get(mensagensLidasDoRegistro));
+            mensagensLidasDoRegistro++;
+        }
+    }
+
+    private void mostrarProximaMensagem() {
+        mensagemAtual = filaMensagens.poll();
+        if (mensagemAtual != null) {
+            caixaDeTexto.definirTexto(mensagemAtual);
+        }
     }
 }
