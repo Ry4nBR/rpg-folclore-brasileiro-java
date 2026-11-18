@@ -13,6 +13,7 @@ import br.folclore.ui.componentes.CarregadorDeImagens;
 import br.folclore.ui.componentes.NormalizadorDeNomes;
 import br.folclore.ui.componentes.PosicoesDeBatalha;
 import br.folclore.ui.componentes.RepositorioDeSprites;
+import br.folclore.ui.efeitos.AnimacaoCura;
 import br.folclore.ui.efeitos.AnimacaoDeslocamento;
 import br.folclore.ui.efeitos.AnimacaoNumeroFlutuante;
 import br.folclore.ui.efeitos.AnimacaoParticulas;
@@ -309,12 +310,26 @@ public class TelaBatalha implements Tela {
 
     private void usarHabilidade(int indice) {
         int pvInimigoAntes = batalha.getInimigo().getPvAtual();
+        int pvJogadorAntes = batalha.getJogador().getPvAtual();
         batalha.acaoHabilidade(indice);
         int dano = pvInimigoAntes - batalha.getInimigo().getPvAtual();
         if (dano > 0) {
             iniciarParticulasDeHabilidade(dano);
         }
+        int cura = batalha.getJogador().getPvAtual() - pvJogadorAntes;
+        if (cura > 0) {
+            iniciarEfeitosDeCura(cura);
+        }
         exibindoSubmenuHabilidades = false;
+    }
+
+    private void iniciarEfeitosDeCura(int cura) {
+        int xJogador = PosicoesDeBatalha.JOGADOR_X;
+        int yJogador = PosicoesDeBatalha.JOGADOR_Y;
+        int tamanho = PosicoesDeBatalha.TAMANHO_SPRITE;
+        gerenciadorDeEfeitos.adicionar(new AnimacaoCura(xJogador, yJogador, tamanho));
+        gerenciadorDeEfeitos.adicionar(new AnimacaoNumeroFlutuante(cura,
+                xJogador + tamanho / 2, yJogador + tamanho / 2, true));
     }
 
     private void voltarAoMenuPrincipal() {
