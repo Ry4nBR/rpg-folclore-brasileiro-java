@@ -42,6 +42,7 @@ public class TelaInicial implements Tela {
         g.drawString(titulo, x, 180);
         botaoNovoJogo.desenhar(g);
         botaoContinuar.desenhar(g);
+        botaoSair.desenhar(g);
     }
 
     @Override
