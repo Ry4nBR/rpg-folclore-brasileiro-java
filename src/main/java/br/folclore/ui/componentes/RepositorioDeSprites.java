@@ -8,6 +8,10 @@ public final class RepositorioDeSprites {
 
     private static final String DIRETORIO_SPRITES = "/sprites/";
 
+    static {
+        precarregar("saci");
+    }
+
     private RepositorioDeSprites() {
     }
 
