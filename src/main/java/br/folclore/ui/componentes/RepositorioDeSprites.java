@@ -15,6 +15,7 @@ public final class RepositorioDeSprites {
         precarregar("mae_de_ouro");
         precarregar("batatao");
         precarregar("mula_sem_cabeca");
+        precarregar("curupira");
     }
 
     private RepositorioDeSprites() {
