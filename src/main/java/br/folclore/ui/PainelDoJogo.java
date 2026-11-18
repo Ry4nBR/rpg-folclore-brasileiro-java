@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.Color;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 public class PainelDoJogo extends JPanel {
 
@@ -13,6 +14,14 @@ public class PainelDoJogo extends JPanel {
         setPreferredSize(new Dimension(ConfiguracoesUi.LARGURA, ConfiguracoesUi.ALTURA));
         setFocusable(true);
         setDoubleBuffered(true);
+        Timer timer = new Timer(1000 / ConfiguracoesUi.FPS, event -> {
+            atualizar();
+            repaint();
+        });
+        timer.start();
+    }
+
+    private void atualizar() {
     }
 
     @Override
