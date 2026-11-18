@@ -10,6 +10,7 @@ public final class RepositorioDeRetratos {
         obter("lobisomem");
         obter("negrinho_do_pastoreio");
         obter("mula_sem_cabeca");
+        obter("capelobo");
     }
 
     private RepositorioDeRetratos() {
