@@ -49,6 +49,7 @@ public class Batalha {
         int dano = jogador.atacar(inimigo);
         registrar(jogador.getNome() + " usou " + jogador.getNomeAtaqueBasico()
                 + " e causou " + dano + " de dano!");
+        aposAcaoDoJogador();
     }
 
     private void aposAcaoDoJogador() {
