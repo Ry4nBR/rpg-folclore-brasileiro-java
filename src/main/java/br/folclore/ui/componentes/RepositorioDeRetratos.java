@@ -11,6 +11,7 @@ public final class RepositorioDeRetratos {
         obter("negrinho_do_pastoreio");
         obter("mula_sem_cabeca");
         obter("capelobo");
+        obter("honorato");
     }
 
     private RepositorioDeRetratos() {
