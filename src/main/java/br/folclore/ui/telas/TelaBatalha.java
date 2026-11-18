@@ -4,6 +4,7 @@ import br.folclore.batalha.Batalha;
 import br.folclore.batalha.ResultadoBatalha;
 import br.folclore.ui.GerenciadorDeTelas;
 import br.folclore.ui.componentes.BarraDeVida;
+import br.folclore.ui.componentes.Botao;
 import br.folclore.ui.componentes.CaixaDeTexto;
 import br.folclore.ui.componentes.CarregadorDeImagens;
 import br.folclore.ui.componentes.PosicoesDeBatalha;
@@ -29,6 +30,7 @@ public class TelaBatalha implements Tela {
     private final Consumer<ResultadoBatalha> aoEncerrar;
     private final BufferedImage fundo;
     private final CaixaDeTexto caixaDeTexto;
+    private final Botao botaoAtacar;
     private final Queue<String> filaMensagens = new ArrayDeque<>();
     private int mensagensLidasDoRegistro;
     private String mensagemAtual;
@@ -41,6 +43,7 @@ public class TelaBatalha implements Tela {
         this.fundo = CarregadorDeImagens.carregar("/fundos/batalha_generico.png");
         this.caixaDeTexto = new CaixaDeTexto(CAIXA_TEXTO_X, CAIXA_TEXTO_Y,
                 CAIXA_TEXTO_LARGURA, CAIXA_TEXTO_ALTURA);
+        this.botaoAtacar = new Botao(520, 410, 200, 45, "Atacar", null);
         batalha.iniciar();
         sincronizarMensagens();
         mostrarProximaMensagem();
@@ -66,6 +69,7 @@ public class TelaBatalha implements Tela {
         desenharHudInimigo(g);
         desenharHudJogador(g);
         caixaDeTexto.desenhar(g);
+        botaoAtacar.desenhar(g);
     }
 
     private void desenharPlataformas(Graphics2D g) {
