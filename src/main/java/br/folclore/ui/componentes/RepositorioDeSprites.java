@@ -10,6 +10,7 @@ public final class RepositorioDeSprites {
 
     static {
         precarregar("saci");
+        precarregar("lobisomem");
     }
 
     private RepositorioDeSprites() {
