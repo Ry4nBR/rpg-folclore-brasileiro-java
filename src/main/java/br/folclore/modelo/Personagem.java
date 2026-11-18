@@ -100,6 +100,10 @@ public abstract class Personagem {
         return pvAtual > 0;
     }
 
+    public boolean ehChefe() {
+        return false;
+    }
+
     public int receberDano(int dano) {
         if (dano < 0) {
             throw new IllegalArgumentException("O dano não pode ser negativo.");
