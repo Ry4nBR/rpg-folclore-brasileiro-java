@@ -17,4 +17,20 @@ public class Batalha {
         this.inimigo = inimigo;
         this.fugaPermitida = !inimigo.ehChefe();
     }
+
+    public Personagem getJogador() {
+        return jogador;
+    }
+
+    public Personagem getInimigo() {
+        return inimigo;
+    }
+
+    public EstadoBatalha getEstado() {
+        return estado;
+    }
+
+    public boolean isFugaPermitida() {
+        return fugaPermitida;
+    }
 }
