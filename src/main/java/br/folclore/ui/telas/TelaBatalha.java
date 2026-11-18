@@ -108,6 +108,7 @@ public class TelaBatalha implements Tela {
             mostrarProximaMensagem();
         }
         if (mensagemAtual == null && filaMensagens.isEmpty()
+                && !gerenciadorDeEfeitos.temAtivas()
                 && batalha.getEstado() == EstadoBatalha.TURNO_DO_INIMIGO) {
             atacarComInimigo();
             sincronizarMensagens();
@@ -491,6 +492,9 @@ public class TelaBatalha implements Tela {
     }
 
     private void avancarMensagem() {
+        if (gerenciadorDeEfeitos.temAtivas()) {
+            return;
+        }
         sincronizarMensagens();
         if (!caixaDeTexto.estaCompleta()) {
             caixaDeTexto.completar();
