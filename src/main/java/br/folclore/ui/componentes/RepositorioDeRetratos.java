@@ -7,6 +7,7 @@ public final class RepositorioDeRetratos {
 
     static {
         obter("saci");
+        obter("lobisomem");
     }
 
     private RepositorioDeRetratos() {
