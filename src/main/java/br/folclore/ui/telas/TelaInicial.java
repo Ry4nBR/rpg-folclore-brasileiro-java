@@ -49,12 +49,14 @@ public class TelaInicial implements Tela {
     public void aoClicar(int x, int y) {
         botaoNovoJogo.clicar(x, y);
         botaoContinuar.clicar(x, y);
+        botaoSair.clicar(x, y);
     }
 
     @Override
     public void aoMoverMouse(int x, int y) {
         botaoNovoJogo.atualizarHover(x, y);
         botaoContinuar.atualizarHover(x, y);
+        botaoSair.atualizarHover(x, y);
     }
 
     @Override
