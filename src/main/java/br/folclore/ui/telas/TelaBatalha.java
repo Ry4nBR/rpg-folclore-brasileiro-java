@@ -35,6 +35,7 @@ public class TelaBatalha implements Tela {
     private final CaixaDeTexto caixaDeTexto;
     private final Botao botaoAtacar;
     private final Botao botaoHabilidade;
+    private final Botao botaoVerStatus;
     private final Botao botaoVoltarHabilidades;
     private final List<Botao> botoesHabilidade = new ArrayList<>();
     private final List<String> rotulosHabilidade = new ArrayList<>();
@@ -54,6 +55,7 @@ public class TelaBatalha implements Tela {
         this.botaoAtacar = new Botao(520, 410, 200, 45, "Atacar", () -> batalha.acaoAtacar());
         this.botaoHabilidade = new Botao(740, 410, 200, 45, "Habilidade",
                 this::abrirSubmenuHabilidades);
+        this.botaoVerStatus = new Botao(520, 465, 200, 45, "Ver status", null);
         this.botaoVoltarHabilidades = new Botao(740, 465, 200, 45, "Voltar",
                 this::voltarAoMenuPrincipal);
         batalha.iniciar();
@@ -86,6 +88,7 @@ public class TelaBatalha implements Tela {
         } else {
             botaoAtacar.desenhar(g);
             botaoHabilidade.desenhar(g);
+            botaoVerStatus.desenhar(g);
         }
     }
 
