@@ -15,6 +15,8 @@ public final class CaixaDeTexto {
     private static final int RECUO_BORDA_INTERNA = 4;
     private static final int MARGEM_TEXTO = 12;
     private static final int RECUO_VERTICAL_TEXTO = 22;
+    private static final int TAMANHO_RETRATO = 96;
+    private static final int MARGEM_RETRATO = 4;
     private static final int FRAMES_POR_CARACTERE = 2;
     private static final Font FONTE_TEXTO = new Font(Font.MONOSPACED, Font.PLAIN, 16);
     private static final FontMetrics METRICAS_TEXTO = criarMetricasTexto();
@@ -23,7 +25,9 @@ public final class CaixaDeTexto {
     private final int y;
     private final int largura;
     private final int altura;
+    private String textoOriginal = "";
     private List<String> linhas = Collections.emptyList();
+    private BufferedImage retrato;
     private int totalCaracteres;
     private int caracteresRevelados;
     private int framesDesdeUltimoCaractere;
@@ -39,11 +43,16 @@ public final class CaixaDeTexto {
         if (texto == null) {
             throw new IllegalArgumentException("O texto não pode ser nulo.");
         }
-        linhas = quebrarLinhas(texto, METRICAS_TEXTO);
-        totalCaracteres = linhas.stream()
-                .mapToInt(linha -> linha.codePointCount(0, linha.length())).sum();
+        textoOriginal = texto;
+        reorganizarTexto();
         caracteresRevelados = 0;
         framesDesdeUltimoCaractere = 0;
+    }
+
+    public void definirRetrato(BufferedImage retrato) {
+        this.retrato = retrato;
+        reorganizarTexto();
+        caracteresRevelados = Math.min(caracteresRevelados, totalCaracteres);
     }
 
     public void atualizar() {
@@ -82,6 +91,7 @@ public final class CaixaDeTexto {
                     RAIO_CANTO - RECUO_BORDA_INTERNA,
                     RAIO_CANTO - RECUO_BORDA_INTERNA);
 
+            desenharRetrato(contexto);
             contexto.setFont(FONTE_TEXTO);
             contexto.setColor(Color.BLACK);
             int linhaY = y + RECUO_VERTICAL_TEXTO;
@@ -95,7 +105,7 @@ public final class CaixaDeTexto {
                 int caracteresNaLinhaVisiveis = Math.min(caracteresNaLinha, caracteresRestantes);
                 if (caracteresNaLinhaVisiveis > 0) {
                     int fimVisivel = linha.offsetByCodePoints(0, caracteresNaLinhaVisiveis);
-                    contexto.drawString(linha.substring(0, fimVisivel), x + MARGEM_TEXTO, linhaY);
+                    contexto.drawString(linha.substring(0, fimVisivel), posicaoTextoX(), linhaY);
                 }
                 caracteresRestantes -= caracteresNaLinhaVisiveis;
                 linhaY += METRICAS_TEXTO.getHeight();
@@ -105,9 +115,41 @@ public final class CaixaDeTexto {
         }
     }
 
-    private List<String> quebrarLinhas(String texto, FontMetrics metricas) {
+    private void reorganizarTexto() {
+        linhas = quebrarLinhas(textoOriginal, METRICAS_TEXTO, larguraDisponivelTexto());
+        totalCaracteres = linhas.stream()
+                .mapToInt(linha -> linha.codePointCount(0, linha.length())).sum();
+    }
+
+    private void desenharRetrato(Graphics2D contexto) {
+        if (retrato == null) {
+            return;
+        }
+
+        int retratoX = x + MARGEM_TEXTO;
+        int retratoY = y + (altura - TAMANHO_RETRATO) / 2;
+        contexto.setColor(Color.BLACK);
+        contexto.fillRect(retratoX, retratoY, TAMANHO_RETRATO, TAMANHO_RETRATO);
+        contexto.setColor(Color.WHITE);
+        contexto.fillRect(retratoX + MARGEM_RETRATO, retratoY + MARGEM_RETRATO,
+                TAMANHO_RETRATO - MARGEM_RETRATO * 2,
+                TAMANHO_RETRATO - MARGEM_RETRATO * 2);
+        contexto.drawImage(retrato, retratoX + MARGEM_RETRATO, retratoY + MARGEM_RETRATO,
+                TAMANHO_RETRATO - MARGEM_RETRATO * 2,
+                TAMANHO_RETRATO - MARGEM_RETRATO * 2, null);
+    }
+
+    private int posicaoTextoX() {
+        return x + MARGEM_TEXTO
+                + (retrato == null ? 0 : TAMANHO_RETRATO + MARGEM_TEXTO);
+    }
+
+    private int larguraDisponivelTexto() {
+        return Math.max(1, x + largura - MARGEM_TEXTO - posicaoTextoX());
+    }
+
+    private List<String> quebrarLinhas(String texto, FontMetrics metricas, int larguraDisponivel) {
         List<String> resultado = new ArrayList<>();
-        int larguraDisponivel = Math.max(1, largura - MARGEM_TEXTO * 2);
 
         for (String paragrafo : texto.split("\\R", -1)) {
             if (paragrafo.isBlank()) {
