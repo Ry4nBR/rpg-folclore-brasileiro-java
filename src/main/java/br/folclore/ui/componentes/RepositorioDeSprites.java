@@ -19,6 +19,7 @@ public final class RepositorioDeSprites {
         precarregar("caipora");
         precarregar("capelobo");
         precarregar("iara");
+        precarregar("boto_cor_de_rosa");
     }
 
     private RepositorioDeSprites() {
