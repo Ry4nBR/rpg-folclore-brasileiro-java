@@ -6,7 +6,9 @@ import java.awt.Graphics2D;
 public final class BarraDeVida {
     private static final int ALTURA = 12;
     private static final Color COR_FUNDO = Color.GRAY;
-    private static final Color COR_PREENCHIMENTO = new Color(55, 205, 55);
+    private static final Color COR_VERDE = new Color(55, 205, 55);
+    private static final Color COR_AMARELA = new Color(245, 205, 55);
+    private static final Color COR_VERMELHA = new Color(220, 55, 55);
 
     private BarraDeVida() {
     }
@@ -22,10 +24,19 @@ public final class BarraDeVida {
 
         int pvLimitado = Math.max(0, Math.min(pvAtual, pvMaximo));
         int larguraPreenchida = (int) ((long) largura * pvLimitado / pvMaximo);
+        double proporcao = pvLimitado / (double) pvMaximo;
+        Color corPreenchimento;
+        if (proporcao > 0.50) {
+            corPreenchimento = COR_VERDE;
+        } else if (proporcao > 0.20) {
+            corPreenchimento = COR_AMARELA;
+        } else {
+            corPreenchimento = COR_VERMELHA;
+        }
 
         g.setColor(COR_FUNDO);
         g.fillRect(x, y, largura, ALTURA);
-        g.setColor(COR_PREENCHIMENTO);
+        g.setColor(corPreenchimento);
         g.fillRect(x, y, larguraPreenchida, ALTURA);
     }
 }
