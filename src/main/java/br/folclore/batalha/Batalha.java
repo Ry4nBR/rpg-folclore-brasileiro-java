@@ -52,6 +52,13 @@ public class Batalha {
         aposAcaoDoJogador();
     }
 
+    public void acaoHabilidade(int indice) {
+        exigirEstado(EstadoBatalha.ESCOLHA_DO_JOGADOR);
+        if (indice < 0 || indice >= jogador.getHabilidades().size()) {
+            throw new IllegalArgumentException("Índice de habilidade inválido.");
+        }
+    }
+
     private void aposAcaoDoJogador() {
         if (!inimigo.estaVivo()) {
             registrar(inimigo.getNome() + " foi derrotado!");
