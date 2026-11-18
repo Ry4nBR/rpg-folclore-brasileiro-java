@@ -102,10 +102,13 @@ public class TelaSelecaoPersonagem implements Tela {
                 break;
             }
         }
+        botaoConfirmar.setHabilitado(indiceSelecionado >= 0);
+        botaoConfirmar.clicar(x, y);
     }
 
     @Override
     public void aoMoverMouse(int x, int y) {
+        botaoConfirmar.atualizarHover(x, y);
     }
 
     @Override
@@ -116,6 +119,15 @@ public class TelaSelecaoPersonagem implements Tela {
                     : indiceSelecionado - 1;
         } else if (codigo == KeyEvent.VK_RIGHT) {
             indiceSelecionado = (indiceSelecionado + 1) % opcoes.size();
+        } else if (codigo == KeyEvent.VK_ENTER) {
+            confirmarSelecao();
+        }
+        botaoConfirmar.setHabilitado(indiceSelecionado >= 0);
+    }
+
+    private void confirmarSelecao() {
+        if (indiceSelecionado >= 0 && aoConfirmar != null) {
+            aoConfirmar.accept(opcoes.get(indiceSelecionado));
         }
     }
 }
