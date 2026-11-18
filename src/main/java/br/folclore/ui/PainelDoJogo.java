@@ -10,18 +10,18 @@ import javax.swing.Timer;
 
 public class PainelDoJogo extends JPanel {
 
+    private final GerenciadorDeTelas gerenciadorDeTelas;
+
     public PainelDoJogo() {
+        gerenciadorDeTelas = new GerenciadorDeTelas();
         setPreferredSize(new Dimension(ConfiguracoesUi.LARGURA, ConfiguracoesUi.ALTURA));
         setFocusable(true);
         setDoubleBuffered(true);
         Timer timer = new Timer(1000 / ConfiguracoesUi.FPS, event -> {
-            atualizar();
+            gerenciadorDeTelas.atualizar();
             repaint();
         });
         timer.start();
-    }
-
-    private void atualizar() {
     }
 
     @Override
@@ -37,6 +37,7 @@ public class PainelDoJogo extends JPanel {
             g2d.setRenderingHint(
                     RenderingHints.KEY_INTERPOLATION,
                     RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+            gerenciadorDeTelas.desenhar(g2d);
         } finally {
             g2d.dispose();
         }
