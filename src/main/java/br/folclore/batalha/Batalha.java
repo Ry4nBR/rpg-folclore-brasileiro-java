@@ -51,6 +51,15 @@ public class Batalha {
                 + " e causou " + dano + " de dano!");
     }
 
+    private void aposAcaoDoJogador() {
+        if (!inimigo.estaVivo()) {
+            registrar(inimigo.getNome() + " foi derrotado!");
+            estado = EstadoBatalha.VITORIA;
+        } else {
+            estado = EstadoBatalha.TURNO_DO_INIMIGO;
+        }
+    }
+
     public Personagem getJogador() {
         return jogador;
     }
