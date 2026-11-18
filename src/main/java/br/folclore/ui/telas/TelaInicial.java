@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 
 public class TelaInicial implements Tela {
 
@@ -61,5 +62,22 @@ public class TelaInicial implements Tela {
 
     @Override
     public void aoPressionarTecla(int codigo) {
+        if (codigo == KeyEvent.VK_UP) {
+            indiceSelecionado = (indiceSelecionado + 2) % 3;
+        } else if (codigo == KeyEvent.VK_DOWN) {
+            indiceSelecionado = (indiceSelecionado + 1) % 3;
+        } else if (codigo == KeyEvent.VK_ENTER) {
+            switch (indiceSelecionado) {
+                case 0 -> botaoNovoJogo.clicar(480, 275);
+                case 1 -> botaoContinuar.clicar(480, 340);
+                case 2 -> botaoSair.clicar(480, 405);
+                default -> {
+                }
+            }
+        }
+
+        botaoNovoJogo.atualizarHover(480, indiceSelecionado == 0 ? 275 : -1);
+        botaoContinuar.atualizarHover(480, indiceSelecionado == 1 ? 340 : -1);
+        botaoSair.atualizarHover(480, indiceSelecionado == 2 ? 405 : -1);
     }
 }
