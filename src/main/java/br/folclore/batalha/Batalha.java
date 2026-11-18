@@ -1,5 +1,6 @@
 package br.folclore.batalha;
 
+import br.folclore.habilidades.ResultadoAcao;
 import br.folclore.modelo.Personagem;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -57,6 +58,8 @@ public class Batalha {
         if (indice < 0 || indice >= jogador.getHabilidades().size()) {
             throw new IllegalArgumentException("Índice de habilidade inválido.");
         }
+        ResultadoAcao resultado = jogador.usarHabilidade(indice, inimigo);
+        registrar(resultado.getMensagem());
     }
 
     private void aposAcaoDoJogador() {
