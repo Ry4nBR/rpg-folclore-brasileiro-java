@@ -8,5 +8,8 @@ public class JanelaPrincipal extends JFrame {
         super(ConfiguracoesUi.TITULO);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
+        add(new PainelDoJogo());
+        pack();
+        setLocationRelativeTo(null);
     }
 }
