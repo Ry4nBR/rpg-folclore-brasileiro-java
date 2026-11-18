@@ -20,7 +20,9 @@ public class TelaInicial implements Tela {
     public TelaInicial(GerenciadorDeTelas gerenciador) {
         this.gerenciador = gerenciador;
         botaoNovoJogo = new Botao(380, 250, 200, 50, "Novo Jogo",
-                () -> System.out.println("Novo Jogo selecionado"));
+                () -> gerenciador.trocarPara(new TelaSelecaoPersonagem(
+                        gerenciador,
+                        personagem -> System.out.println(personagem.getNome()))));
         botaoContinuar = new Botao(380, 315, 200, 50, "Continuar",
                 () -> System.out.println("Continuar selecionado"));
         botaoSair = new Botao(380, 380, 200, 50, "Sair", () -> System.exit(0));
