@@ -20,12 +20,15 @@ public class TelaSelecaoPersonagem implements Tela {
     private final List<Personagem> opcoes = CatalogoDeHerois.criarTodos();
     private int indiceSelecionado = -1;
     private final Botao botaoConfirmar;
+    private final Botao botaoVoltar;
 
     public TelaSelecaoPersonagem(GerenciadorDeTelas gerenciador, Consumer<Personagem> aoConfirmar) {
         this.gerenciador = gerenciador;
         this.aoConfirmar = aoConfirmar;
         botaoConfirmar = new Botao(380, 450, 200, 50, "Confirmar", () -> confirmarSelecao());
         botaoConfirmar.setHabilitado(false);
+        botaoVoltar = new Botao(40, 460, 160, 40, "Voltar",
+                () -> gerenciador.trocarPara(new TelaInicial(gerenciador)));
     }
 
     @Override
@@ -89,6 +92,7 @@ public class TelaSelecaoPersonagem implements Tela {
         }
 
         botaoConfirmar.desenhar(g);
+        botaoVoltar.desenhar(g);
     }
 
     @Override
