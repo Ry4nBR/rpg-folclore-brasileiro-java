@@ -4,6 +4,8 @@ import br.folclore.batalha.Batalha;
 import br.folclore.batalha.ResultadoBatalha;
 import br.folclore.ui.GerenciadorDeTelas;
 import br.folclore.ui.componentes.CarregadorDeImagens;
+import br.folclore.ui.componentes.PosicoesDeBatalha;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.function.Consumer;
@@ -30,6 +32,19 @@ public class TelaBatalha implements Tela {
     @Override
     public void desenhar(Graphics2D g) {
         g.drawImage(fundo, 0, 0, null);
+        desenharPlataformas(g);
+    }
+
+    private void desenharPlataformas(Graphics2D g) {
+        g.setColor(new Color(70, 55, 45, 180));
+        int largura = PosicoesDeBatalha.TAMANHO_SPRITE + 32;
+        int altura = 42;
+        g.fillOval(PosicoesDeBatalha.JOGADOR_X - 16,
+                PosicoesDeBatalha.JOGADOR_Y + PosicoesDeBatalha.TAMANHO_SPRITE - 18,
+                largura, altura);
+        g.fillOval(PosicoesDeBatalha.INIMIGO_X - 16,
+                PosicoesDeBatalha.INIMIGO_Y + PosicoesDeBatalha.TAMANHO_SPRITE - 18,
+                largura, altura);
     }
 
     @Override
