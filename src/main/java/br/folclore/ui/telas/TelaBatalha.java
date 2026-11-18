@@ -38,6 +38,8 @@ public class TelaBatalha implements Tela {
         desenharPlataformas(g);
         RepositorioDeSprites.desenhar(g, batalha.getJogador(),
                 PosicoesDeBatalha.JOGADOR_X, PosicoesDeBatalha.JOGADOR_Y, true);
+        RepositorioDeSprites.desenhar(g, batalha.getInimigo(),
+                PosicoesDeBatalha.INIMIGO_X, PosicoesDeBatalha.INIMIGO_Y, false);
         desenharHudInimigo(g);
         desenharHudJogador(g);
     }
