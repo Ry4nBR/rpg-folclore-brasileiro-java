@@ -76,7 +76,9 @@ public class Batalha {
             registrar("Não é possível fugir de um chefe!");
             return false;
         }
-        throw new IllegalStateException("A fuga permitida ainda não foi implementada.");
+        registrar("Você fugiu da batalha!");
+        estado = EstadoBatalha.FUGA;
+        return true;
     }
 
     private void aposAcaoDoJogador() {
