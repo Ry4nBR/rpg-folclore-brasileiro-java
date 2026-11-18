@@ -58,6 +58,17 @@ public class TelaSelecaoPersonagem implements Tela {
             g.drawString(personagem.getTipo().getRotulo(), posicaoX + 10, 165);
             g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 18));
         }
+
+        g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 16));
+        g.setColor(Color.BLACK);
+        for (int i = 0; i < opcoes.size(); i++) {
+            Personagem personagem = opcoes.get(i);
+            int posicaoX = posicoesX[i];
+            g.drawString("PV: " + personagem.getPvMaximo(), posicaoX + 10, 350);
+            g.drawString("ATQ: " + personagem.getAtaque(), posicaoX + 10, 370);
+            g.drawString("DEF: " + personagem.getDefesa(), posicaoX + 10, 390);
+            g.drawString("VEL: " + personagem.getVelocidade(), posicaoX + 10, 410);
+        }
     }
 
     @Override
