@@ -35,6 +35,7 @@ public class TelaBatalha implements Tela {
     private final CaixaDeTexto caixaDeTexto;
     private final Botao botaoAtacar;
     private final Botao botaoHabilidade;
+    private final Botao botaoVoltarHabilidades;
     private final List<Botao> botoesHabilidade = new ArrayList<>();
     private final List<String> rotulosHabilidade = new ArrayList<>();
     private final Queue<String> filaMensagens = new ArrayDeque<>();
@@ -53,6 +54,8 @@ public class TelaBatalha implements Tela {
         this.botaoAtacar = new Botao(520, 410, 200, 45, "Atacar", () -> batalha.acaoAtacar());
         this.botaoHabilidade = new Botao(740, 410, 200, 45, "Habilidade",
                 this::abrirSubmenuHabilidades);
+        this.botaoVoltarHabilidades = new Botao(740, 465, 200, 45, "Voltar",
+                this::voltarAoMenuPrincipal);
         batalha.iniciar();
         sincronizarMensagens();
         mostrarProximaMensagem();
@@ -112,6 +115,10 @@ public class TelaBatalha implements Tela {
         exibindoSubmenuHabilidades = false;
     }
 
+    private void voltarAoMenuPrincipal() {
+        exibindoSubmenuHabilidades = false;
+    }
+
     private void desenharSubmenuHabilidades(Graphics2D g) {
         for (int i = 0; i < botoesHabilidade.size(); i++) {
             int x = i % 2 == 0 ? 520 : 740;
@@ -119,6 +126,7 @@ public class TelaBatalha implements Tela {
             botoesHabilidade.get(i).desenhar(g);
             desenharRotuloHabilidade(g, rotulosHabilidade.get(i), x, y);
         }
+        botaoVoltarHabilidades.desenhar(g);
     }
 
     private void desenharRotuloHabilidade(Graphics2D g, String rotulo, int x, int y) {
@@ -199,6 +207,7 @@ public class TelaBatalha implements Tela {
             for (Botao botao : botoesHabilidade) {
                 botao.clicar(x, y);
             }
+            botaoVoltarHabilidades.clicar(x, y);
         } else {
             botaoAtacar.clicar(x, y);
             botaoHabilidade.clicar(x, y);
@@ -216,11 +225,14 @@ public class TelaBatalha implements Tela {
         for (Botao botao : botoesHabilidade) {
             botao.atualizarHover(x, y);
         }
+        botaoVoltarHabilidades.atualizarHover(x, y);
     }
 
     @Override
     public void aoPressionarTecla(int codigo) {
-        if (codigo == KeyEvent.VK_ENTER) {
+        if (codigo == KeyEvent.VK_ESCAPE && exibindoSubmenuHabilidades) {
+            voltarAoMenuPrincipal();
+        } else if (codigo == KeyEvent.VK_ENTER) {
             avancarMensagem();
         }
     }
