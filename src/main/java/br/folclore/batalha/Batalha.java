@@ -116,6 +116,15 @@ public class Batalha {
         return estado;
     }
 
+    public ResultadoBatalha getResultado() {
+        return switch (estado) {
+            case VITORIA -> ResultadoBatalha.VITORIA;
+            case DERROTA -> ResultadoBatalha.DERROTA;
+            case FUGA -> ResultadoBatalha.FUGA;
+            default -> null;
+        };
+    }
+
     public boolean isFugaPermitida() {
         return fugaPermitida;
     }
