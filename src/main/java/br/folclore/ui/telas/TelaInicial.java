@@ -12,11 +12,13 @@ public class TelaInicial implements Tela {
 
     private final GerenciadorDeTelas gerenciador;
     private final Botao botaoNovoJogo;
+    private final Botao botaoContinuar;
 
     public TelaInicial(GerenciadorDeTelas gerenciador) {
         this.gerenciador = gerenciador;
         botaoNovoJogo = new Botao(380, 250, 200, 50, "Novo Jogo",
                 () -> System.out.println("Novo Jogo selecionado"));
+        botaoContinuar = new Botao(380, 315, 200, 50, "Continuar", null);
     }
 
     @Override
@@ -35,6 +37,7 @@ public class TelaInicial implements Tela {
         g.setColor(Color.WHITE);
         g.drawString(titulo, x, 180);
         botaoNovoJogo.desenhar(g);
+        botaoContinuar.desenhar(g);
     }
 
     @Override
