@@ -13,6 +13,7 @@ public final class RepositorioDeSprites {
         precarregar("lobisomem");
         precarregar("negrinho_do_pastoreio");
         precarregar("mae_de_ouro");
+        precarregar("batatao");
     }
 
     private RepositorioDeSprites() {
