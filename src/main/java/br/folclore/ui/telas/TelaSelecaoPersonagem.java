@@ -16,6 +16,7 @@ public class TelaSelecaoPersonagem implements Tela {
     private final GerenciadorDeTelas gerenciador;
     private final Consumer<Personagem> aoConfirmar;
     private final List<Personagem> opcoes = CatalogoDeHerois.criarTodos();
+    private int indiceSelecionado = -1;
 
     public TelaSelecaoPersonagem(GerenciadorDeTelas gerenciador, Consumer<Personagem> aoConfirmar) {
         this.gerenciador = gerenciador;
@@ -74,10 +75,26 @@ public class TelaSelecaoPersonagem implements Tela {
             g.drawRect(posicaoX + 20, 180, 159, 159);
             g.setColor(Color.BLACK);
         }
+
+        if (indiceSelecionado >= 0) {
+            int posicaoX = posicoesX[indiceSelecionado];
+            g.setStroke(new java.awt.BasicStroke(4));
+            g.setColor(Color.YELLOW);
+            g.drawRect(posicaoX - 2, 108, 204, 304);
+        }
     }
 
     @Override
     public void aoClicar(int x, int y) {
+        int[] posicoesX = {100, 380, 660};
+        for (int i = 0; i < opcoes.size(); i++) {
+            int posicaoX = posicoesX[i];
+            if (x >= posicaoX && x <= posicaoX + 200
+                    && y >= 110 && y <= 410) {
+                indiceSelecionado = i;
+                break;
+            }
+        }
     }
 
     @Override
