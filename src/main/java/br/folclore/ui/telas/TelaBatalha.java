@@ -99,8 +99,17 @@ public class TelaBatalha implements Tela {
             rotulosHabilidade.add(habilidade.getNome() + " ("
                     + habilidade.getUsosRestantes() + "/" + habilidade.getUsosMaximos()
                     + " usos)");
-            botoesHabilidade.add(new Botao(x, y, 200, 45, "", null));
+            int indiceHabilidade = i;
+            Botao botao = new Botao(x, y, 200, 45, "",
+                    () -> usarHabilidade(indiceHabilidade));
+            botao.setHabilitado(habilidade.temUsosRestantes());
+            botoesHabilidade.add(botao);
         }
+    }
+
+    private void usarHabilidade(int indice) {
+        batalha.acaoHabilidade(indice);
+        exibindoSubmenuHabilidades = false;
     }
 
     private void desenharSubmenuHabilidades(Graphics2D g) {
