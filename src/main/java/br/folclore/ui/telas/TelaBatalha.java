@@ -36,6 +36,7 @@ public class TelaBatalha implements Tela {
         g.drawImage(fundo, 0, 0, null);
         desenharPlataformas(g);
         desenharHudInimigo(g);
+        desenharHudJogador(g);
     }
 
     private void desenharPlataformas(Graphics2D g) {
@@ -67,6 +68,27 @@ public class TelaBatalha implements Tela {
         g.drawString(batalha.getInimigo().getTipo().getRotulo(), x + 12, y + 39);
         BarraDeVida.desenhar(g, x + 12, y + 50, largura - 24,
                 batalha.getInimigo().getPvAtual(), batalha.getInimigo().getPvMaximo());
+    }
+
+    private void desenharHudJogador(Graphics2D g) {
+        int x = 600;
+        int y = 330;
+        int largura = 320;
+        int altura = 80;
+
+        g.setColor(new Color(25, 30, 35, 210));
+        g.fillRect(x, y, largura, altura);
+        g.setColor(Color.WHITE);
+        g.drawRect(x, y, largura - 1, altura - 1);
+
+        g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 16));
+        g.drawString(batalha.getJogador().getNome(), x + 12, y + 20);
+        BarraDeVida.desenhar(g, x + 12, y + 30, largura - 24,
+                batalha.getJogador().getPvAtual(), batalha.getJogador().getPvMaximo());
+        g.setColor(Color.WHITE);
+        g.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 14));
+        g.drawString("PV " + batalha.getJogador().getPvAtual()
+                + "/" + batalha.getJogador().getPvMaximo(), x + 12, y + 68);
     }
 
     @Override
