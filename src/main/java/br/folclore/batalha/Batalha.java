@@ -1,12 +1,16 @@
 package br.folclore.batalha;
 
 import br.folclore.modelo.Personagem;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Batalha {
     private final Personagem jogador;
     private final Personagem inimigo;
     private EstadoBatalha estado = EstadoBatalha.INICIO;
     private final boolean fugaPermitida;
+    private final List<String> registro = new ArrayList<>();
 
     public Batalha(Personagem jogador, Personagem inimigo) {
         if (jogador == null || inimigo == null) {
@@ -32,5 +36,13 @@ public class Batalha {
 
     public boolean isFugaPermitida() {
         return fugaPermitida;
+    }
+
+    private void registrar(String mensagem) {
+        registro.add(mensagem);
+    }
+
+    public List<String> getRegistro() {
+        return Collections.unmodifiableList(new ArrayList<>(registro));
     }
 }
