@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 public final class AnimacaoTremor implements Animacao {
-    private static final int DURACAO_QUADROS = 15;
+    public static final int DURACAO_QUADROS = 15;
     private static final int AMPLITUDE = 8;
 
     private final BufferedImage sprite;

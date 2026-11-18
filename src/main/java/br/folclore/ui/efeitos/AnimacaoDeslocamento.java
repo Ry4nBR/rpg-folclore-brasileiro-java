@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 public final class AnimacaoDeslocamento implements Animacao {
-    private static final int DURACAO_QUADROS = 20;
+    public static final int DURACAO_QUADROS = 20;
     private static final int QUADROS_AVANCO = DURACAO_QUADROS / 2;
     private static final int DISTANCIA_AVANCO = 40;
 

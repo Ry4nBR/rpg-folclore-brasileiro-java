@@ -4,14 +4,19 @@ import br.folclore.batalha.Batalha;
 import br.folclore.batalha.EstadoBatalha;
 import br.folclore.batalha.ResultadoBatalha;
 import br.folclore.habilidades.Habilidade;
-import br.folclore.ui.efeitos.GerenciadorDeEfeitos;
+import br.folclore.modelo.Personagem;
 import br.folclore.ui.GerenciadorDeTelas;
 import br.folclore.ui.componentes.BarraDeVida;
 import br.folclore.ui.componentes.Botao;
 import br.folclore.ui.componentes.CaixaDeTexto;
 import br.folclore.ui.componentes.CarregadorDeImagens;
+import br.folclore.ui.componentes.NormalizadorDeNomes;
 import br.folclore.ui.componentes.PosicoesDeBatalha;
 import br.folclore.ui.componentes.RepositorioDeSprites;
+import br.folclore.ui.efeitos.AnimacaoDeslocamento;
+import br.folclore.ui.efeitos.AnimacaoNumeroFlutuante;
+import br.folclore.ui.efeitos.AnimacaoTremor;
+import br.folclore.ui.efeitos.GerenciadorDeEfeitos;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -51,6 +56,10 @@ public class TelaBatalha implements Tela {
     private boolean exibindoPainelStatus;
     private boolean notificacaoEncerramentoEnviada;
     private String textoStatus;
+    private int quadrosDeslocamentoJogador;
+    private int quadrosDeslocamentoInimigo;
+    private int quadrosTremorJogador;
+    private int quadrosTremorInimigo;
 
     public TelaBatalha(GerenciadorDeTelas gerenciador, Batalha batalha,
                        Consumer<ResultadoBatalha> aoEncerrar) {
@@ -60,7 +69,8 @@ public class TelaBatalha implements Tela {
         this.fundo = CarregadorDeImagens.carregar("/fundos/batalha_generico.png");
         this.caixaDeTexto = new CaixaDeTexto(CAIXA_TEXTO_X, CAIXA_TEXTO_Y,
                 CAIXA_TEXTO_LARGURA, CAIXA_TEXTO_ALTURA);
-        this.botaoAtacar = new Botao(520, 410, 200, 45, "Atacar", () -> batalha.acaoAtacar());
+        this.botaoAtacar = new Botao(520, 410, 200, 45, "Atacar",
+                this::atacarComJogador);
         this.botaoHabilidade = new Botao(740, 410, 200, 45, "Habilidade",
                 this::abrirSubmenuHabilidades);
         this.botaoVerStatus = new Botao(520, 465, 200, 45, "Ver status",
@@ -81,13 +91,14 @@ public class TelaBatalha implements Tela {
     @Override
     public void atualizar() {
         gerenciadorDeEfeitos.atualizar();
+        atualizarQuadrosDeAnimacao();
         sincronizarMensagens();
         if (mensagemAtual == null) {
             mostrarProximaMensagem();
         }
         if (mensagemAtual == null && filaMensagens.isEmpty()
                 && batalha.getEstado() == EstadoBatalha.TURNO_DO_INIMIGO) {
-            batalha.executarTurnoDoInimigo();
+            atacarComInimigo();
             sincronizarMensagens();
             mostrarProximaMensagem();
         }
@@ -104,10 +115,14 @@ public class TelaBatalha implements Tela {
     public void desenhar(Graphics2D g) {
         g.drawImage(fundo, 0, 0, null);
         desenharPlataformas(g);
-        RepositorioDeSprites.desenhar(g, batalha.getJogador(),
-                PosicoesDeBatalha.JOGADOR_X, PosicoesDeBatalha.JOGADOR_Y, true);
-        RepositorioDeSprites.desenhar(g, batalha.getInimigo(),
-                PosicoesDeBatalha.INIMIGO_X, PosicoesDeBatalha.INIMIGO_Y, false);
+        if (quadrosDeslocamentoJogador == 0 && quadrosTremorJogador == 0) {
+            RepositorioDeSprites.desenhar(g, batalha.getJogador(),
+                    PosicoesDeBatalha.JOGADOR_X, PosicoesDeBatalha.JOGADOR_Y, true);
+        }
+        if (quadrosDeslocamentoInimigo == 0 && quadrosTremorInimigo == 0) {
+            RepositorioDeSprites.desenhar(g, batalha.getInimigo(),
+                    PosicoesDeBatalha.INIMIGO_X, PosicoesDeBatalha.INIMIGO_Y, false);
+        }
         desenharHudInimigo(g);
         desenharHudJogador(g);
         gerenciadorDeEfeitos.desenhar(g);
@@ -132,6 +147,79 @@ public class TelaBatalha implements Tela {
 
     private void fecharPainelStatus() {
         exibindoPainelStatus = false;
+    }
+
+    private void atacarComJogador() {
+        int pvAntes = batalha.getInimigo().getPvAtual();
+        batalha.acaoAtacar();
+        iniciarEfeitosDeAtaque(batalha.getJogador(), batalha.getInimigo(),
+                pvAntes - batalha.getInimigo().getPvAtual());
+    }
+
+    private void atacarComInimigo() {
+        int pvAntes = batalha.getJogador().getPvAtual();
+        batalha.executarTurnoDoInimigo();
+        iniciarEfeitosDeAtaque(batalha.getInimigo(), batalha.getJogador(),
+                pvAntes - batalha.getJogador().getPvAtual());
+    }
+
+    private void iniciarEfeitosDeAtaque(Personagem atacante, Personagem alvo, int dano) {
+        if (dano <= 0) {
+            return;
+        }
+
+        boolean atacanteJogador = atacante == batalha.getJogador();
+        int xAtacante = obterX(atacante);
+        int yAtacante = obterY(atacante);
+        int xAlvo = obterX(alvo);
+        int yAlvo = obterY(alvo);
+        int tamanho = PosicoesDeBatalha.TAMANHO_SPRITE;
+        boolean atacanteEspelhado = atacanteJogador;
+        boolean alvoEspelhado = alvo == batalha.getJogador();
+        BufferedImage spriteAtacante = RepositorioDeSprites.obter(
+                NormalizadorDeNomes.paraId(atacante.getNome()));
+        BufferedImage spriteAlvo = RepositorioDeSprites.obter(
+                NormalizadorDeNomes.paraId(alvo.getNome()));
+
+        gerenciadorDeEfeitos.adicionar(new AnimacaoDeslocamento(spriteAtacante,
+                xAtacante, yAtacante, xAlvo, yAlvo, tamanho, atacanteEspelhado));
+        gerenciadorDeEfeitos.adicionar(new AnimacaoTremor(spriteAlvo,
+                xAlvo, yAlvo, tamanho, alvoEspelhado));
+        gerenciadorDeEfeitos.adicionar(new AnimacaoNumeroFlutuante(dano,
+                xAlvo + tamanho / 2, yAlvo + tamanho / 2, false));
+
+        if (atacanteJogador) {
+            quadrosDeslocamentoJogador = AnimacaoDeslocamento.DURACAO_QUADROS;
+            quadrosTremorInimigo = AnimacaoTremor.DURACAO_QUADROS;
+        } else {
+            quadrosDeslocamentoInimigo = AnimacaoDeslocamento.DURACAO_QUADROS;
+            quadrosTremorJogador = AnimacaoTremor.DURACAO_QUADROS;
+        }
+    }
+
+    private int obterX(Personagem personagem) {
+        return personagem == batalha.getJogador()
+                ? PosicoesDeBatalha.JOGADOR_X : PosicoesDeBatalha.INIMIGO_X;
+    }
+
+    private int obterY(Personagem personagem) {
+        return personagem == batalha.getJogador()
+                ? PosicoesDeBatalha.JOGADOR_Y : PosicoesDeBatalha.INIMIGO_Y;
+    }
+
+    private void atualizarQuadrosDeAnimacao() {
+        if (quadrosDeslocamentoJogador > 0) {
+            quadrosDeslocamentoJogador--;
+        }
+        if (quadrosDeslocamentoInimigo > 0) {
+            quadrosDeslocamentoInimigo--;
+        }
+        if (quadrosTremorJogador > 0) {
+            quadrosTremorJogador--;
+        }
+        if (quadrosTremorInimigo > 0) {
+            quadrosTremorInimigo--;
+        }
     }
 
     private void desenharPainelStatus(Graphics2D g) {
