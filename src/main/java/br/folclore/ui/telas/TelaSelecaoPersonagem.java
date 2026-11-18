@@ -4,6 +4,7 @@ import br.folclore.modelo.CatalogoDeHerois;
 import br.folclore.modelo.Personagem;
 import br.folclore.ui.GerenciadorDeTelas;
 import br.folclore.ui.ConfiguracoesUi;
+import br.folclore.ui.componentes.Botao;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -18,10 +19,13 @@ public class TelaSelecaoPersonagem implements Tela {
     private final Consumer<Personagem> aoConfirmar;
     private final List<Personagem> opcoes = CatalogoDeHerois.criarTodos();
     private int indiceSelecionado = -1;
+    private final Botao botaoConfirmar;
 
     public TelaSelecaoPersonagem(GerenciadorDeTelas gerenciador, Consumer<Personagem> aoConfirmar) {
         this.gerenciador = gerenciador;
         this.aoConfirmar = aoConfirmar;
+        botaoConfirmar = new Botao(380, 450, 200, 50, "Confirmar", () -> confirmarSelecao());
+        botaoConfirmar.setHabilitado(false);
     }
 
     @Override
@@ -83,6 +87,8 @@ public class TelaSelecaoPersonagem implements Tela {
             g.setColor(Color.YELLOW);
             g.drawRect(posicaoX - 2, 108, 204, 304);
         }
+
+        botaoConfirmar.desenhar(g);
     }
 
     @Override
