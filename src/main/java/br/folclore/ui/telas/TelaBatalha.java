@@ -81,6 +81,12 @@ public class TelaBatalha implements Tela {
         if (mensagemAtual == null) {
             mostrarProximaMensagem();
         }
+        if (mensagemAtual == null && filaMensagens.isEmpty()
+                && batalha.getEstado() == EstadoBatalha.TURNO_DO_INIMIGO) {
+            batalha.executarTurnoDoInimigo();
+            sincronizarMensagens();
+            mostrarProximaMensagem();
+        }
         caixaDeTexto.atualizar();
         atualizarHabilitacaoBotoes();
     }
