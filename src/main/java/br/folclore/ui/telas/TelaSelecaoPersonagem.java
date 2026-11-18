@@ -37,6 +37,16 @@ public class TelaSelecaoPersonagem implements Tela {
         int x = (ConfiguracoesUi.LARGURA - metricas.stringWidth(titulo)) / 2;
         g.setColor(Color.WHITE);
         g.drawString(titulo, x, 70);
+
+        int[] posicoesX = {100, 380, 660};
+        g.setStroke(new java.awt.BasicStroke(3));
+        g.setColor(Color.WHITE);
+        for (int posicaoX : posicoesX) {
+            g.fillRect(posicaoX, 110, 200, 300);
+            g.setColor(Color.BLACK);
+            g.drawRect(posicaoX, 110, 199, 299);
+            g.setColor(Color.WHITE);
+        }
     }
 
     @Override
