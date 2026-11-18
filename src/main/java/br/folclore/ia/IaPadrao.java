@@ -5,6 +5,14 @@ import br.folclore.habilidades.HabilidadeCura;
 import br.folclore.habilidades.HabilidadeDano;
 import br.folclore.modelo.Personagem;
 
+/**
+ * Decide as ações do inimigo nesta ordem de prioridade:
+ * <ol>
+ * <li>Usa uma habilidade de cura disponível se estiver com até 30% dos PV máximos.</li>
+ * <li>Em turnos ímpares, usa uma habilidade de dano disponível.</li>
+ * <li>Nos demais casos, executa o ataque básico.</li>
+ * </ol>
+ */
 public class IaPadrao implements InteligenciaArtificial {
     @Override
     public DecisaoIA decidir(Personagem inimigo, Personagem jogador, int turno) {
