@@ -65,6 +65,8 @@ public class TelaBatalha implements Tela {
     private int quadrosTremorInimigo;
     private int quadrosAteImpactoHabilidade;
     private int danoHabilidadePendente;
+    private double pvExibidoJogador;
+    private double pvExibidoInimigo;
 
     public TelaBatalha(GerenciadorDeTelas gerenciador, Batalha batalha,
                        Consumer<ResultadoBatalha> aoEncerrar) {
@@ -88,6 +90,8 @@ public class TelaBatalha implements Tela {
         this.botaoVoltarHabilidades = new Botao(740, 465, 200, 45, "Voltar",
                 this::voltarAoMenuPrincipal);
         batalha.iniciar();
+        pvExibidoJogador = batalha.getJogador().getPvAtual();
+        pvExibidoInimigo = batalha.getInimigo().getPvAtual();
         sincronizarMensagens();
         mostrarProximaMensagem();
         atualizarHabilitacaoBotoes();
@@ -98,6 +102,7 @@ public class TelaBatalha implements Tela {
         gerenciadorDeEfeitos.atualizar();
         atualizarQuadrosDeAnimacao();
         atualizarImpactoHabilidadePendente();
+        atualizarPvExibido();
         sincronizarMensagens();
         if (mensagemAtual == null) {
             mostrarProximaMensagem();
@@ -394,7 +399,7 @@ public class TelaBatalha implements Tela {
         g.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 14));
         g.drawString(batalha.getInimigo().getTipo().getRotulo(), x + 12, y + 39);
         BarraDeVida.desenhar(g, x + 12, y + 50, largura - 24,
-                batalha.getInimigo().getPvAtual(), batalha.getInimigo().getPvMaximo());
+                (int) Math.round(pvExibidoInimigo), batalha.getInimigo().getPvMaximo());
     }
 
     private void desenharHudJogador(Graphics2D g) {
@@ -411,11 +416,27 @@ public class TelaBatalha implements Tela {
         g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 16));
         g.drawString(batalha.getJogador().getNome(), x + 12, y + 20);
         BarraDeVida.desenhar(g, x + 12, y + 30, largura - 24,
-                batalha.getJogador().getPvAtual(), batalha.getJogador().getPvMaximo());
+                (int) Math.round(pvExibidoJogador), batalha.getJogador().getPvMaximo());
         g.setColor(Color.WHITE);
         g.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 14));
-        g.drawString("PV " + batalha.getJogador().getPvAtual()
+        g.drawString("PV " + (int) Math.round(pvExibidoJogador)
                 + "/" + batalha.getJogador().getPvMaximo(), x + 12, y + 68);
+    }
+
+    private void atualizarPvExibido() {
+        if (gerenciadorDeEfeitos.temAtivas()) {
+            return;
+        }
+        pvExibidoJogador = interpolarPv(pvExibidoJogador, batalha.getJogador().getPvAtual());
+        pvExibidoInimigo = interpolarPv(pvExibidoInimigo, batalha.getInimigo().getPvAtual());
+    }
+
+    private double interpolarPv(double pvExibido, int pvReal) {
+        double diferenca = pvReal - pvExibido;
+        if (Math.abs(diferenca) < 0.1) {
+            return pvReal;
+        }
+        return pvExibido + diferenca * 0.2;
     }
 
     @Override
