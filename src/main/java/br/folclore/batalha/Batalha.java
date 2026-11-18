@@ -1,6 +1,8 @@
 package br.folclore.batalha;
 
 import br.folclore.habilidades.ResultadoAcao;
+import br.folclore.ia.IaPadrao;
+import br.folclore.ia.InteligenciaArtificial;
 import br.folclore.modelo.Personagem;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,18 +16,27 @@ import java.util.List;
 public class Batalha {
     private final Personagem jogador;
     private final Personagem inimigo;
+    private final InteligenciaArtificial ia;
     private EstadoBatalha estado = EstadoBatalha.INICIO;
     private final boolean fugaPermitida;
     private final List<String> registro = new ArrayList<>();
     private int turno = 1;
 
     public Batalha(Personagem jogador, Personagem inimigo) {
+        this(jogador, inimigo, new IaPadrao());
+    }
+
+    public Batalha(Personagem jogador, Personagem inimigo, InteligenciaArtificial ia) {
         if (jogador == null || inimigo == null) {
             throw new IllegalArgumentException("Os combatentes não podem ser nulos.");
+        }
+        if (ia == null) {
+            throw new IllegalArgumentException("A inteligência artificial não pode ser nula.");
         }
 
         this.jogador = jogador;
         this.inimigo = inimigo;
+        this.ia = ia;
         this.fugaPermitida = !inimigo.ehChefe();
     }
 
