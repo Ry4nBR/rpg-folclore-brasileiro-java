@@ -107,12 +107,13 @@ public class Batalha {
         exigirEstado(EstadoBatalha.TURNO_DO_INIMIGO);
         DecisaoIA decisao = ia.decidir(inimigo, jogador, turno);
         if (decisao.getTipo() == TipoDeDecisao.ATACAR) {
-            int dano = inimigo.atacar(jogador);
-            registrar(inimigo.getNome() + " usou " + inimigo.getNomeAtaqueBasico()
-                    + " e causou " + dano + " de dano!");
+            executarAtaqueBasicoDoInimigo();
         } else {
             ResultadoAcao resultado = inimigo.usarHabilidade(decisao.getIndiceHabilidade(), jogador);
             registrar(resultado.getMensagem());
+            if (resultado.getEfeito() == ResultadoAcao.Efeito.FALHA) {
+                executarAtaqueBasicoDoInimigo();
+            }
         }
 
         if (!jogador.estaVivo()) {
@@ -122,6 +123,12 @@ public class Batalha {
             turno++;
             estado = EstadoBatalha.ESCOLHA_DO_JOGADOR;
         }
+    }
+
+    private void executarAtaqueBasicoDoInimigo() {
+        int dano = inimigo.atacar(jogador);
+        registrar(inimigo.getNome() + " usou " + inimigo.getNomeAtaqueBasico()
+                + " e causou " + dano + " de dano!");
     }
 
     public Personagem getJogador() {
