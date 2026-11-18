@@ -60,6 +60,9 @@ public class Batalha {
         }
         ResultadoAcao resultado = jogador.usarHabilidade(indice, inimigo);
         registrar(resultado.getMensagem());
+        if (resultado.getEfeito() == ResultadoAcao.Efeito.FALHA) {
+            return;
+        }
     }
 
     private void aposAcaoDoJogador() {
