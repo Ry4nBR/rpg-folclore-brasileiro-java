@@ -2,22 +2,40 @@ package br.folclore.ui.componentes;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public final class CaixaDeTexto {
     private static final int RAIO_CANTO = 18;
     private static final int RECUO_BORDA_INTERNA = 4;
+    private static final int MARGEM_TEXTO = 12;
+    private static final int RECUO_VERTICAL_TEXTO = 22;
+    private static final Font FONTE_TEXTO = new Font(Font.MONOSPACED, Font.PLAIN, 16);
+    private static final FontMetrics METRICAS_TEXTO = criarMetricasTexto();
 
     private final int x;
     private final int y;
     private final int largura;
     private final int altura;
+    private List<String> linhas = Collections.emptyList();
 
     public CaixaDeTexto(int x, int y, int largura, int altura) {
         this.x = x;
         this.y = y;
         this.largura = largura;
         this.altura = altura;
+    }
+
+    public void definirTexto(String texto) {
+        if (texto == null) {
+            throw new IllegalArgumentException("O texto não pode ser nulo.");
+        }
+        linhas = quebrarLinhas(texto, METRICAS_TEXTO);
     }
 
     public void desenhar(Graphics2D g) {
@@ -35,6 +53,78 @@ public final class CaixaDeTexto {
                     altura - RECUO_BORDA_INTERNA * 2 - 1,
                     RAIO_CANTO - RECUO_BORDA_INTERNA,
                     RAIO_CANTO - RECUO_BORDA_INTERNA);
+
+            contexto.setFont(FONTE_TEXTO);
+            contexto.setColor(Color.BLACK);
+            int linhaY = y + RECUO_VERTICAL_TEXTO;
+            int limiteInferior = y + altura - MARGEM_TEXTO;
+            for (String linha : linhas) {
+                if (linhaY > limiteInferior) {
+                    break;
+                }
+                contexto.drawString(linha, x + MARGEM_TEXTO, linhaY);
+                linhaY += METRICAS_TEXTO.getHeight();
+            }
+        } finally {
+            contexto.dispose();
+        }
+    }
+
+    private List<String> quebrarLinhas(String texto, FontMetrics metricas) {
+        List<String> resultado = new ArrayList<>();
+        int larguraDisponivel = Math.max(1, largura - MARGEM_TEXTO * 2);
+
+        for (String paragrafo : texto.split("\\R", -1)) {
+            if (paragrafo.isBlank()) {
+                resultado.add("");
+                continue;
+            }
+
+            StringBuilder linha = new StringBuilder();
+            for (String palavra : paragrafo.trim().split("\\s+")) {
+                String candidata = linha.length() == 0 ? palavra : linha + " " + palavra;
+                if (metricas.stringWidth(candidata) <= larguraDisponivel) {
+                    linha.setLength(0);
+                    linha.append(candidata);
+                    continue;
+                }
+
+                if (linha.length() > 0) {
+                    resultado.add(linha.toString());
+                    linha.setLength(0);
+                }
+                if (metricas.stringWidth(palavra) <= larguraDisponivel) {
+                    linha.append(palavra);
+                } else {
+                    quebrarPalavra(palavra, larguraDisponivel, metricas, resultado, linha);
+                }
+            }
+
+            if (linha.length() > 0) {
+                resultado.add(linha.toString());
+            }
+        }
+        return resultado;
+    }
+
+    private void quebrarPalavra(String palavra, int larguraDisponivel, FontMetrics metricas,
+                                List<String> resultado, StringBuilder linha) {
+        for (int i = 0; i < palavra.length(); i++) {
+            char caractere = palavra.charAt(i);
+            if (linha.length() > 0
+                    && metricas.stringWidth(linha.toString() + caractere) > larguraDisponivel) {
+                resultado.add(linha.toString());
+                linha.setLength(0);
+            }
+            linha.append(caractere);
+        }
+    }
+
+    private static FontMetrics criarMetricasTexto() {
+        BufferedImage imagem = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D contexto = imagem.createGraphics();
+        try {
+            return contexto.getFontMetrics(FONTE_TEXTO);
         } finally {
             contexto.dispose();
         }
