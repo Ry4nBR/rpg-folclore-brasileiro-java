@@ -4,6 +4,7 @@ import br.folclore.batalha.Batalha;
 import br.folclore.batalha.EstadoBatalha;
 import br.folclore.batalha.ResultadoBatalha;
 import br.folclore.habilidades.Habilidade;
+import br.folclore.ui.efeitos.GerenciadorDeEfeitos;
 import br.folclore.ui.GerenciadorDeTelas;
 import br.folclore.ui.componentes.BarraDeVida;
 import br.folclore.ui.componentes.Botao;
@@ -33,6 +34,7 @@ public class TelaBatalha implements Tela {
     private final Batalha batalha;
     private final Consumer<ResultadoBatalha> aoEncerrar;
     private final BufferedImage fundo;
+    private final GerenciadorDeEfeitos gerenciadorDeEfeitos = new GerenciadorDeEfeitos();
     private final CaixaDeTexto caixaDeTexto;
     private final Botao botaoAtacar;
     private final Botao botaoHabilidade;
@@ -78,6 +80,7 @@ public class TelaBatalha implements Tela {
 
     @Override
     public void atualizar() {
+        gerenciadorDeEfeitos.atualizar();
         sincronizarMensagens();
         if (mensagemAtual == null) {
             mostrarProximaMensagem();
@@ -107,6 +110,7 @@ public class TelaBatalha implements Tela {
                 PosicoesDeBatalha.INIMIGO_X, PosicoesDeBatalha.INIMIGO_Y, false);
         desenharHudInimigo(g);
         desenharHudJogador(g);
+        gerenciadorDeEfeitos.desenhar(g);
         caixaDeTexto.desenhar(g);
         if (exibindoSubmenuHabilidades) {
             desenharSubmenuHabilidades(g);
