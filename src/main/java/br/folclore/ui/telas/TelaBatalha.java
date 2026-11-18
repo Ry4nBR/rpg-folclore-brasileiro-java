@@ -31,6 +31,7 @@ public class TelaBatalha implements Tela {
     private final BufferedImage fundo;
     private final CaixaDeTexto caixaDeTexto;
     private final Botao botaoAtacar;
+    private final Botao botaoHabilidade;
     private final Queue<String> filaMensagens = new ArrayDeque<>();
     private int mensagensLidasDoRegistro;
     private String mensagemAtual;
@@ -44,6 +45,7 @@ public class TelaBatalha implements Tela {
         this.caixaDeTexto = new CaixaDeTexto(CAIXA_TEXTO_X, CAIXA_TEXTO_Y,
                 CAIXA_TEXTO_LARGURA, CAIXA_TEXTO_ALTURA);
         this.botaoAtacar = new Botao(520, 410, 200, 45, "Atacar", () -> batalha.acaoAtacar());
+        this.botaoHabilidade = new Botao(740, 410, 200, 45, "Habilidade", null);
         batalha.iniciar();
         sincronizarMensagens();
         mostrarProximaMensagem();
@@ -70,6 +72,7 @@ public class TelaBatalha implements Tela {
         desenharHudJogador(g);
         caixaDeTexto.desenhar(g);
         botaoAtacar.desenhar(g);
+        botaoHabilidade.desenhar(g);
     }
 
     private void desenharPlataformas(Graphics2D g) {
