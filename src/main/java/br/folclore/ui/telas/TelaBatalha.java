@@ -61,7 +61,9 @@ public class TelaBatalha implements Tela {
                 this::abrirSubmenuHabilidades);
         this.botaoVerStatus = new Botao(520, 465, 200, 45, "Ver status",
                 this::abrirPainelStatus);
-        this.botaoFugir = new Botao(740, 465, 200, 45, "Fugir", null);
+        this.botaoFugir = new Botao(740, 465, 200, 45, "Fugir",
+                () -> batalha.acaoFugir());
+        this.botaoFugir.setHabilitado(batalha.isFugaPermitida());
         this.botaoFecharStatus = new Botao(380, 290, 200, 45, "Fechar",
                 this::fecharPainelStatus);
         this.botaoVoltarHabilidades = new Botao(740, 465, 200, 45, "Voltar",
@@ -266,6 +268,7 @@ public class TelaBatalha implements Tela {
             botaoAtacar.clicar(x, y);
             botaoHabilidade.clicar(x, y);
             botaoVerStatus.clicar(x, y);
+            botaoFugir.clicar(x, y);
         }
         if (x >= CAIXA_TEXTO_X && x < CAIXA_TEXTO_X + CAIXA_TEXTO_LARGURA
                 && y >= CAIXA_TEXTO_Y && y < CAIXA_TEXTO_Y + CAIXA_TEXTO_ALTURA) {
@@ -278,6 +281,7 @@ public class TelaBatalha implements Tela {
         botaoAtacar.atualizarHover(x, y);
         botaoHabilidade.atualizarHover(x, y);
         botaoVerStatus.atualizarHover(x, y);
+        botaoFugir.atualizarHover(x, y);
         botaoFecharStatus.atualizarHover(x, y);
         for (Botao botao : botoesHabilidade) {
             botao.atualizarHover(x, y);
