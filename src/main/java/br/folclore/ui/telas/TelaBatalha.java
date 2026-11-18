@@ -43,7 +43,7 @@ public class TelaBatalha implements Tela {
         this.fundo = CarregadorDeImagens.carregar("/fundos/batalha_generico.png");
         this.caixaDeTexto = new CaixaDeTexto(CAIXA_TEXTO_X, CAIXA_TEXTO_Y,
                 CAIXA_TEXTO_LARGURA, CAIXA_TEXTO_ALTURA);
-        this.botaoAtacar = new Botao(520, 410, 200, 45, "Atacar", null);
+        this.botaoAtacar = new Botao(520, 410, 200, 45, "Atacar", () -> batalha.acaoAtacar());
         batalha.iniciar();
         sincronizarMensagens();
         mostrarProximaMensagem();
@@ -126,6 +126,7 @@ public class TelaBatalha implements Tela {
 
     @Override
     public void aoClicar(int x, int y) {
+        botaoAtacar.clicar(x, y);
         if (x >= CAIXA_TEXTO_X && x < CAIXA_TEXTO_X + CAIXA_TEXTO_LARGURA
                 && y >= CAIXA_TEXTO_Y && y < CAIXA_TEXTO_Y + CAIXA_TEXTO_ALTURA) {
             avancarMensagem();
@@ -134,6 +135,7 @@ public class TelaBatalha implements Tela {
 
     @Override
     public void aoMoverMouse(int x, int y) {
+        botaoAtacar.atualizarHover(x, y);
     }
 
     @Override
