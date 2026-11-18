@@ -125,6 +125,12 @@ public class Batalha {
         };
     }
 
+    public boolean estaEncerrada() {
+        return estado == EstadoBatalha.VITORIA
+                || estado == EstadoBatalha.DERROTA
+                || estado == EstadoBatalha.FUGA;
+    }
+
     public boolean isFugaPermitida() {
         return fugaPermitida;
     }
