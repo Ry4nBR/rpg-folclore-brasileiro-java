@@ -66,6 +66,13 @@ public class Batalha {
         int dano = inimigo.atacar(jogador);
         registrar(inimigo.getNome() + " usou " + inimigo.getNomeAtaqueBasico()
                 + " e causou " + dano + " de dano!");
+        if (!jogador.estaVivo()) {
+            registrar(jogador.getNome() + " foi derrotado!");
+            estado = EstadoBatalha.DERROTA;
+        } else {
+            turno++;
+            estado = EstadoBatalha.ESCOLHA_DO_JOGADOR;
+        }
     }
 
     public Personagem getJogador() {
