@@ -9,6 +9,7 @@ public final class RepositorioDeRetratos {
         obter("saci");
         obter("lobisomem");
         obter("negrinho_do_pastoreio");
+        obter("mula_sem_cabeca");
     }
 
     private RepositorioDeRetratos() {
