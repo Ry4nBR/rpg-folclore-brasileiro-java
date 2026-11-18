@@ -20,6 +20,7 @@ public final class RepositorioDeSprites {
         precarregar("capelobo");
         precarregar("iara");
         precarregar("boto_cor_de_rosa");
+        precarregar("honorato");
     }
 
     private RepositorioDeSprites() {
