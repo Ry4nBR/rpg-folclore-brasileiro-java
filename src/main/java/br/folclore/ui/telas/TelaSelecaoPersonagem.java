@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -103,5 +104,12 @@ public class TelaSelecaoPersonagem implements Tela {
 
     @Override
     public void aoPressionarTecla(int codigo) {
+        if (codigo == KeyEvent.VK_LEFT) {
+            indiceSelecionado = indiceSelecionado <= 0
+                    ? opcoes.size() - 1
+                    : indiceSelecionado - 1;
+        } else if (codigo == KeyEvent.VK_RIGHT) {
+            indiceSelecionado = (indiceSelecionado + 1) % opcoes.size();
+        }
     }
 }
