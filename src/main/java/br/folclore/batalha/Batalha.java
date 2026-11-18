@@ -11,6 +11,7 @@ public class Batalha {
     private EstadoBatalha estado = EstadoBatalha.INICIO;
     private final boolean fugaPermitida;
     private final List<String> registro = new ArrayList<>();
+    private int turno = 1;
 
     public Batalha(Personagem jogador, Personagem inimigo) {
         if (jogador == null || inimigo == null) {
@@ -44,5 +45,9 @@ public class Batalha {
 
     public List<String> getRegistro() {
         return Collections.unmodifiableList(new ArrayList<>(registro));
+    }
+
+    public int getTurno() {
+        return turno;
     }
 }
