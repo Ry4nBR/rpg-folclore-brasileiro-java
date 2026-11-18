@@ -2,6 +2,7 @@ package br.folclore.ui.telas;
 
 import br.folclore.batalha.Batalha;
 import br.folclore.batalha.ResultadoBatalha;
+import br.folclore.habilidades.Habilidade;
 import br.folclore.ui.GerenciadorDeTelas;
 import br.folclore.ui.componentes.BarraDeVida;
 import br.folclore.ui.componentes.Botao;
@@ -11,10 +12,12 @@ import br.folclore.ui.componentes.PosicoesDeBatalha;
 import br.folclore.ui.componentes.RepositorioDeSprites;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 import java.util.function.Consumer;
@@ -32,9 +35,12 @@ public class TelaBatalha implements Tela {
     private final CaixaDeTexto caixaDeTexto;
     private final Botao botaoAtacar;
     private final Botao botaoHabilidade;
+    private final List<Botao> botoesHabilidade = new ArrayList<>();
+    private final List<String> rotulosHabilidade = new ArrayList<>();
     private final Queue<String> filaMensagens = new ArrayDeque<>();
     private int mensagensLidasDoRegistro;
     private String mensagemAtual;
+    private boolean exibindoSubmenuHabilidades;
 
     public TelaBatalha(GerenciadorDeTelas gerenciador, Batalha batalha,
                        Consumer<ResultadoBatalha> aoEncerrar) {
@@ -45,7 +51,8 @@ public class TelaBatalha implements Tela {
         this.caixaDeTexto = new CaixaDeTexto(CAIXA_TEXTO_X, CAIXA_TEXTO_Y,
                 CAIXA_TEXTO_LARGURA, CAIXA_TEXTO_ALTURA);
         this.botaoAtacar = new Botao(520, 410, 200, 45, "Atacar", () -> batalha.acaoAtacar());
-        this.botaoHabilidade = new Botao(740, 410, 200, 45, "Habilidade", null);
+        this.botaoHabilidade = new Botao(740, 410, 200, 45, "Habilidade",
+                this::abrirSubmenuHabilidades);
         batalha.iniciar();
         sincronizarMensagens();
         mostrarProximaMensagem();
@@ -71,8 +78,58 @@ public class TelaBatalha implements Tela {
         desenharHudInimigo(g);
         desenharHudJogador(g);
         caixaDeTexto.desenhar(g);
-        botaoAtacar.desenhar(g);
-        botaoHabilidade.desenhar(g);
+        if (exibindoSubmenuHabilidades) {
+            desenharSubmenuHabilidades(g);
+        } else {
+            botaoAtacar.desenhar(g);
+            botaoHabilidade.desenhar(g);
+        }
+    }
+
+    private void abrirSubmenuHabilidades() {
+        exibindoSubmenuHabilidades = true;
+        botoesHabilidade.clear();
+        rotulosHabilidade.clear();
+
+        List<Habilidade> habilidades = batalha.getJogador().getHabilidades();
+        for (int i = 0; i < habilidades.size() && i < 3; i++) {
+            Habilidade habilidade = habilidades.get(i);
+            int x = i % 2 == 0 ? 520 : 740;
+            int y = 410 + i / 2 * 55;
+            rotulosHabilidade.add(habilidade.getNome() + " ("
+                    + habilidade.getUsosRestantes() + "/" + habilidade.getUsosMaximos()
+                    + " usos)");
+            botoesHabilidade.add(new Botao(x, y, 200, 45, "", null));
+        }
+    }
+
+    private void desenharSubmenuHabilidades(Graphics2D g) {
+        for (int i = 0; i < botoesHabilidade.size(); i++) {
+            int x = i % 2 == 0 ? 520 : 740;
+            int y = 410 + i / 2 * 55;
+            botoesHabilidade.get(i).desenhar(g);
+            desenharRotuloHabilidade(g, rotulosHabilidade.get(i), x, y);
+        }
+    }
+
+    private void desenharRotuloHabilidade(Graphics2D g, String rotulo, int x, int y) {
+        Font fonteAnterior = g.getFont();
+        Color corAnterior = g.getColor();
+        int tamanhoFonte = 20;
+        Font fonte = new Font(Font.MONOSPACED, Font.BOLD, tamanhoFonte);
+        FontMetrics metricas = g.getFontMetrics(fonte);
+        while (metricas.stringWidth(rotulo) > 184 && tamanhoFonte > 10) {
+            tamanhoFonte--;
+            fonte = new Font(Font.MONOSPACED, Font.BOLD, tamanhoFonte);
+            metricas = g.getFontMetrics(fonte);
+        }
+        g.setFont(fonte);
+        g.setColor(Color.WHITE);
+        int textoX = x + (200 - metricas.stringWidth(rotulo)) / 2;
+        int textoY = y + ((45 - metricas.getHeight()) / 2) + metricas.getAscent();
+        g.drawString(rotulo, textoX, textoY);
+        g.setFont(fonteAnterior);
+        g.setColor(corAnterior);
     }
 
     private void desenharPlataformas(Graphics2D g) {
@@ -129,7 +186,14 @@ public class TelaBatalha implements Tela {
 
     @Override
     public void aoClicar(int x, int y) {
-        botaoAtacar.clicar(x, y);
+        if (exibindoSubmenuHabilidades) {
+            for (Botao botao : botoesHabilidade) {
+                botao.clicar(x, y);
+            }
+        } else {
+            botaoAtacar.clicar(x, y);
+            botaoHabilidade.clicar(x, y);
+        }
         if (x >= CAIXA_TEXTO_X && x < CAIXA_TEXTO_X + CAIXA_TEXTO_LARGURA
                 && y >= CAIXA_TEXTO_Y && y < CAIXA_TEXTO_Y + CAIXA_TEXTO_ALTURA) {
             avancarMensagem();
@@ -139,6 +203,10 @@ public class TelaBatalha implements Tela {
     @Override
     public void aoMoverMouse(int x, int y) {
         botaoAtacar.atualizarHover(x, y);
+        botaoHabilidade.atualizarHover(x, y);
+        for (Botao botao : botoesHabilidade) {
+            botao.atualizarHover(x, y);
+        }
     }
 
     @Override
