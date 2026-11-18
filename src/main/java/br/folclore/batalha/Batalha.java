@@ -61,6 +61,13 @@ public class Batalha {
         }
     }
 
+    public void executarTurnoDoInimigo() {
+        exigirEstado(EstadoBatalha.TURNO_DO_INIMIGO);
+        int dano = inimigo.atacar(jogador);
+        registrar(inimigo.getNome() + " usou " + inimigo.getNomeAtaqueBasico()
+                + " e causou " + dano + " de dano!");
+    }
+
     public Personagem getJogador() {
         return jogador;
     }
