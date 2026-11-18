@@ -6,6 +6,7 @@ import br.folclore.ui.GerenciadorDeTelas;
 import br.folclore.ui.componentes.BarraDeVida;
 import br.folclore.ui.componentes.CarregadorDeImagens;
 import br.folclore.ui.componentes.PosicoesDeBatalha;
+import br.folclore.ui.componentes.RepositorioDeSprites;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -35,6 +36,8 @@ public class TelaBatalha implements Tela {
     public void desenhar(Graphics2D g) {
         g.drawImage(fundo, 0, 0, null);
         desenharPlataformas(g);
+        RepositorioDeSprites.desenhar(g, batalha.getJogador(),
+                PosicoesDeBatalha.JOGADOR_X, PosicoesDeBatalha.JOGADOR_Y, true);
         desenharHudInimigo(g);
         desenharHudJogador(g);
     }
