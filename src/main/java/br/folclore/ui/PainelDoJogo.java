@@ -7,6 +7,7 @@ import java.awt.RenderingHints;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -23,6 +24,12 @@ public class PainelDoJogo extends JPanel {
             @Override
             public void mousePressed(MouseEvent event) {
                 gerenciadorDeTelas.aoClicar(event.getX(), event.getY());
+            }
+        });
+        addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent event) {
+                gerenciadorDeTelas.aoMoverMouse(event.getX(), event.getY());
             }
         });
         Timer timer = new Timer(1000 / ConfiguracoesUi.FPS, event -> {
