@@ -36,6 +36,7 @@ public class TelaBatalha implements Tela {
     private final Botao botaoAtacar;
     private final Botao botaoHabilidade;
     private final Botao botaoVerStatus;
+    private final Botao botaoFugir;
     private final Botao botaoFecharStatus;
     private final Botao botaoVoltarHabilidades;
     private final List<Botao> botoesHabilidade = new ArrayList<>();
@@ -60,6 +61,7 @@ public class TelaBatalha implements Tela {
                 this::abrirSubmenuHabilidades);
         this.botaoVerStatus = new Botao(520, 465, 200, 45, "Ver status",
                 this::abrirPainelStatus);
+        this.botaoFugir = new Botao(740, 465, 200, 45, "Fugir", null);
         this.botaoFecharStatus = new Botao(380, 290, 200, 45, "Fechar",
                 this::fecharPainelStatus);
         this.botaoVoltarHabilidades = new Botao(740, 465, 200, 45, "Voltar",
@@ -95,6 +97,7 @@ public class TelaBatalha implements Tela {
             botaoAtacar.desenhar(g);
             botaoHabilidade.desenhar(g);
             botaoVerStatus.desenhar(g);
+            botaoFugir.desenhar(g);
         }
         if (exibindoPainelStatus) {
             desenharPainelStatus(g);
