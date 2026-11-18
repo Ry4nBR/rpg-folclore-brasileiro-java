@@ -71,6 +71,14 @@ public class Batalha {
         return inimigo.resumoDeStatus();
     }
 
+    public boolean acaoFugir() {
+        if (!fugaPermitida) {
+            registrar("Não é possível fugir de um chefe!");
+            return false;
+        }
+        throw new IllegalStateException("A fuga permitida ainda não foi implementada.");
+    }
+
     private void aposAcaoDoJogador() {
         if (!inimigo.estaVivo()) {
             registrar(inimigo.getNome() + " foi derrotado!");
