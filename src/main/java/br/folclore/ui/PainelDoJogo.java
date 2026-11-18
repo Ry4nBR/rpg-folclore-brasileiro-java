@@ -8,6 +8,8 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -30,6 +32,12 @@ public class PainelDoJogo extends JPanel {
             @Override
             public void mouseMoved(MouseEvent event) {
                 gerenciadorDeTelas.aoMoverMouse(event.getX(), event.getY());
+            }
+        });
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent event) {
+                gerenciadorDeTelas.aoPressionarTecla(event.getKeyCode());
             }
         });
         Timer timer = new Timer(1000 / ConfiguracoesUi.FPS, event -> {
