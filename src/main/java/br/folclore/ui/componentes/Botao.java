@@ -15,6 +15,7 @@ public class Botao {
     private final String rotulo;
     private final Runnable aoAcionar;
     private boolean habilitado = true;
+    private boolean sobMouse;
 
     public Botao(int x, int y, int largura, int altura, String rotulo, Runnable aoAcionar) {
         this.x = x;
@@ -26,7 +27,15 @@ public class Botao {
     }
 
     public void desenhar(Graphics2D g) {
-        g.setColor(habilitado ? new Color(48, 48, 48) : Color.GRAY);
+        Color corFundo;
+        if (!habilitado) {
+            corFundo = Color.GRAY;
+        } else if (sobMouse) {
+            corFundo = new Color(70, 130, 180);
+        } else {
+            corFundo = new Color(48, 48, 48);
+        }
+        g.setColor(corFundo);
         g.fillRect(x, y, largura, altura);
         g.setStroke(new BasicStroke(3));
         g.setColor(habilitado ? Color.WHITE : Color.LIGHT_GRAY);
@@ -52,5 +61,9 @@ public class Botao {
         if (habilitado && contem(x, y) && aoAcionar != null) {
             aoAcionar.run();
         }
+    }
+
+    public void atualizarHover(int x, int y) {
+        sobMouse = habilitado && contem(x, y);
     }
 }
