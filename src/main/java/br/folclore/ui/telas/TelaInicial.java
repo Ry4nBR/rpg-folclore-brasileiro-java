@@ -2,6 +2,7 @@ package br.folclore.ui.telas;
 
 import br.folclore.ui.GerenciadorDeTelas;
 import br.folclore.ui.ConfiguracoesUi;
+import br.folclore.ui.componentes.Botao;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -10,9 +11,12 @@ import java.awt.Graphics2D;
 public class TelaInicial implements Tela {
 
     private final GerenciadorDeTelas gerenciador;
+    private final Botao botaoNovoJogo;
 
     public TelaInicial(GerenciadorDeTelas gerenciador) {
         this.gerenciador = gerenciador;
+        botaoNovoJogo = new Botao(380, 250, 200, 50, "Novo Jogo",
+                () -> System.out.println("Novo Jogo selecionado"));
     }
 
     @Override
@@ -30,6 +34,7 @@ public class TelaInicial implements Tela {
         int x = (ConfiguracoesUi.LARGURA - metricas.stringWidth(titulo)) / 2;
         g.setColor(Color.WHITE);
         g.drawString(titulo, x, 180);
+        botaoNovoJogo.desenhar(g);
     }
 
     @Override
