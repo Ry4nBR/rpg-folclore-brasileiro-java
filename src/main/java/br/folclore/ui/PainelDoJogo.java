@@ -1,0 +1,72 @@
+package br.folclore.ui;
+
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.JPanel;
+import javax.swing.Timer;
+
+public class PainelDoJogo extends JPanel {
+
+    private final GerenciadorDeTelas gerenciadorDeTelas;
+
+    public PainelDoJogo() {
+        this(new GerenciadorDeTelas());
+    }
+
+    public PainelDoJogo(GerenciadorDeTelas gerenciadorDeTelas) {
+        this.gerenciadorDeTelas = gerenciadorDeTelas;
+        setPreferredSize(new Dimension(ConfiguracoesUi.LARGURA, ConfiguracoesUi.ALTURA));
+        setFocusable(true);
+        setDoubleBuffered(true);
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent event) {
+                gerenciadorDeTelas.aoClicar(event.getX(), event.getY());
+            }
+        });
+        addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent event) {
+                gerenciadorDeTelas.aoMoverMouse(event.getX(), event.getY());
+            }
+        });
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent event) {
+                gerenciadorDeTelas.aoPressionarTecla(event.getKeyCode());
+            }
+        });
+        Timer timer = new Timer(1000 / ConfiguracoesUi.FPS, event -> {
+            gerenciadorDeTelas.atualizar();
+            repaint();
+        });
+        timer.start();
+    }
+
+    @Override
+    protected void paintComponent(Graphics graphics) {
+        super.paintComponent(graphics);
+        Graphics2D g2d = (Graphics2D) graphics.create();
+        try {
+            g2d.setColor(Color.BLACK);
+            g2d.fillRect(0, 0, getWidth(), getHeight());
+            g2d.setRenderingHint(
+                    RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_OFF);
+            g2d.setRenderingHint(
+                    RenderingHints.KEY_INTERPOLATION,
+                    RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+            gerenciadorDeTelas.desenhar(g2d);
+        } finally {
+            g2d.dispose();
+        }
+    }
+}
