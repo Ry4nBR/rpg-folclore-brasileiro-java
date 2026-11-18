@@ -47,6 +47,17 @@ public class TelaSelecaoPersonagem implements Tela {
             g.drawRect(posicaoX, 110, 199, 299);
             g.setColor(Color.WHITE);
         }
+
+        g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 18));
+        g.setColor(Color.BLACK);
+        for (int i = 0; i < opcoes.size(); i++) {
+            Personagem personagem = opcoes.get(i);
+            int posicaoX = posicoesX[i];
+            g.drawString(personagem.getNome(), posicaoX + 10, 145);
+            g.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 16));
+            g.drawString(personagem.getTipo().getRotulo(), posicaoX + 10, 165);
+            g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 18));
+        }
     }
 
     @Override
