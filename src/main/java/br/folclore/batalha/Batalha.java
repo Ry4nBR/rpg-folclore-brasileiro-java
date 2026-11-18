@@ -37,6 +37,13 @@ public class Batalha {
         estado = EstadoBatalha.ESCOLHA_DO_JOGADOR;
     }
 
+    private void exigirEstado(EstadoBatalha esperado) {
+        if (estado != esperado) {
+            throw new IllegalStateException("A ação exige o estado " + esperado
+                    + ", mas o estado atual é " + estado + ".");
+        }
+    }
+
     public Personagem getJogador() {
         return jogador;
     }
