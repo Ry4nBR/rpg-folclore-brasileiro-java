@@ -66,6 +66,11 @@ public class Batalha {
         aposAcaoDoJogador();
     }
 
+    public String acaoVerStatus() {
+        exigirEstado(EstadoBatalha.ESCOLHA_DO_JOGADOR);
+        return inimigo.resumoDeStatus();
+    }
+
     private void aposAcaoDoJogador() {
         if (!inimigo.estaVivo()) {
             registrar(inimigo.getNome() + " foi derrotado!");
