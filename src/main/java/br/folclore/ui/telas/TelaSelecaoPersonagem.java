@@ -5,6 +5,8 @@ import br.folclore.modelo.Personagem;
 import br.folclore.ui.GerenciadorDeTelas;
 import br.folclore.ui.ConfiguracoesUi;
 import br.folclore.ui.componentes.Botao;
+import br.folclore.ui.componentes.NormalizadorDeNomes;
+import br.folclore.ui.componentes.RepositorioDeRetratos;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -77,8 +79,8 @@ public class TelaSelecaoPersonagem implements Tela {
             g.drawString("ATQ: " + personagem.getAtaque(), posicaoX + 10, 370);
             g.drawString("DEF: " + personagem.getDefesa(), posicaoX + 10, 390);
             g.drawString("VEL: " + personagem.getVelocidade(), posicaoX + 10, 410);
-            g.setColor(Color.GRAY);
-            g.fillRect(posicaoX + 20, 180, 160, 160);
+            g.drawImage(RepositorioDeRetratos.obter(NormalizadorDeNomes.paraId(personagem.getNome())),
+                    posicaoX + 20, 180, 160, 160, null);
             g.setColor(Color.DARK_GRAY);
             g.drawRect(posicaoX + 20, 180, 159, 159);
             g.setColor(Color.BLACK);
