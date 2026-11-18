@@ -1,6 +1,7 @@
 package br.folclore.ui.telas;
 
 import br.folclore.batalha.Batalha;
+import br.folclore.batalha.EstadoBatalha;
 import br.folclore.batalha.ResultadoBatalha;
 import br.folclore.habilidades.Habilidade;
 import br.folclore.ui.GerenciadorDeTelas;
@@ -71,6 +72,7 @@ public class TelaBatalha implements Tela {
         batalha.iniciar();
         sincronizarMensagens();
         mostrarProximaMensagem();
+        atualizarHabilitacaoBotoes();
     }
 
     @Override
@@ -80,6 +82,7 @@ public class TelaBatalha implements Tela {
             mostrarProximaMensagem();
         }
         caixaDeTexto.atualizar();
+        atualizarHabilitacaoBotoes();
     }
 
     @Override
@@ -255,6 +258,7 @@ public class TelaBatalha implements Tela {
 
     @Override
     public void aoClicar(int x, int y) {
+        atualizarHabilitacaoBotoes();
         if (exibindoPainelStatus) {
             botaoFecharStatus.clicar(x, y);
             return;
@@ -274,6 +278,7 @@ public class TelaBatalha implements Tela {
                 && y >= CAIXA_TEXTO_Y && y < CAIXA_TEXTO_Y + CAIXA_TEXTO_ALTURA) {
             avancarMensagem();
         }
+        atualizarHabilitacaoBotoes();
     }
 
     @Override
@@ -309,6 +314,17 @@ public class TelaBatalha implements Tela {
             return;
         }
         mostrarProximaMensagem();
+        atualizarHabilitacaoBotoes();
+    }
+
+    private void atualizarHabilitacaoBotoes() {
+        boolean habilitado = batalha.getEstado() == EstadoBatalha.ESCOLHA_DO_JOGADOR
+                && filaMensagens.isEmpty()
+                && mensagemAtual == null;
+        botaoAtacar.setHabilitado(habilitado);
+        botaoHabilidade.setHabilitado(habilitado);
+        botaoVerStatus.setHabilitado(habilitado);
+        botaoFugir.setHabilitado(habilitado && batalha.isFugaPermitida());
     }
 
     private void sincronizarMensagens() {
