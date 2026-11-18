@@ -15,7 +15,9 @@ import br.folclore.ui.componentes.PosicoesDeBatalha;
 import br.folclore.ui.componentes.RepositorioDeSprites;
 import br.folclore.ui.efeitos.AnimacaoDeslocamento;
 import br.folclore.ui.efeitos.AnimacaoNumeroFlutuante;
+import br.folclore.ui.efeitos.AnimacaoParticulas;
 import br.folclore.ui.efeitos.AnimacaoTremor;
+import br.folclore.ui.efeitos.CoresDeTipo;
 import br.folclore.ui.efeitos.GerenciadorDeEfeitos;
 import java.awt.Color;
 import java.awt.Font;
@@ -60,6 +62,8 @@ public class TelaBatalha implements Tela {
     private int quadrosDeslocamentoInimigo;
     private int quadrosTremorJogador;
     private int quadrosTremorInimigo;
+    private int quadrosAteImpactoHabilidade;
+    private int danoHabilidadePendente;
 
     public TelaBatalha(GerenciadorDeTelas gerenciador, Batalha batalha,
                        Consumer<ResultadoBatalha> aoEncerrar) {
@@ -92,6 +96,7 @@ public class TelaBatalha implements Tela {
     public void atualizar() {
         gerenciadorDeEfeitos.atualizar();
         atualizarQuadrosDeAnimacao();
+        atualizarImpactoHabilidadePendente();
         sincronizarMensagens();
         if (mensagemAtual == null) {
             mostrarProximaMensagem();
@@ -175,25 +180,58 @@ public class TelaBatalha implements Tela {
         int yAlvo = obterY(alvo);
         int tamanho = PosicoesDeBatalha.TAMANHO_SPRITE;
         boolean atacanteEspelhado = atacanteJogador;
-        boolean alvoEspelhado = alvo == batalha.getJogador();
         BufferedImage spriteAtacante = RepositorioDeSprites.obter(
                 NormalizadorDeNomes.paraId(atacante.getNome()));
-        BufferedImage spriteAlvo = RepositorioDeSprites.obter(
-                NormalizadorDeNomes.paraId(alvo.getNome()));
 
         gerenciadorDeEfeitos.adicionar(new AnimacaoDeslocamento(spriteAtacante,
                 xAtacante, yAtacante, xAlvo, yAlvo, tamanho, atacanteEspelhado));
+        if (atacanteJogador) {
+            quadrosDeslocamentoJogador = AnimacaoDeslocamento.DURACAO_QUADROS;
+        } else {
+            quadrosDeslocamentoInimigo = AnimacaoDeslocamento.DURACAO_QUADROS;
+        }
+        iniciarEfeitosDeDano(alvo, dano);
+    }
+
+    private void iniciarParticulasDeHabilidade(int dano) {
+        int tamanho = PosicoesDeBatalha.TAMANHO_SPRITE;
+        gerenciadorDeEfeitos.adicionar(new AnimacaoParticulas(
+                CoresDeTipo.paraTipo(batalha.getJogador().getTipo()),
+                PosicoesDeBatalha.JOGADOR_X + tamanho / 2,
+                PosicoesDeBatalha.JOGADOR_Y + tamanho / 2,
+                PosicoesDeBatalha.INIMIGO_X + tamanho / 2,
+                PosicoesDeBatalha.INIMIGO_Y + tamanho / 2));
+        quadrosAteImpactoHabilidade = AnimacaoParticulas.DURACAO_QUADROS;
+        danoHabilidadePendente = dano;
+    }
+
+    private void atualizarImpactoHabilidadePendente() {
+        if (quadrosAteImpactoHabilidade == 0) {
+            return;
+        }
+        quadrosAteImpactoHabilidade--;
+        if (quadrosAteImpactoHabilidade == 0) {
+            int dano = danoHabilidadePendente;
+            danoHabilidadePendente = 0;
+            iniciarEfeitosDeDano(batalha.getInimigo(), dano);
+        }
+    }
+
+    private void iniciarEfeitosDeDano(Personagem alvo, int dano) {
+        int xAlvo = obterX(alvo);
+        int yAlvo = obterY(alvo);
+        int tamanho = PosicoesDeBatalha.TAMANHO_SPRITE;
+        boolean alvoEspelhado = alvo == batalha.getJogador();
+        BufferedImage spriteAlvo = RepositorioDeSprites.obter(
+                NormalizadorDeNomes.paraId(alvo.getNome()));
         gerenciadorDeEfeitos.adicionar(new AnimacaoTremor(spriteAlvo,
                 xAlvo, yAlvo, tamanho, alvoEspelhado));
         gerenciadorDeEfeitos.adicionar(new AnimacaoNumeroFlutuante(dano,
                 xAlvo + tamanho / 2, yAlvo + tamanho / 2, false));
-
-        if (atacanteJogador) {
-            quadrosDeslocamentoJogador = AnimacaoDeslocamento.DURACAO_QUADROS;
-            quadrosTremorInimigo = AnimacaoTremor.DURACAO_QUADROS;
-        } else {
-            quadrosDeslocamentoInimigo = AnimacaoDeslocamento.DURACAO_QUADROS;
+        if (alvo == batalha.getJogador()) {
             quadrosTremorJogador = AnimacaoTremor.DURACAO_QUADROS;
+        } else {
+            quadrosTremorInimigo = AnimacaoTremor.DURACAO_QUADROS;
         }
     }
 
@@ -270,7 +308,12 @@ public class TelaBatalha implements Tela {
     }
 
     private void usarHabilidade(int indice) {
+        int pvInimigoAntes = batalha.getInimigo().getPvAtual();
         batalha.acaoHabilidade(indice);
+        int dano = pvInimigoAntes - batalha.getInimigo().getPvAtual();
+        if (dano > 0) {
+            iniciarParticulasDeHabilidade(dano);
+        }
         exibindoSubmenuHabilidades = false;
     }
 
