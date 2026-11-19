@@ -59,4 +59,18 @@ public class SessaoDeJogo {
 
         return ginasioAtual.getEncontros().get(encontrosVencidos);
     }
+
+    public boolean registrarVitoriaNoEncontro() {
+        if (ginasioAtual == null || encontrosVencidos >= ginasioAtual.getTotalDeEncontros()) {
+            throw new IllegalStateException("Não há encontro ativo para registrar como vitória.");
+        }
+
+        encontrosVencidos++;
+        if (encontrosVencidos == ginasioAtual.getTotalDeEncontros()) {
+            ginasiosVencidos++;
+            return true;
+        }
+
+        return false;
+    }
 }
