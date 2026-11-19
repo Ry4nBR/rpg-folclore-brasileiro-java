@@ -141,6 +141,27 @@ public abstract class Personagem {
         return xp >= CUSTO_MELHORIA_XP;
     }
 
+    public boolean melhorarAtributo(Atributo atributo) {
+        if (atributo == null) {
+            throw new IllegalArgumentException("O atributo não pode ser nulo.");
+        }
+        if (!gastarExperiencia(CUSTO_MELHORIA_XP)) {
+            return false;
+        }
+
+        switch (atributo) {
+            case PV -> {
+            }
+            case ATAQUE -> {
+            }
+            case DEFESA -> {
+            }
+            case VELOCIDADE -> {
+            }
+        }
+        return true;
+    }
+
     public boolean estaVivo() {
         return pvAtual > 0;
     }
