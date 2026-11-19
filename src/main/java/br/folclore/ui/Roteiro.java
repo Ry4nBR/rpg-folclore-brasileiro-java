@@ -66,6 +66,13 @@ public final class Roteiro {
                             "O último dos heróis iniciais veio completar a equipe."),
                     new LinhaDeDialogo(null, "Narrador",
                             "Agora resta enfrentar o guardião das águas."));
+            case 2 -> List.of(
+                    new LinhaDeDialogo(null, "Narrador",
+                            "Honorato foi vencido, e o silêncio deixou o fundo do rio."),
+                    new LinhaDeDialogo(null, "Narrador",
+                            "A água voltou a correr livre pelas veias da floresta."),
+                    new LinhaDeDialogo(null, "Narrador",
+                            "Com os três guardiões em paz, o equilíbrio foi restaurado."));
             default -> throw new IllegalArgumentException("Índice de ginásio inválido.");
         };
     }
