@@ -1,5 +1,7 @@
 package br.folclore.modelo;
 
+import br.folclore.habilidades.HabilidadeDano;
+
 public class Honorato extends Personagem {
     private static final int PV_BASE = 80;
     private static final int ATAQUE_BASE = 13;
@@ -9,6 +11,7 @@ public class Honorato extends Personagem {
 
     public Honorato() {
         super("Honorato", Tipo.AGUA, PV_BASE, ATAQUE_BASE, DEFESA_BASE, VELOCIDADE_BASE);
+        adicionarHabilidade(new HabilidadeDano("Maré Fúria", 3, 17));
     }
 
     @Override
