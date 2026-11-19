@@ -54,4 +54,8 @@ public final class GerenciadorDeSave {
         }
         return Optional.of(dados);
     }
+
+    public static boolean existeSave() {
+        return Files.exists(Path.of(ARQUIVO));
+    }
 }
