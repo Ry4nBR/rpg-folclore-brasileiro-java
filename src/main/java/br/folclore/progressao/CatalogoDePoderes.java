@@ -41,6 +41,15 @@ public final class CatalogoDePoderes {
             case "Uivo da Mata" -> {
                 return new HabilidadeDano("Uivo da Mata", 3, 16);
             }
+            case "Águas Curativas" -> {
+                return new HabilidadeCura("Águas Curativas", 2, 10);
+            }
+            case "Redemoinho Rosado" -> {
+                return new HabilidadeDano("Redemoinho Rosado", 3, 11);
+            }
+            case "Maré Fúria" -> {
+                return new HabilidadeDano("Maré Fúria", 3, 17);
+            }
             default -> throw new IllegalArgumentException("Poder desconhecido: " + nome);
         }
     }
