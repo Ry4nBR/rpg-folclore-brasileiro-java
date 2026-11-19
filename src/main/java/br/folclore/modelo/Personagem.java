@@ -16,6 +16,7 @@ public abstract class Personagem {
     public static final int CUSTO_MELHORIA_XP = 30;
 
     private final List<Habilidade> habilidades = new ArrayList<>();
+    private final List<Habilidade> poderesLiberados = new ArrayList<>();
     private final String nome;
     private final Tipo tipo;
     private int pvMaximo;
@@ -58,6 +59,10 @@ public abstract class Personagem {
 
     public List<Habilidade> getHabilidades() {
         return Collections.unmodifiableList(habilidades);
+    }
+
+    public List<Habilidade> getPoderesLiberados() {
+        return Collections.unmodifiableList(poderesLiberados);
     }
 
     public void restaurarUsosDasHabilidades() {
