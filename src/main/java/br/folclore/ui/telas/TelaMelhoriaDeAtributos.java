@@ -1,8 +1,10 @@
 package br.folclore.ui.telas;
 
+import br.folclore.modelo.Atributo;
 import br.folclore.modelo.Personagem;
 import br.folclore.progressao.SessaoDeJogo;
 import br.folclore.ui.GerenciadorDeTelas;
+import br.folclore.ui.componentes.Botao;
 import br.folclore.ui.componentes.CarregadorDeImagens;
 import java.awt.Color;
 import java.awt.Font;
@@ -14,11 +16,14 @@ public class TelaMelhoriaDeAtributos implements Tela {
     private final GerenciadorDeTelas gerenciador;
     private final SessaoDeJogo sessao;
     private final BufferedImage fundo;
+    private final Botao botaoPv;
+    private String mensagemNotificacao;
 
     public TelaMelhoriaDeAtributos(GerenciadorDeTelas gerenciador, SessaoDeJogo sessao) {
         this.gerenciador = gerenciador;
         this.sessao = sessao;
         fundo = CarregadorDeImagens.carregar("/fundos/spawn_medico.png");
+        botaoPv = new Botao(600, 185, 180, 40, "+ PV", this::melhorarPv);
     }
 
     @Override
@@ -46,17 +51,33 @@ public class TelaMelhoriaDeAtributos implements Tela {
         g.drawString("Ataque: " + titular.getAtaque(), 80, 265);
         g.drawString("Defesa: " + titular.getDefesa(), 80, 315);
         g.drawString("Velocidade: " + titular.getVelocidade(), 80, 365);
+        botaoPv.desenhar(g);
+        if (mensagemNotificacao != null) {
+            g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 18));
+            g.setColor(Color.WHITE);
+            g.drawString(mensagemNotificacao, 80, 435);
+        }
     }
 
     @Override
     public void aoClicar(int x, int y) {
+        botaoPv.clicar(x, y);
     }
 
     @Override
     public void aoMoverMouse(int x, int y) {
+        botaoPv.atualizarHover(x, y);
     }
 
     @Override
     public void aoPressionarTecla(int codigo) {
+    }
+
+    private void melhorarPv() {
+        if (sessao.getEquipe().getTitular().melhorarAtributo(Atributo.PV)) {
+            mensagemNotificacao = "PV aumentou!";
+        } else {
+            mensagemNotificacao = "XP insuficiente!";
+        }
     }
 }
