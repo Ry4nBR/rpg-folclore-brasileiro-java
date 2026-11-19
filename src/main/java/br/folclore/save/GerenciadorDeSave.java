@@ -23,36 +23,48 @@ public final class GerenciadorDeSave {
     private GerenciadorDeSave() {
     }
 
-    public static boolean salvar(Map<String, String> dados) throws IOException {
+    public static boolean salvar(Map<String, String> dados) {
         Objects.requireNonNull(dados, "O estado a salvar não pode ser nulo.");
-        Files.createDirectories(Path.of(PASTA));
+        try {
+            Files.createDirectories(Path.of(PASTA));
 
-        Properties propriedades = new Properties();
-        dados.forEach(propriedades::setProperty);
-        try (Writer escritor = new OutputStreamWriter(
-                Files.newOutputStream(Path.of(ARQUIVO)), StandardCharsets.UTF_8)) {
-            propriedades.store(escritor, "RPG do Folclore Brasileiro");
+            Properties propriedades = new Properties();
+            dados.forEach(propriedades::setProperty);
+            try (Writer escritor = new OutputStreamWriter(
+                    Files.newOutputStream(Path.of(ARQUIVO)), StandardCharsets.UTF_8)) {
+                propriedades.store(escritor, "RPG do Folclore Brasileiro");
+            }
+            return true;
+        } catch (IOException e) {
+            System.err.println("Falha ao gravar o arquivo de save.");
+            e.printStackTrace(System.err);
+            return false;
         }
-        return true;
     }
 
-    public static Optional<Map<String, String>> carregar() throws IOException {
-        Path caminho = Path.of(ARQUIVO);
-        if (!Files.exists(caminho)) {
+    public static Optional<Map<String, String>> carregar() {
+        try {
+            Path caminho = Path.of(ARQUIVO);
+            if (!Files.exists(caminho)) {
+                return Optional.empty();
+            }
+
+            Properties propriedades = new Properties();
+            try (Reader leitor = new InputStreamReader(Files.newInputStream(caminho), StandardCharsets.UTF_8)) {
+                propriedades.load(leitor);
+            }
+
+            Map<String, String> dados = new LinkedHashMap<>();
+            Set<String> nomes = propriedades.stringPropertyNames();
+            for (String nome : nomes) {
+                dados.put(nome, propriedades.getProperty(nome));
+            }
+            return Optional.of(dados);
+        } catch (IOException e) {
+            System.err.println("Falha ao ler o arquivo de save.");
+            e.printStackTrace(System.err);
             return Optional.empty();
         }
-
-        Properties propriedades = new Properties();
-        try (Reader leitor = new InputStreamReader(Files.newInputStream(caminho), StandardCharsets.UTF_8)) {
-            propriedades.load(leitor);
-        }
-
-        Map<String, String> dados = new LinkedHashMap<>();
-        Set<String> nomes = propriedades.stringPropertyNames();
-        for (String nome : nomes) {
-            dados.put(nome, propriedades.getProperty(nome));
-        }
-        return Optional.of(dados);
     }
 
     public static boolean existeSave() {
