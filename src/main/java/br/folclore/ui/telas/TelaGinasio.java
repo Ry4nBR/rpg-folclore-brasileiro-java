@@ -3,6 +3,9 @@ package br.folclore.ui.telas;
 import br.folclore.progressao.SessaoDeJogo;
 import br.folclore.ui.GerenciadorDeTelas;
 import br.folclore.ui.componentes.CarregadorDeImagens;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
@@ -33,6 +36,18 @@ public class TelaGinasio implements Tela {
     public void desenhar(Graphics2D g) {
         if (fundo != null) {
             g.drawImage(fundo, 0, 0, null);
+        }
+        if (sessao.getGinasioAtual() != null) {
+            g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 36));
+            g.setColor(Color.WHITE);
+            String nome = sessao.getGinasioAtual().getNome();
+            FontMetrics metricas = g.getFontMetrics();
+            g.drawString(nome, (960 - metricas.stringWidth(nome)) / 2, 70);
+
+            g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 20));
+            String progresso = "Desafio " + (sessao.getEncontrosVencidos() + 1) + " de 3";
+            metricas = g.getFontMetrics();
+            g.drawString(progresso, (960 - metricas.stringWidth(progresso)) / 2, 105);
         }
     }
 
