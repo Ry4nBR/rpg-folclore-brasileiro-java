@@ -114,6 +114,9 @@ public abstract class Personagem {
 
         habilidade.restaurarUsos();
         poderesLiberados.add(habilidade);
+        if (habilidades.size() < slotsDeHabilidade - 1) {
+            habilidades.add(habilidade);
+        }
         return true;
     }
 
