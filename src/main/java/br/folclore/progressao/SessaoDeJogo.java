@@ -1,5 +1,6 @@
 package br.folclore.progressao;
 
+import br.folclore.modelo.CatalogoDeHerois;
 import br.folclore.modelo.Personagem;
 
 public class SessaoDeJogo {
@@ -68,6 +69,16 @@ public class SessaoDeJogo {
         encontrosVencidos++;
         if (encontrosVencidos == ginasioAtual.getTotalDeEncontros()) {
             ginasiosVencidos++;
+            if (ginasiosVencidos == 1 || ginasiosVencidos == 2) {
+                for (Personagem inicial : CatalogoDeHerois.criarTodos()) {
+                    boolean jaRecrutado = equipe.getMembros().stream()
+                            .anyMatch(membro -> membro.getNome().equals(inicial.getNome()));
+                    if (!jaRecrutado) {
+                        equipe.recrutar(inicial);
+                        break;
+                    }
+                }
+            }
             return true;
         }
 
