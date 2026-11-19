@@ -66,6 +66,9 @@ public class SessaoDeJogo {
             throw new IllegalStateException("Não há encontro ativo para registrar como vitória.");
         }
 
+        Personagem inimigoDerrotado = getProximoEncontro();
+        equipe.getTitular().ganharExperiencia(inimigoDerrotado.getXpRecompensa());
+        equipe.getTitular().liberarPoder(inimigoDerrotado.getHabilidades().get(0));
         encontrosVencidos++;
         if (encontrosVencidos == ginasioAtual.getTotalDeEncontros()) {
             ginasiosVencidos++;
@@ -79,6 +82,7 @@ public class SessaoDeJogo {
                     }
                 }
             }
+            equipe.desbloquearSlotParaTodos();
             return true;
         }
 

@@ -5,14 +5,19 @@ import br.folclore.habilidades.ResultadoAcao;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Abstração: base comum de todo combatente
  */
 public abstract class Personagem {
-    public static final int MAX_HABILIDADES_EQUIPADAS = 3;
+    public static final int MAX_SLOTS = 4;
+    public static final int XP_COMUM = 20;
+    public static final int XP_CHEFE = 50;
+    public static final int CUSTO_MELHORIA_XP = 30;
 
     private final List<Habilidade> habilidades = new ArrayList<>();
+    private final List<Habilidade> poderesLiberados = new ArrayList<>();
     private final String nome;
     private final Tipo tipo;
     private int pvMaximo;
@@ -20,6 +25,8 @@ public abstract class Personagem {
     private int ataque;
     private int defesa;
     private int velocidade;
+    private int xp;
+    private int slotsDeHabilidade = 2;
 
     protected Personagem(String nome, Tipo tipo, int pvMaximo, int ataque, int defesa, int velocidade) {
         if (nome == null || nome.isBlank()) {
@@ -56,6 +63,22 @@ public abstract class Personagem {
         return Collections.unmodifiableList(habilidades);
     }
 
+    public List<Habilidade> getPoderesLiberados() {
+        return Collections.unmodifiableList(poderesLiberados);
+    }
+
+    public int getSlotsDeHabilidade() {
+        return slotsDeHabilidade;
+    }
+
+    public boolean desbloquearSlot() {
+        if (slotsDeHabilidade >= MAX_SLOTS) {
+            return false;
+        }
+        slotsDeHabilidade++;
+        return true;
+    }
+
     public void restaurarUsosDasHabilidades() {
         for (Habilidade habilidade : habilidades) {
             habilidade.restaurarUsos();
@@ -71,12 +94,46 @@ public abstract class Personagem {
         if (habilidade == null) {
             throw new IllegalArgumentException("A habilidade não pode ser nula.");
         }
-        if (habilidades.size() >= MAX_HABILIDADES_EQUIPADAS) {
-            throw new IllegalArgumentException("O personagem não pode equipar mais de "
-                    + MAX_HABILIDADES_EQUIPADAS + " habilidades.");
+        if (habilidades.size() >= slotsDeHabilidade - 1) {
+            throw new IllegalArgumentException("O personagem não tem slots livres para equipar outra habilidade.");
         }
 
         habilidades.add(habilidade);
+        poderesLiberados.add(habilidade);
+    }
+
+    public boolean liberarPoder(Habilidade habilidade) {
+        if (habilidade == null) {
+            throw new IllegalArgumentException("O poder liberado não pode ser nulo.");
+        }
+        boolean jaLiberado = poderesLiberados.stream()
+                .anyMatch(poder -> Objects.equals(poder.getNome(), habilidade.getNome()));
+        if (jaLiberado) {
+            return false;
+        }
+
+        habilidade.restaurarUsos();
+        poderesLiberados.add(habilidade);
+        if (habilidades.size() < slotsDeHabilidade - 1) {
+            habilidades.add(habilidade);
+        }
+        return true;
+    }
+
+    public boolean podeTrocarPoderes() {
+        return poderesLiberados.size() >= 4;
+    }
+
+    public boolean trocarPoderEquipado(int indiceEquipado, Habilidade nova) {
+        if (!podeTrocarPoderes()
+                || indiceEquipado < 0
+                || indiceEquipado >= habilidades.size()
+                || !poderesLiberados.contains(nova)) {
+            return false;
+        }
+
+        habilidades.set(indiceEquipado, nova);
+        return true;
     }
 
     public ResultadoAcao usarHabilidade(int indice, Personagem alvo) {
@@ -111,12 +168,62 @@ public abstract class Personagem {
         return velocidade;
     }
 
+    public int getXp() {
+        return xp;
+    }
+
+    public void ganharExperiencia(int quantidade) {
+        if (quantidade <= 0) {
+            throw new IllegalArgumentException("A experiência ganha deve ser maior que zero.");
+        }
+        xp += quantidade;
+    }
+
+    public boolean gastarExperiencia(int quantidade) {
+        if (quantidade <= 0) {
+            throw new IllegalArgumentException("A experiência gasta deve ser maior que zero.");
+        }
+        if (xp < quantidade) {
+            return false;
+        }
+        xp -= quantidade;
+        return true;
+    }
+
+    public boolean podeMelhorar() {
+        return xp >= CUSTO_MELHORIA_XP;
+    }
+
+    public boolean melhorarAtributo(Atributo atributo) {
+        if (atributo == null) {
+            throw new IllegalArgumentException("O atributo não pode ser nulo.");
+        }
+        if (!gastarExperiencia(CUSTO_MELHORIA_XP)) {
+            return false;
+        }
+
+        switch (atributo) {
+            case PV -> {
+                pvMaximo += 5;
+                pvAtual += 5;
+            }
+            case ATAQUE -> ataque += 1;
+            case DEFESA -> defesa += 1;
+            case VELOCIDADE -> velocidade += 1;
+        }
+        return true;
+    }
+
     public boolean estaVivo() {
         return pvAtual > 0;
     }
 
     public boolean ehChefe() {
         return false;
+    }
+
+    public int getXpRecompensa() {
+        return ehChefe() ? XP_CHEFE : XP_COMUM;
     }
 
     public int receberDano(int dano) {

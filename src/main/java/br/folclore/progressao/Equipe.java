@@ -54,4 +54,10 @@ public class Equipe {
             membro.revigorar();
         }
     }
+
+    public void desbloquearSlotParaTodos() {
+        for (Personagem membro : membros) {
+            membro.desbloquearSlot();
+        }
+    }
 }
