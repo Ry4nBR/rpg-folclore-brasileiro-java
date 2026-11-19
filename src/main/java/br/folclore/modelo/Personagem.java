@@ -86,6 +86,7 @@ public abstract class Personagem {
         }
 
         habilidades.add(habilidade);
+        poderesLiberados.add(habilidade);
     }
 
     public ResultadoAcao usarHabilidade(int indice, Personagem alvo) {
