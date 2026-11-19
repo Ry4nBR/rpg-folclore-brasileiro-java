@@ -111,7 +111,8 @@ public class TelaGinasio implements Tela {
             gerenciador.trocarPara(new TelaGinasio(gerenciador, sessao, indiceGinasio));
         } else if (resultado == ResultadoBatalha.DERROTA) {
             sessao.registrarDerrota();
-            gerenciador.trocarPara(new TelaSpawnMedico(gerenciador, sessao));
+            gerenciador.trocarPara(new TelaDerrota(gerenciador,
+                    () -> gerenciador.trocarPara(new TelaSpawnMedico(gerenciador, sessao))));
         }
     }
 
