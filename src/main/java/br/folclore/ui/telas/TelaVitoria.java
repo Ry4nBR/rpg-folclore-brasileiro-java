@@ -3,6 +3,7 @@ package br.folclore.ui.telas;
 import br.folclore.batalha.Batalha;
 import br.folclore.habilidades.Habilidade;
 import br.folclore.ui.GerenciadorDeTelas;
+import br.folclore.ui.componentes.Botao;
 import br.folclore.ui.componentes.CarregadorDeImagens;
 import java.awt.Color;
 import java.awt.Font;
@@ -15,6 +16,7 @@ public class TelaVitoria implements Tela {
     private final Batalha batalha;
     private final Runnable aoContinuar;
     private final BufferedImage fundo;
+    private final Botao botaoContinuar;
 
     public TelaVitoria(GerenciadorDeTelas gerenciador, Batalha batalha, Runnable aoContinuar) {
         if (gerenciador == null || batalha == null || aoContinuar == null) {
@@ -24,6 +26,7 @@ public class TelaVitoria implements Tela {
         this.batalha = batalha;
         this.aoContinuar = aoContinuar;
         fundo = CarregadorDeImagens.carregar("/fundos/batalha_generico.png");
+        botaoContinuar = new Botao(380, 440, 200, 50, "Continuar", this.aoContinuar);
     }
 
     @Override
@@ -51,14 +54,17 @@ public class TelaVitoria implements Tela {
             metricas = g.getFontMetrics();
             g.drawString(poderLiberado, (960 - metricas.stringWidth(poderLiberado)) / 2, 295);
         }
+        botaoContinuar.desenhar(g);
     }
 
     @Override
     public void aoClicar(int x, int y) {
+        botaoContinuar.clicar(x, y);
     }
 
     @Override
     public void aoMoverMouse(int x, int y) {
+        botaoContinuar.atualizarHover(x, y);
     }
 
     @Override
