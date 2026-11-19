@@ -5,11 +5,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 
 public class TelaCreditos implements Tela {
     private static final int DURACAO_ROLAGEM = 900;
     private final GerenciadorDeTelas gerenciador;
     private int deslocamentoVertical;
+    private boolean finalizado;
 
     public TelaCreditos(GerenciadorDeTelas gerenciador) {
         if (gerenciador == null) {
@@ -22,6 +24,9 @@ public class TelaCreditos implements Tela {
     public void atualizar() {
         if (deslocamentoVertical < DURACAO_ROLAGEM) {
             deslocamentoVertical++;
+        }
+        if (deslocamentoVertical >= DURACAO_ROLAGEM) {
+            voltarParaTelaInicial();
         }
     }
 
@@ -49,11 +54,21 @@ public class TelaCreditos implements Tela {
 
     @Override
     public void aoPressionarTecla(int codigo) {
+        if (codigo == KeyEvent.VK_ESCAPE || codigo == KeyEvent.VK_ENTER) {
+            voltarParaTelaInicial();
+        }
     }
 
     private void desenharLinhaCentralizada(Graphics2D g, String texto, int tamanhoFonte, int y) {
         g.setFont(new Font(Font.MONOSPACED, Font.BOLD, tamanhoFonte));
         FontMetrics metricas = g.getFontMetrics();
         g.drawString(texto, (960 - metricas.stringWidth(texto)) / 2, y);
+    }
+
+    private void voltarParaTelaInicial() {
+        if (!finalizado) {
+            finalizado = true;
+            gerenciador.trocarPara(new TelaInicial(gerenciador));
+        }
     }
 }
