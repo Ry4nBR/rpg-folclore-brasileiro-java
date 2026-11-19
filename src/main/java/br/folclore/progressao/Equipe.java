@@ -49,6 +49,13 @@ public class Equipe {
         return true;
     }
 
+    public void restaurarIndiceTitular(int indice) {
+        if (indice < 0 || indice >= membros.size()) {
+            throw new IllegalArgumentException("O índice do titular salvo não é válido.");
+        }
+        indiceTitular = indice;
+    }
+
     public void revigorarTodos() {
         for (Personagem membro : membros) {
             membro.revigorar();
