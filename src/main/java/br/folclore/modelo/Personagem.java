@@ -154,12 +154,9 @@ public abstract class Personagem {
                 pvMaximo += 5;
                 pvAtual += 5;
             }
-            case ATAQUE -> {
-            }
-            case DEFESA -> {
-            }
-            case VELOCIDADE -> {
-            }
+            case ATAQUE -> ataque += 1;
+            case DEFESA -> defesa += 1;
+            case VELOCIDADE -> velocidade += 1;
         }
         return true;
     }
