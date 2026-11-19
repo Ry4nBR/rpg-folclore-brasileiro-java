@@ -35,6 +35,13 @@ public final class Roteiro {
                             "Só quem respeita a floresta pode enfrentar sua força."),
                     new LinhaDeDialogo("capelobo", "Capelobo",
                             "Vem, viajante. Que a raiz revele quem merece seguir."));
+            case 2 -> List.of(
+                    new LinhaDeDialogo("honorato", "Honorato",
+                            "As águas silenciaram, e a corrente já não conhece seu rumo."),
+                    new LinhaDeDialogo("honorato", "Honorato",
+                            "Para devolver vida ao rio, terás de atravessar meu desafio."),
+                    new LinhaDeDialogo("honorato", "Honorato",
+                            "Ergue-te, viajante. Que a força das águas decida."));
             default -> throw new IllegalArgumentException("Índice de ginásio inválido.");
         };
     }
