@@ -84,6 +84,10 @@ public abstract class Personagem {
         return pvAtual;
     }
 
+    public void restaurarVidaTotal() {
+        pvAtual = pvMaximo;
+    }
+
     public int getAtaque() {
         return ataque;
     }
