@@ -31,10 +31,16 @@ public class TelaMelhoriaDeAtributos implements Tela {
         botaoDefesa = new Botao(600, 285, 180, 40, "+ Defesa", this::melhorarDefesa);
         botaoVelocidade = new Botao(600, 335, 180, 40, "+ Velocidade",
                 this::melhorarVelocidade);
+        atualizar();
     }
 
     @Override
     public void atualizar() {
+        boolean podeMelhorar = sessao.getEquipe().getTitular().podeMelhorar();
+        botaoPv.setHabilitado(podeMelhorar);
+        botaoAtaque.setHabilitado(podeMelhorar);
+        botaoDefesa.setHabilitado(podeMelhorar);
+        botaoVelocidade.setHabilitado(podeMelhorar);
     }
 
     @Override
