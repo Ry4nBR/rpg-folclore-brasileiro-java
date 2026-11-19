@@ -48,4 +48,10 @@ public class Equipe {
         indiceTitular = indice;
         return true;
     }
+
+    public void revigorarTodos() {
+        for (Personagem membro : membros) {
+            membro.revigorar();
+        }
+    }
 }
