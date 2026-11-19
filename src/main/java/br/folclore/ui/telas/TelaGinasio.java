@@ -2,8 +2,10 @@ package br.folclore.ui.telas;
 
 import br.folclore.batalha.Batalha;
 import br.folclore.batalha.ResultadoBatalha;
+import br.folclore.modelo.Personagem;
 import br.folclore.progressao.SessaoDeJogo;
 import br.folclore.ui.GerenciadorDeTelas;
+import br.folclore.ui.Roteiro;
 import br.folclore.ui.componentes.Botao;
 import br.folclore.ui.componentes.CarregadorDeImagens;
 import java.awt.Color;
@@ -81,31 +83,54 @@ public class TelaGinasio implements Tela {
     }
 
     private void desafiar() {
-        if (sessao.getProximoEncontro() == null) {
+        Personagem proximoEncontro = sessao.getProximoEncontro();
+        if (proximoEncontro == null) {
             return;
         }
-        Batalha batalha = new Batalha(
-                sessao.getEquipe().getTitular(),
-                sessao.getProximoEncontro());
-        gerenciador.trocarPara(new TelaBatalha(gerenciador, batalha, this::processarResultado));
+        Runnable iniciarBatalha = () -> {
+            Batalha batalha = new Batalha(sessao.getEquipe().getTitular(), proximoEncontro);
+            gerenciador.trocarPara(new TelaBatalha(gerenciador, batalha,
+                    resultado -> processarResultado(batalha, resultado)));
+        };
+        if (proximoEncontro.ehChefe()) {
+            gerenciador.trocarPara(new TelaDialogo(gerenciador, this,
+                    Roteiro.preGinasio(indiceGinasio), iniciarBatalha));
+        } else {
+            iniciarBatalha.run();
+        }
     }
 
     private void voltarAoSpawnMedico() {
         gerenciador.trocarPara(new TelaSpawnMedico(gerenciador, sessao));
     }
 
-    private void processarResultado(ResultadoBatalha resultado) {
+    private void processarResultado(Batalha batalha, ResultadoBatalha resultado) {
         if (resultado == ResultadoBatalha.VITORIA) {
-            boolean ginasioVencido = sessao.registrarVitoriaNoEncontro();
-            if (ginasioVencido) {
-                gerenciador.trocarPara(new TelaSpawnMedico(gerenciador, sessao));
-            } else {
-                gerenciador.trocarPara(new TelaGinasio(gerenciador, sessao, indiceGinasio));
-            }
+            gerenciador.trocarPara(new TelaVitoria(gerenciador, batalha, this::continuarAposVitoria));
         } else if (resultado == ResultadoBatalha.FUGA) {
             gerenciador.trocarPara(new TelaGinasio(gerenciador, sessao, indiceGinasio));
         } else if (resultado == ResultadoBatalha.DERROTA) {
             sessao.registrarDerrota();
+            gerenciador.trocarPara(new TelaDerrota(gerenciador,
+                    () -> gerenciador.trocarPara(new TelaSpawnMedico(gerenciador, sessao))));
+        }
+    }
+
+    private void continuarAposVitoria() {
+        boolean ginasioVencido = sessao.registrarVitoriaNoEncontro();
+        if (ginasioVencido) {
+            gerenciador.trocarPara(new TelaDialogo(gerenciador, this,
+                    Roteiro.aposGinasio(indiceGinasio), this::aposDialogoDeGinasio));
+        } else {
+            gerenciador.trocarPara(new TelaGinasio(gerenciador, sessao, indiceGinasio));
+        }
+    }
+
+    private void aposDialogoDeGinasio() {
+        if (sessao.jogoConcluido()) {
+            gerenciador.trocarPara(new TelaDialogo(gerenciador, this, Roteiro.desfecho(),
+                    () -> gerenciador.trocarPara(new TelaCreditos(gerenciador))));
+        } else {
             gerenciador.trocarPara(new TelaSpawnMedico(gerenciador, sessao));
         }
     }
