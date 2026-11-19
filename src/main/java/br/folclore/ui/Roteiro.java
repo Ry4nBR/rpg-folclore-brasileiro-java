@@ -28,6 +28,13 @@ public final class Roteiro {
                             "Se queres passar, mostra coragem diante das minhas chamas."),
                     new LinhaDeDialogo("mula_sem_cabeca", "Mula sem Cabeça",
                             "Prepara-te, viajante: este desafio não se vence com palavras."));
+            case 1 -> List.of(
+                    new LinhaDeDialogo("capelobo", "Capelobo",
+                            "A mata fechou seus caminhos, e eu guardo a passagem."),
+                    new LinhaDeDialogo("capelobo", "Capelobo",
+                            "Só quem respeita a floresta pode enfrentar sua força."),
+                    new LinhaDeDialogo("capelobo", "Capelobo",
+                            "Vem, viajante. Que a raiz revele quem merece seguir."));
             default -> throw new IllegalArgumentException("Índice de ginásio inválido.");
         };
     }
