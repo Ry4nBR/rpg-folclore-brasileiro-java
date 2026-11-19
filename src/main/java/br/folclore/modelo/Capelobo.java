@@ -23,4 +23,9 @@ public class Capelobo extends Personagem {
     public String getNomeAtaqueBasico() {
         return "Mordida Selvagem";
     }
+
+    @Override
+    public boolean ehChefe() {
+        return true;
+    }
 }
