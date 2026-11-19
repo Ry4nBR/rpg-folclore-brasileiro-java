@@ -32,6 +32,7 @@ public class TelaInicial implements Tela {
                                 personagem -> System.out.println(personagem.getNome()))))));
         botaoContinuar = new Botao(380, 315, 200, 50, "Continuar",
                 this::continuarJogo);
+        botaoContinuar.setHabilitado(GerenciadorDeSave.existeSave());
         botaoSair = new Botao(380, 380, 200, 50, "Sair", () -> System.exit(0));
     }
 
