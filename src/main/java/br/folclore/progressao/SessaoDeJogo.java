@@ -35,4 +35,18 @@ public class SessaoDeJogo {
                 && indiceGinasio < 3
                 && indiceGinasio <= ginasiosVencidos;
     }
+
+    public void entrarNoGinasio(int indice) {
+        if (!portaLiberada(indice)) {
+            throw new IllegalStateException("A porta do ginásio está trancada.");
+        }
+
+        ginasioAtual = switch (indice) {
+            case 0 -> CatalogoDeGinasios.criarGinasioDeFogo();
+            case 1 -> CatalogoDeGinasios.criarGinasioDePlanta();
+            case 2 -> CatalogoDeGinasios.criarGinasioDeAgua();
+            default -> throw new IllegalArgumentException("Índice de ginásio inválido.");
+        };
+        encontrosVencidos = 0;
+    }
 }
