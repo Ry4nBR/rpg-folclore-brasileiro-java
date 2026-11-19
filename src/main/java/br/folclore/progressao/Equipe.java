@@ -26,4 +26,26 @@ public class Equipe {
     public List<Personagem> getMembros() {
         return Collections.unmodifiableList(membros);
     }
+
+    public boolean recrutar(Personagem personagem) {
+        if (personagem == null) {
+            throw new IllegalArgumentException("O personagem recrutado não pode ser nulo.");
+        }
+        if (membros.size() >= MAX_VAGAS
+                || membros.stream().anyMatch(membro -> membro.getNome().equals(personagem.getNome()))) {
+            return false;
+        }
+
+        membros.add(personagem);
+        return true;
+    }
+
+    public boolean trocarTitular(int indice) {
+        if (indice < 0 || indice >= membros.size() || !membros.get(indice).estaVivo()) {
+            return false;
+        }
+
+        indiceTitular = indice;
+        return true;
+    }
 }
