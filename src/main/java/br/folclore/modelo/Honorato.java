@@ -23,4 +23,9 @@ public class Honorato extends Personagem {
     public String getNomeAtaqueBasico() {
         return "Mordida Serpentina";
     }
+
+    @Override
+    public boolean ehChefe() {
+        return true;
+    }
 }
