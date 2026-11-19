@@ -1,6 +1,7 @@
 package br.folclore.ui.telas;
 
 import br.folclore.ui.GerenciadorDeTelas;
+import br.folclore.ui.componentes.Botao;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -9,6 +10,7 @@ import java.awt.Graphics2D;
 public class TelaDerrota implements Tela {
     private final GerenciadorDeTelas gerenciador;
     private final Runnable aoRecomecar;
+    private final Botao botaoRecomecar;
 
     public TelaDerrota(GerenciadorDeTelas gerenciador, Runnable aoRecomecar) {
         if (gerenciador == null || aoRecomecar == null) {
@@ -16,6 +18,7 @@ public class TelaDerrota implements Tela {
         }
         this.gerenciador = gerenciador;
         this.aoRecomecar = aoRecomecar;
+        botaoRecomecar = new Botao(360, 400, 240, 50, "Recomeçar do Spawn", this.aoRecomecar);
     }
 
     @Override
@@ -36,6 +39,7 @@ public class TelaDerrota implements Tela {
         String mensagem = "Sua equipe foi levada de volta ao Spawn Médico.";
         metricas = g.getFontMetrics();
         g.drawString(mensagem, (960 - metricas.stringWidth(mensagem)) / 2, 250);
+        botaoRecomecar.desenhar(g);
     }
 
     @Override
