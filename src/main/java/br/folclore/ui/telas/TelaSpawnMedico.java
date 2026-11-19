@@ -43,6 +43,7 @@ public class TelaSpawnMedico implements Tela {
 
         desenharPorta(g, 130, "Fogo", true);
         desenharPorta(g, 410, "Planta", sessao.portaLiberada(1));
+        desenharPorta(g, 690, "Água", sessao.portaLiberada(2));
 
         g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 18));
         g.drawString("Titular: " + sessao.getEquipe().getTitular().getNome(), 325, 100);
