@@ -84,4 +84,21 @@ public class SessaoDeJogo {
 
         return false;
     }
+
+    public void registrarDerrota() {
+        if (ginasioAtual == null) {
+            throw new IllegalStateException("Não há ginásio atual para reiniciar.");
+        }
+
+        Ginasio ginasioReiniciado = switch (ginasioAtual.getElemento()) {
+            case FOGO -> CatalogoDeGinasios.criarGinasioDeFogo();
+            case PLANTA -> CatalogoDeGinasios.criarGinasioDePlanta();
+            case AGUA -> CatalogoDeGinasios.criarGinasioDeAgua();
+            default -> throw new IllegalStateException("O elemento do ginásio atual não é válido.");
+        };
+
+        equipe.revigorarTodos();
+        encontrosVencidos = 0;
+        ginasioAtual = ginasioReiniciado;
+    }
 }
