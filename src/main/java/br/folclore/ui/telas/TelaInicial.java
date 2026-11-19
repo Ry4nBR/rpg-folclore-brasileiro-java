@@ -1,5 +1,7 @@
 package br.folclore.ui.telas;
 
+import br.folclore.progressao.SessaoDeJogo;
+import br.folclore.save.GerenciadorDeSave;
 import br.folclore.ui.GerenciadorDeTelas;
 import br.folclore.ui.ConfiguracoesUi;
 import br.folclore.ui.Roteiro;
@@ -29,7 +31,7 @@ public class TelaInicial implements Tela {
                                 gerenciador,
                                 personagem -> System.out.println(personagem.getNome()))))));
         botaoContinuar = new Botao(380, 315, 200, 50, "Continuar",
-                () -> System.out.println("Continuar selecionado"));
+                this::continuarJogo);
         botaoSair = new Botao(380, 380, 200, 50, "Sair", () -> System.exit(0));
     }
 
@@ -86,5 +88,11 @@ public class TelaInicial implements Tela {
         botaoNovoJogo.atualizarHover(480, indiceSelecionado == 0 ? 275 : -1);
         botaoContinuar.atualizarHover(480, indiceSelecionado == 1 ? 340 : -1);
         botaoSair.atualizarHover(480, indiceSelecionado == 2 ? 405 : -1);
+    }
+
+    private void continuarJogo() {
+        GerenciadorDeSave.carregar().ifPresent(dados ->
+                gerenciador.trocarPara(new TelaSpawnMedico(
+                        gerenciador, SessaoDeJogo.restaurar(dados))));
     }
 }
