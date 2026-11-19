@@ -1,6 +1,7 @@
 package br.folclore.ui.telas;
 
 import br.folclore.progressao.SessaoDeJogo;
+import br.folclore.save.GerenciadorDeSave;
 import br.folclore.ui.GerenciadorDeTelas;
 import br.folclore.ui.componentes.Botao;
 import br.folclore.ui.componentes.CarregadorDeImagens;
@@ -33,7 +34,7 @@ public class TelaSpawnMedico implements Tela {
                 () -> gerenciador.trocarPara(new TelaMelhoriaDeAtributos(gerenciador, sessao)));
         botaoPoderes = new Botao(820, 400, 100, 50, "Poderes",
                 () -> gerenciador.trocarPara(new TelaPoderes(gerenciador, sessao)));
-        botaoSalvar = new Botao(40, 470, 200, 45, "Salvar jogo", null);
+        botaoSalvar = new Botao(40, 470, 200, 45, "Salvar jogo", this::salvarJogo);
     }
 
     @Override
@@ -142,6 +143,13 @@ public class TelaSpawnMedico implements Tela {
     private void revigorarEquipe() {
         sessao.getEquipe().revigorarTodos();
         mensagemNotificacao = "Sua equipe foi revigorada!";
+        mensagemExpiraEm = System.currentTimeMillis() + 2000;
+    }
+
+    private void salvarJogo() {
+        mensagemNotificacao = GerenciadorDeSave.salvar(sessao.exportarEstado())
+                ? "Jogo salvo!"
+                : "Erro ao salvar.";
         mensagemExpiraEm = System.currentTimeMillis() + 2000;
     }
 }
