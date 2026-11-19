@@ -2,12 +2,15 @@ package br.folclore.modelo;
 
 import br.folclore.habilidades.Habilidade;
 import br.folclore.habilidades.ResultadoAcao;
+import br.folclore.progressao.CatalogoDePoderes;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -318,6 +321,18 @@ public abstract class Personagem {
             throw new IllegalArgumentException("A quantidade de slots salva não é válida.");
         }
 
+        List<Habilidade> habilidadesSalvas = lerPoderes(dados, "equipadas");
+        List<Habilidade> poderesLiberadosSalvos = lerPoderes(dados, "liberados");
+        Set<String> nomesLiberados = new HashSet<>();
+        for (Habilidade poder : poderesLiberadosSalvos) {
+            nomesLiberados.add(poder.getNome());
+        }
+        if (habilidadesSalvas.size() > slotsSalvos - 1
+                || habilidadesSalvas.stream().anyMatch(habilidade -> !nomesLiberados.contains(
+                        habilidade.getNome()))) {
+            throw new IllegalArgumentException("Os poderes equipados não são válidos para os slots liberados.");
+        }
+
         pvAtual = pvAtualSalvo;
         pvMaximo = pvMaximoSalvo;
         ataque = ataqueSalvo;
@@ -325,6 +340,30 @@ public abstract class Personagem {
         velocidade = velocidadeSalva;
         xp = xpSalvo;
         slotsDeHabilidade = slotsSalvos;
+        habilidades.clear();
+        habilidades.addAll(habilidadesSalvas);
+        poderesLiberados.clear();
+        poderesLiberados.addAll(poderesLiberadosSalvos);
+    }
+
+    private static List<Habilidade> lerPoderes(Map<String, String> dados, String chave) {
+        String valor = dados.get(chave);
+        if (valor == null) {
+            throw new IllegalArgumentException("O campo obrigatório '" + chave + "' está ausente.");
+        }
+        if (valor.isEmpty()) {
+            return List.of();
+        }
+
+        List<Habilidade> poderes = new ArrayList<>();
+        Set<String> nomes = new HashSet<>();
+        for (String nomePoder : valor.split(";", -1)) {
+            if (nomePoder.isBlank() || !nomes.add(nomePoder)) {
+                throw new IllegalArgumentException("A lista de poderes '" + chave + "' não é válida.");
+            }
+            poderes.add(CatalogoDePoderes.criarPorNome(nomePoder));
+        }
+        return poderes;
     }
 
     private static int lerInteiro(Map<String, String> dados, String chave) {
