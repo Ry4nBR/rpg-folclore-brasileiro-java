@@ -18,4 +18,17 @@ public final class Roteiro {
                 new LinhaDeDialogo(null, "Narrador",
                         "Agora, um novo herói deve ouvir o chamado e restaurar a harmonia."));
     }
+
+    public static List<LinhaDeDialogo> preGinasio(int indice) {
+        return switch (indice) {
+            case 0 -> List.of(
+                    new LinhaDeDialogo("mula_sem_cabeca", "Mula sem Cabeça",
+                            "Meu galope anuncia que o fogo da mata está fora de controle."),
+                    new LinhaDeDialogo("mula_sem_cabeca", "Mula sem Cabeça",
+                            "Se queres passar, mostra coragem diante das minhas chamas."),
+                    new LinhaDeDialogo("mula_sem_cabeca", "Mula sem Cabeça",
+                            "Prepara-te, viajante: este desafio não se vence com palavras."));
+            default -> throw new IllegalArgumentException("Índice de ginásio inválido.");
+        };
+    }
 }
