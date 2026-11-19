@@ -1,5 +1,7 @@
 package br.folclore.modelo;
 
+import br.folclore.habilidades.HabilidadeDano;
+
 public class Curupira extends Personagem {
     private static final int PV_BASE = 42;
     private static final int ATAQUE_BASE = 8;
@@ -9,6 +11,7 @@ public class Curupira extends Personagem {
 
     public Curupira() {
         super("Curupira", Tipo.PLANTA, PV_BASE, ATAQUE_BASE, DEFESA_BASE, VELOCIDADE_BASE);
+        adicionarHabilidade(new HabilidadeDano("Pegadas Invertidas", 3, 10));
     }
 
     @Override
