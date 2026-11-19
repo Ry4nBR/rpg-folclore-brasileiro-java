@@ -20,6 +20,7 @@ public abstract class Personagem {
     private int ataque;
     private int defesa;
     private int velocidade;
+    private int xp;
 
     protected Personagem(String nome, Tipo tipo, int pvMaximo, int ataque, int defesa, int velocidade) {
         if (nome == null || nome.isBlank()) {
@@ -109,6 +110,10 @@ public abstract class Personagem {
 
     public int getVelocidade() {
         return velocidade;
+    }
+
+    public int getXp() {
+        return xp;
     }
 
     public boolean estaVivo() {
