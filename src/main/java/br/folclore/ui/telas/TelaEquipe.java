@@ -15,10 +15,13 @@ public class TelaEquipe implements Tela {
     private final GerenciadorDeTelas gerenciador;
     private final SessaoDeJogo sessao;
     private final List<Botao> botoesTitular = new ArrayList<>();
+    private final Botao botaoVoltar;
 
     public TelaEquipe(GerenciadorDeTelas gerenciador, SessaoDeJogo sessao) {
         this.gerenciador = gerenciador;
         this.sessao = sessao;
+        botaoVoltar = new Botao(380, 470, 200, 50, "Voltar",
+                () -> gerenciador.trocarPara(new TelaSpawnMedico(gerenciador, sessao)));
         Equipe equipe = sessao.getEquipe();
         for (int i = 0; i < equipe.getMembros().size(); i++) {
             final int indice = i;
@@ -69,6 +72,7 @@ public class TelaEquipe implements Tela {
                 g.drawString("Vaga disponível", 40, y);
             }
         }
+        botaoVoltar.desenhar(g);
     }
 
     @Override
@@ -76,6 +80,7 @@ public class TelaEquipe implements Tela {
         for (Botao botao : botoesTitular) {
             botao.clicar(x, y);
         }
+        botaoVoltar.clicar(x, y);
     }
 
     @Override
@@ -83,6 +88,7 @@ public class TelaEquipe implements Tela {
         for (Botao botao : botoesTitular) {
             botao.atualizarHover(x, y);
         }
+        botaoVoltar.atualizarHover(x, y);
     }
 
     @Override
