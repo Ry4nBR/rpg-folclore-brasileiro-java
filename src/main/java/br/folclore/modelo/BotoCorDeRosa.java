@@ -1,5 +1,7 @@
 package br.folclore.modelo;
 
+import br.folclore.habilidades.HabilidadeDano;
+
 public class BotoCorDeRosa extends Personagem {
     private static final int PV_BASE = 46;
     private static final int ATAQUE_BASE = 9;
@@ -9,6 +11,7 @@ public class BotoCorDeRosa extends Personagem {
 
     public BotoCorDeRosa() {
         super("Boto-cor-de-rosa", Tipo.AGUA, PV_BASE, ATAQUE_BASE, DEFESA_BASE, VELOCIDADE_BASE);
+        adicionarHabilidade(new HabilidadeDano("Redemoinho Rosado", 3, 11));
     }
 
     @Override
