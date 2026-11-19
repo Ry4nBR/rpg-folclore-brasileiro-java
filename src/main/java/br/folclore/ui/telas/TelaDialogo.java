@@ -1,16 +1,23 @@
 package br.folclore.ui.telas;
 
 import br.folclore.ui.GerenciadorDeTelas;
+import br.folclore.ui.componentes.CaixaDeTexto;
 import br.folclore.ui.componentes.LinhaDeDialogo;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.List;
 
 public class TelaDialogo implements Tela {
+    private static final int CAIXA_X = 40;
+    private static final int CAIXA_Y = 380;
+    private static final int CAIXA_LARGURA = 880;
+    private static final int CAIXA_ALTURA = 140;
+
     private final GerenciadorDeTelas gerenciador;
     private final Tela telaDeFundo;
     private final List<LinhaDeDialogo> linhas;
     private final Runnable aoTerminar;
+    private final CaixaDeTexto caixa;
     private int indiceLinhaAtual;
 
     public TelaDialogo(GerenciadorDeTelas gerenciador, Tela telaDeFundo,
@@ -29,10 +36,13 @@ public class TelaDialogo implements Tela {
         this.telaDeFundo = telaDeFundo;
         this.linhas = List.copyOf(linhas);
         this.aoTerminar = aoTerminar;
+        caixa = new CaixaDeTexto(CAIXA_X, CAIXA_Y, CAIXA_LARGURA, CAIXA_ALTURA);
+        caixa.definirTexto(this.linhas.get(indiceLinhaAtual).getTexto());
     }
 
     @Override
     public void atualizar() {
+        caixa.atualizar();
     }
 
     @Override
@@ -45,6 +55,7 @@ public class TelaDialogo implements Tela {
         }
         g.setColor(new Color(0, 0, 0, 128));
         g.fillRect(0, 0, 960, 540);
+        caixa.desenhar(g);
     }
 
     @Override
