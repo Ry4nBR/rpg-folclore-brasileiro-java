@@ -18,7 +18,9 @@ public class TelaGinasio implements Tela {
         this.indiceGinasio = indiceGinasio;
         fundo = indiceGinasio == 0
                 ? CarregadorDeImagens.carregar("/fundos/ginasio_fogo.png")
-                : null;
+                : indiceGinasio == 1
+                        ? CarregadorDeImagens.carregar("/fundos/ginasio_planta.png")
+                        : null;
     }
 
     @Override
