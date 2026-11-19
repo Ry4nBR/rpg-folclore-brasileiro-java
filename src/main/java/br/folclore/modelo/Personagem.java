@@ -12,6 +12,7 @@ import java.util.Objects;
  */
 public abstract class Personagem {
     public static final int MAX_HABILIDADES_EQUIPADAS = 3;
+    public static final int MAX_SLOTS = 4;
     public static final int XP_COMUM = 20;
     public static final int XP_CHEFE = 50;
     public static final int CUSTO_MELHORIA_XP = 30;
@@ -26,6 +27,7 @@ public abstract class Personagem {
     private int defesa;
     private int velocidade;
     private int xp;
+    private int slotsDeHabilidade = 2;
 
     protected Personagem(String nome, Tipo tipo, int pvMaximo, int ataque, int defesa, int velocidade) {
         if (nome == null || nome.isBlank()) {
@@ -64,6 +66,10 @@ public abstract class Personagem {
 
     public List<Habilidade> getPoderesLiberados() {
         return Collections.unmodifiableList(poderesLiberados);
+    }
+
+    public int getSlotsDeHabilidade() {
+        return slotsDeHabilidade;
     }
 
     public void restaurarUsosDasHabilidades() {
