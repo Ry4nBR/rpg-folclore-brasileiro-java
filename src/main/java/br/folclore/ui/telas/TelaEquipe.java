@@ -58,6 +58,17 @@ public class TelaEquipe implements Tela {
             botao.setHabilitado(membro != equipe.getTitular() && membro.estaVivo());
             botao.desenhar(g);
         }
+
+        for (int i = equipe.getMembros().size(); i < Equipe.MAX_VAGAS; i++) {
+            int y = 130 + i * 70;
+            if (i == Equipe.MAX_VAGAS - 1) {
+                g.setColor(Color.GRAY);
+                g.drawString("Vaga reservada", 40, y);
+            } else {
+                g.setColor(Color.WHITE);
+                g.drawString("Vaga disponível", 40, y);
+            }
+        }
     }
 
     @Override
