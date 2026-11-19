@@ -11,6 +11,8 @@ import java.util.List;
  */
 public abstract class Personagem {
     public static final int MAX_HABILIDADES_EQUIPADAS = 3;
+    public static final int XP_COMUM = 20;
+    public static final int XP_CHEFE = 50;
 
     private final List<Habilidade> habilidades = new ArrayList<>();
     private final String nome;
@@ -140,6 +142,10 @@ public abstract class Personagem {
 
     public boolean ehChefe() {
         return false;
+    }
+
+    public int getXpRecompensa() {
+        return ehChefe() ? XP_CHEFE : XP_COMUM;
     }
 
     public int receberDano(int dano) {
