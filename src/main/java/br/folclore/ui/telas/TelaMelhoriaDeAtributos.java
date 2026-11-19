@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 public class TelaMelhoriaDeAtributos implements Tela {
@@ -20,6 +21,7 @@ public class TelaMelhoriaDeAtributos implements Tela {
     private final Botao botaoAtaque;
     private final Botao botaoDefesa;
     private final Botao botaoVelocidade;
+    private final Botao botaoVoltar;
     private String mensagemNotificacao;
 
     public TelaMelhoriaDeAtributos(GerenciadorDeTelas gerenciador, SessaoDeJogo sessao) {
@@ -31,6 +33,7 @@ public class TelaMelhoriaDeAtributos implements Tela {
         botaoDefesa = new Botao(600, 285, 180, 40, "+ Defesa", this::melhorarDefesa);
         botaoVelocidade = new Botao(600, 335, 180, 40, "+ Velocidade",
                 this::melhorarVelocidade);
+        botaoVoltar = new Botao(380, 465, 200, 45, "Voltar", this::voltar);
         atualizar();
     }
 
@@ -68,6 +71,7 @@ public class TelaMelhoriaDeAtributos implements Tela {
         botaoAtaque.desenhar(g);
         botaoDefesa.desenhar(g);
         botaoVelocidade.desenhar(g);
+        botaoVoltar.desenhar(g);
         if (mensagemNotificacao != null) {
             g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 18));
             g.setColor(Color.WHITE);
@@ -81,6 +85,7 @@ public class TelaMelhoriaDeAtributos implements Tela {
         botaoAtaque.clicar(x, y);
         botaoDefesa.clicar(x, y);
         botaoVelocidade.clicar(x, y);
+        botaoVoltar.clicar(x, y);
     }
 
     @Override
@@ -89,10 +94,18 @@ public class TelaMelhoriaDeAtributos implements Tela {
         botaoAtaque.atualizarHover(x, y);
         botaoDefesa.atualizarHover(x, y);
         botaoVelocidade.atualizarHover(x, y);
+        botaoVoltar.atualizarHover(x, y);
     }
 
     @Override
     public void aoPressionarTecla(int codigo) {
+        if (codigo == KeyEvent.VK_ESCAPE) {
+            voltar();
+        }
+    }
+
+    private void voltar() {
+        gerenciador.trocarPara(new TelaSpawnMedico(gerenciador, sessao));
     }
 
     private void melhorarPv() {
