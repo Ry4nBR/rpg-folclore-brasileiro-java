@@ -1,9 +1,12 @@
 package br.folclore.progressao;
 
 import br.folclore.modelo.Batatao;
+import br.folclore.modelo.BotoCorDeRosa;
 import br.folclore.modelo.Caipora;
 import br.folclore.modelo.Capelobo;
 import br.folclore.modelo.Curupira;
+import br.folclore.modelo.Honorato;
+import br.folclore.modelo.Iara;
 import br.folclore.modelo.MaeDeOuro;
 import br.folclore.modelo.MulaSemCabeca;
 import br.folclore.modelo.Personagem;
@@ -26,5 +29,12 @@ public final class CatalogoDeGinasios {
                 new Curupira(),
                 new Caipora(),
                 new Capelobo()));
+    }
+
+    public static Ginasio criarGinasioDeAgua() {
+        return new Ginasio("Ginásio da Água", Tipo.AGUA, List.<Personagem>of(
+                new Iara(),
+                new BotoCorDeRosa(),
+                new Honorato()));
     }
 }
