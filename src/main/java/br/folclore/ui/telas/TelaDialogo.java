@@ -25,6 +25,7 @@ public class TelaDialogo implements Tela {
     private final CaixaDeTexto caixa;
     private int indiceLinhaAtual;
     private boolean aoTerminarExecutado;
+    private int framesIndicador;
 
     public TelaDialogo(GerenciadorDeTelas gerenciador, Tela telaDeFundo,
                        List<LinhaDeDialogo> linhas, Runnable aoTerminar) {
@@ -50,6 +51,11 @@ public class TelaDialogo implements Tela {
     @Override
     public void atualizar() {
         caixa.atualizar();
+        if (caixa.estaCompleta()) {
+            framesIndicador++;
+        } else {
+            framesIndicador = 0;
+        }
     }
 
     @Override
@@ -76,6 +82,12 @@ public class TelaDialogo implements Tela {
         g.setStroke(new BasicStroke(2f));
         g.drawRoundRect(etiquetaX, etiquetaY, larguraEtiqueta, 32, 8, 8);
         g.drawString(falante, etiquetaX + 12, etiquetaY + 22);
+        if (caixa.estaCompleta() && (framesIndicador / 30) % 2 == 0) {
+            g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 24));
+            g.setColor(Color.BLACK);
+            g.drawString("▼", CAIXA_X + CAIXA_LARGURA - 38,
+                    CAIXA_Y + CAIXA_ALTURA - 12);
+        }
     }
 
     @Override
