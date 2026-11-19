@@ -1,5 +1,7 @@
 package br.folclore.modelo;
 
+import br.folclore.habilidades.HabilidadeCura;
+
 public class Iara extends Personagem {
     private static final int PV_BASE = 43;
     private static final int ATAQUE_BASE = 8;
@@ -9,6 +11,7 @@ public class Iara extends Personagem {
 
     public Iara() {
         super("Iara", Tipo.AGUA, PV_BASE, ATAQUE_BASE, DEFESA_BASE, VELOCIDADE_BASE);
+        adicionarHabilidade(new HabilidadeCura("Águas Curativas", 2, 10));
     }
 
     @Override
