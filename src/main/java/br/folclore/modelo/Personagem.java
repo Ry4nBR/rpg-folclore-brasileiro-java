@@ -11,7 +11,6 @@ import java.util.Objects;
  * Abstração: base comum de todo combatente
  */
 public abstract class Personagem {
-    public static final int MAX_HABILIDADES_EQUIPADAS = 3;
     public static final int MAX_SLOTS = 4;
     public static final int XP_COMUM = 20;
     public static final int XP_CHEFE = 50;
@@ -95,9 +94,8 @@ public abstract class Personagem {
         if (habilidade == null) {
             throw new IllegalArgumentException("A habilidade não pode ser nula.");
         }
-        if (habilidades.size() >= MAX_HABILIDADES_EQUIPADAS) {
-            throw new IllegalArgumentException("O personagem não pode equipar mais de "
-                    + MAX_HABILIDADES_EQUIPADAS + " habilidades.");
+        if (habilidades.size() >= slotsDeHabilidade - 1) {
+            throw new IllegalArgumentException("O personagem não tem slots livres para equipar outra habilidade.");
         }
 
         habilidades.add(habilidade);
