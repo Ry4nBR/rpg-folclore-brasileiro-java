@@ -18,6 +18,7 @@ public class TelaMelhoriaDeAtributos implements Tela {
     private final BufferedImage fundo;
     private final Botao botaoPv;
     private final Botao botaoAtaque;
+    private final Botao botaoDefesa;
     private String mensagemNotificacao;
 
     public TelaMelhoriaDeAtributos(GerenciadorDeTelas gerenciador, SessaoDeJogo sessao) {
@@ -26,6 +27,7 @@ public class TelaMelhoriaDeAtributos implements Tela {
         fundo = CarregadorDeImagens.carregar("/fundos/spawn_medico.png");
         botaoPv = new Botao(600, 185, 180, 40, "+ PV", this::melhorarPv);
         botaoAtaque = new Botao(600, 235, 180, 40, "+ Ataque", this::melhorarAtaque);
+        botaoDefesa = new Botao(600, 285, 180, 40, "+ Defesa", this::melhorarDefesa);
     }
 
     @Override
@@ -55,6 +57,7 @@ public class TelaMelhoriaDeAtributos implements Tela {
         g.drawString("Velocidade: " + titular.getVelocidade(), 80, 365);
         botaoPv.desenhar(g);
         botaoAtaque.desenhar(g);
+        botaoDefesa.desenhar(g);
         if (mensagemNotificacao != null) {
             g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 18));
             g.setColor(Color.WHITE);
@@ -66,12 +69,14 @@ public class TelaMelhoriaDeAtributos implements Tela {
     public void aoClicar(int x, int y) {
         botaoPv.clicar(x, y);
         botaoAtaque.clicar(x, y);
+        botaoDefesa.clicar(x, y);
     }
 
     @Override
     public void aoMoverMouse(int x, int y) {
         botaoPv.atualizarHover(x, y);
         botaoAtaque.atualizarHover(x, y);
+        botaoDefesa.atualizarHover(x, y);
     }
 
     @Override
@@ -89,6 +94,14 @@ public class TelaMelhoriaDeAtributos implements Tela {
     private void melhorarAtaque() {
         if (sessao.getEquipe().getTitular().melhorarAtributo(Atributo.ATAQUE)) {
             mensagemNotificacao = "Ataque aumentou!";
+        } else {
+            mensagemNotificacao = "XP insuficiente!";
+        }
+    }
+
+    private void melhorarDefesa() {
+        if (sessao.getEquipe().getTitular().melhorarAtributo(Atributo.DEFESA)) {
+            mensagemNotificacao = "Defesa aumentou!";
         } else {
             mensagemNotificacao = "XP insuficiente!";
         }
