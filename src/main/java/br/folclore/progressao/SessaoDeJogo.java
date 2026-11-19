@@ -2,6 +2,8 @@ package br.folclore.progressao;
 
 import br.folclore.modelo.CatalogoDeHerois;
 import br.folclore.modelo.Personagem;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class SessaoDeJogo {
     private final Equipe equipe;
@@ -108,5 +110,78 @@ public class SessaoDeJogo {
 
     public boolean jogoConcluido() {
         return ginasiosVencidos == 3;
+    }
+
+    public Map<String, String> exportarEstado() {
+        Map<String, String> estado = new LinkedHashMap<>();
+        estado.put("ginasios_vencidos", Integer.toString(ginasiosVencidos));
+        estado.put("indice_titular", Integer.toString(equipe.getMembros().indexOf(equipe.getTitular())));
+        estado.put("total_membros", Integer.toString(equipe.getMembros().size()));
+        for (int i = 0; i < equipe.getMembros().size(); i++) {
+            Map<String, String> estadoMembro = equipe.getMembros().get(i).exportarEstado();
+            for (Map.Entry<String, String> entrada : estadoMembro.entrySet()) {
+                estado.put("membro." + i + "." + entrada.getKey(), entrada.getValue());
+            }
+        }
+        return estado;
+    }
+
+    public static SessaoDeJogo restaurar(Map<String, String> dados) {
+        if (dados == null) {
+            throw new IllegalArgumentException("O estado da sessão não pode ser nulo.");
+        }
+
+        int ginasiosSalvos = lerInteiro(dados, "ginasios_vencidos");
+        int indiceTitularSalvo = lerInteiro(dados, "indice_titular");
+        int totalMembrosSalvo = lerInteiro(dados, "total_membros");
+        if (ginasiosSalvos < 0 || ginasiosSalvos > 3) {
+            throw new IllegalArgumentException("A quantidade de ginásios vencidos não é válida.");
+        }
+        if (totalMembrosSalvo < 1 || totalMembrosSalvo > Equipe.MAX_VAGAS) {
+            throw new IllegalArgumentException("A quantidade de membros salva não é válida.");
+        }
+        if (indiceTitularSalvo < 0 || indiceTitularSalvo >= totalMembrosSalvo) {
+            throw new IllegalArgumentException("O índice do titular salvo não é válido.");
+        }
+
+        Equipe equipeRestaurada = null;
+        for (int i = 0; i < totalMembrosSalvo; i++) {
+            String prefixo = "membro." + i + ".";
+            Map<String, String> estadoMembro = new LinkedHashMap<>();
+            for (Map.Entry<String, String> entrada : dados.entrySet()) {
+                if (entrada.getKey().startsWith(prefixo)) {
+                    estadoMembro.put(entrada.getKey().substring(prefixo.length()), entrada.getValue());
+                }
+            }
+
+            String nome = estadoMembro.get("nome");
+            if (nome == null) {
+                throw new IllegalArgumentException("O nome do membro " + i + " está ausente.");
+            }
+            Personagem membro = CatalogoDeHerois.criarPorNome(nome);
+            membro.restaurarEstado(estadoMembro);
+            if (equipeRestaurada == null) {
+                equipeRestaurada = new Equipe(membro);
+            } else if (!equipeRestaurada.recrutar(membro)) {
+                throw new IllegalArgumentException("A equipe salva contém membros duplicados.");
+            }
+        }
+
+        equipeRestaurada.restaurarIndiceTitular(indiceTitularSalvo);
+        SessaoDeJogo sessao = new SessaoDeJogo(equipeRestaurada);
+        sessao.ginasiosVencidos = ginasiosSalvos;
+        return sessao;
+    }
+
+    private static int lerInteiro(Map<String, String> dados, String chave) {
+        String valor = dados.get(chave);
+        if (valor == null) {
+            throw new IllegalArgumentException("O campo obrigatório '" + chave + "' está ausente.");
+        }
+        try {
+            return Integer.parseInt(valor);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("O campo '" + chave + "' não contém um inteiro válido.", e);
+        }
     }
 }

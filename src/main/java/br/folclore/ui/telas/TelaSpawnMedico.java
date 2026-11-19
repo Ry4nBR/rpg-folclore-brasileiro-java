@@ -1,6 +1,7 @@
 package br.folclore.ui.telas;
 
 import br.folclore.progressao.SessaoDeJogo;
+import br.folclore.save.GerenciadorDeSave;
 import br.folclore.ui.GerenciadorDeTelas;
 import br.folclore.ui.componentes.Botao;
 import br.folclore.ui.componentes.CarregadorDeImagens;
@@ -18,6 +19,7 @@ public class TelaSpawnMedico implements Tela {
     private final Botao botaoEquipe;
     private final Botao botaoMelhorias;
     private final Botao botaoPoderes;
+    private final Botao botaoSalvar;
     private String mensagemNotificacao;
     private long mensagemExpiraEm;
 
@@ -32,6 +34,8 @@ public class TelaSpawnMedico implements Tela {
                 () -> gerenciador.trocarPara(new TelaMelhoriaDeAtributos(gerenciador, sessao)));
         botaoPoderes = new Botao(820, 400, 100, 50, "Poderes",
                 () -> gerenciador.trocarPara(new TelaPoderes(gerenciador, sessao)));
+        botaoSalvar = new Botao(40, 470, 200, 45, "Salvar jogo", this::salvarJogo);
+        GerenciadorDeSave.salvar(sessao.exportarEstado());
     }
 
     @Override
@@ -62,6 +66,7 @@ public class TelaSpawnMedico implements Tela {
         botaoEquipe.desenhar(g);
         botaoMelhorias.desenhar(g);
         botaoPoderes.desenhar(g);
+        botaoSalvar.desenhar(g);
         if (mensagemNotificacao != null) {
             g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 16));
             FontMetrics metricasMensagem = g.getFontMetrics();
@@ -100,6 +105,7 @@ public class TelaSpawnMedico implements Tela {
         botaoEquipe.clicar(x, y);
         botaoMelhorias.clicar(x, y);
         botaoPoderes.clicar(x, y);
+        botaoSalvar.clicar(x, y);
         if (x >= 130 && x < 270 && y >= 130 && y < 350) {
             sessao.entrarNoGinasio(0);
             gerenciador.trocarPara(new TelaGinasio(gerenciador, sessao, 0));
@@ -128,6 +134,7 @@ public class TelaSpawnMedico implements Tela {
         botaoEquipe.atualizarHover(x, y);
         botaoMelhorias.atualizarHover(x, y);
         botaoPoderes.atualizarHover(x, y);
+        botaoSalvar.atualizarHover(x, y);
     }
 
     @Override
@@ -137,6 +144,13 @@ public class TelaSpawnMedico implements Tela {
     private void revigorarEquipe() {
         sessao.getEquipe().revigorarTodos();
         mensagemNotificacao = "Sua equipe foi revigorada!";
+        mensagemExpiraEm = System.currentTimeMillis() + 2000;
+    }
+
+    private void salvarJogo() {
+        mensagemNotificacao = GerenciadorDeSave.salvar(sessao.exportarEstado())
+                ? "Jogo salvo!"
+                : "Erro ao salvar.";
         mensagemExpiraEm = System.currentTimeMillis() + 2000;
     }
 }

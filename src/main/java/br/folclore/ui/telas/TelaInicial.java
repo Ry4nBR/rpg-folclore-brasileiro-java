@@ -1,5 +1,7 @@
 package br.folclore.ui.telas;
 
+import br.folclore.progressao.SessaoDeJogo;
+import br.folclore.save.GerenciadorDeSave;
 import br.folclore.ui.GerenciadorDeTelas;
 import br.folclore.ui.ConfiguracoesUi;
 import br.folclore.ui.Roteiro;
@@ -17,6 +19,8 @@ public class TelaInicial implements Tela {
     private final Botao botaoContinuar;
     private final Botao botaoSair;
     private int indiceSelecionado;
+    private String mensagemNotificacao;
+    private long mensagemExpiraEm;
 
     public TelaInicial(GerenciadorDeTelas gerenciador) {
         this.gerenciador = gerenciador;
@@ -29,12 +33,16 @@ public class TelaInicial implements Tela {
                                 gerenciador,
                                 personagem -> System.out.println(personagem.getNome()))))));
         botaoContinuar = new Botao(380, 315, 200, 50, "Continuar",
-                () -> System.out.println("Continuar selecionado"));
+                this::continuarJogo);
+        botaoContinuar.setHabilitado(GerenciadorDeSave.existeSave());
         botaoSair = new Botao(380, 380, 200, 50, "Sair", () -> System.exit(0));
     }
 
     @Override
     public void atualizar() {
+        if (mensagemNotificacao != null && System.currentTimeMillis() >= mensagemExpiraEm) {
+            mensagemNotificacao = null;
+        }
     }
 
     @Override
@@ -51,6 +59,13 @@ public class TelaInicial implements Tela {
         botaoNovoJogo.desenhar(g);
         botaoContinuar.desenhar(g);
         botaoSair.desenhar(g);
+        if (mensagemNotificacao != null) {
+            g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 16));
+            FontMetrics metricasMensagem = g.getFontMetrics();
+            g.setColor(Color.WHITE);
+            g.drawString(mensagemNotificacao,
+                    (ConfiguracoesUi.LARGURA - metricasMensagem.stringWidth(mensagemNotificacao)) / 2, 480);
+        }
     }
 
     @Override
@@ -86,5 +101,29 @@ public class TelaInicial implements Tela {
         botaoNovoJogo.atualizarHover(480, indiceSelecionado == 0 ? 275 : -1);
         botaoContinuar.atualizarHover(480, indiceSelecionado == 1 ? 340 : -1);
         botaoSair.atualizarHover(480, indiceSelecionado == 2 ? 405 : -1);
+    }
+
+    private void continuarJogo() {
+        var dados = GerenciadorDeSave.carregar();
+        if (dados.isEmpty()) {
+            exibirErroDeCarregamento();
+            return;
+        }
+
+        SessaoDeJogo sessao;
+        try {
+            sessao = SessaoDeJogo.restaurar(dados.get());
+        } catch (IllegalArgumentException e) {
+            System.err.println("Não foi possível restaurar o jogo salvo.");
+            e.printStackTrace(System.err);
+            exibirErroDeCarregamento();
+            return;
+        }
+        gerenciador.trocarPara(new TelaSpawnMedico(gerenciador, sessao));
+    }
+
+    private void exibirErroDeCarregamento() {
+        mensagemNotificacao = "Não foi possível carregar o jogo salvo.";
+        mensagemExpiraEm = System.currentTimeMillis() + 3000;
     }
 }

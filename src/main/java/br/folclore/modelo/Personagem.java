@@ -2,10 +2,16 @@ package br.folclore.modelo;
 
 import br.folclore.habilidades.Habilidade;
 import br.folclore.habilidades.ResultadoAcao;
+import br.folclore.progressao.CatalogoDePoderes;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Abstração: base comum de todo combatente
@@ -268,5 +274,107 @@ public abstract class Personagem {
     public String resumoDeStatus() {
         return getNome() + " (" + getTipo().getRotulo() + ") | PV " + getPvAtual() + "/" + getPvMaximo()
                 + " | ATQ " + getAtaque() + " | DEF " + getDefesa() + " | VEL " + getVelocidade();
+    }
+
+    public Map<String, String> exportarEstado() {
+        Map<String, String> estado = new LinkedHashMap<>();
+        estado.put("nome", nome);
+        estado.put("pv_atual", Integer.toString(pvAtual));
+        estado.put("pv_maximo", Integer.toString(pvMaximo));
+        estado.put("ataque", Integer.toString(ataque));
+        estado.put("defesa", Integer.toString(defesa));
+        estado.put("velocidade", Integer.toString(velocidade));
+        estado.put("xp", Integer.toString(xp));
+        estado.put("slots", Integer.toString(slotsDeHabilidade));
+        estado.put("equipadas", habilidades.stream()
+                .map(Habilidade::getNome)
+                .collect(Collectors.joining(";")));
+        estado.put("liberados", poderesLiberados.stream()
+                .map(Habilidade::getNome)
+                .collect(Collectors.joining(";")));
+        return estado;
+    }
+
+    public void restaurarEstado(Map<String, String> dados) {
+        if (dados == null) {
+            throw new IllegalArgumentException("O estado do personagem não pode ser nulo.");
+        }
+        if (!nome.equals(dados.get("nome"))) {
+            throw new IllegalArgumentException("O estado salvo pertence a outro personagem.");
+        }
+
+        int pvAtualSalvo = lerInteiro(dados, "pv_atual");
+        int pvMaximoSalvo = lerInteiro(dados, "pv_maximo");
+        int ataqueSalvo = lerInteiro(dados, "ataque");
+        int defesaSalva = lerInteiro(dados, "defesa");
+        int velocidadeSalva = lerInteiro(dados, "velocidade");
+        int xpSalvo = lerInteiro(dados, "xp");
+        int slotsSalvos = lerInteiro(dados, "slots");
+
+        if (pvMaximoSalvo <= 0 || pvAtualSalvo < 0 || pvAtualSalvo > pvMaximoSalvo) {
+            throw new IllegalArgumentException("Os pontos de vida salvos não são válidos.");
+        }
+        if (ataqueSalvo < 0 || defesaSalva < 0 || velocidadeSalva < 0 || xpSalvo < 0) {
+            throw new IllegalArgumentException("Os atributos e a experiência não podem ser negativos.");
+        }
+        if (slotsSalvos < 2 || slotsSalvos > MAX_SLOTS) {
+            throw new IllegalArgumentException("A quantidade de slots salva não é válida.");
+        }
+
+        List<Habilidade> habilidadesSalvas = lerPoderes(dados, "equipadas");
+        List<Habilidade> poderesLiberadosSalvos = lerPoderes(dados, "liberados");
+        Set<String> nomesLiberados = new HashSet<>();
+        for (Habilidade poder : poderesLiberadosSalvos) {
+            nomesLiberados.add(poder.getNome());
+        }
+        if (habilidadesSalvas.size() > slotsSalvos - 1
+                || habilidadesSalvas.stream().anyMatch(habilidade -> !nomesLiberados.contains(
+                        habilidade.getNome()))) {
+            throw new IllegalArgumentException("Os poderes equipados não são válidos para os slots liberados.");
+        }
+
+        pvAtual = pvAtualSalvo;
+        pvMaximo = pvMaximoSalvo;
+        ataque = ataqueSalvo;
+        defesa = defesaSalva;
+        velocidade = velocidadeSalva;
+        xp = xpSalvo;
+        slotsDeHabilidade = slotsSalvos;
+        habilidades.clear();
+        habilidades.addAll(habilidadesSalvas);
+        poderesLiberados.clear();
+        poderesLiberados.addAll(poderesLiberadosSalvos);
+    }
+
+    private static List<Habilidade> lerPoderes(Map<String, String> dados, String chave) {
+        String valor = dados.get(chave);
+        if (valor == null) {
+            throw new IllegalArgumentException("O campo obrigatório '" + chave + "' está ausente.");
+        }
+        if (valor.isEmpty()) {
+            return List.of();
+        }
+
+        List<Habilidade> poderes = new ArrayList<>();
+        Set<String> nomes = new HashSet<>();
+        for (String nomePoder : valor.split(";", -1)) {
+            if (nomePoder.isBlank() || !nomes.add(nomePoder)) {
+                throw new IllegalArgumentException("A lista de poderes '" + chave + "' não é válida.");
+            }
+            poderes.add(CatalogoDePoderes.criarPorNome(nomePoder));
+        }
+        return poderes;
+    }
+
+    private static int lerInteiro(Map<String, String> dados, String chave) {
+        String valor = dados.get(chave);
+        if (valor == null) {
+            throw new IllegalArgumentException("O campo obrigatório '" + chave + "' está ausente.");
+        }
+        try {
+            return Integer.parseInt(valor);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("O campo '" + chave + "' não contém um inteiro válido.", e);
+        }
     }
 }
