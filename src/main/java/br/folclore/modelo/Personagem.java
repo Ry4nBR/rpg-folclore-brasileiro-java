@@ -72,6 +72,14 @@ public abstract class Personagem {
         return slotsDeHabilidade;
     }
 
+    public boolean desbloquearSlot() {
+        if (slotsDeHabilidade >= MAX_SLOTS) {
+            return false;
+        }
+        slotsDeHabilidade++;
+        return true;
+    }
+
     public void restaurarUsosDasHabilidades() {
         for (Habilidade habilidade : habilidades) {
             habilidade.restaurarUsos();
