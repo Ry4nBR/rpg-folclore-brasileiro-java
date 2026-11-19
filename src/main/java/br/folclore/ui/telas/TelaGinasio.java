@@ -18,6 +18,7 @@ public class TelaGinasio implements Tela {
     private final int indiceGinasio;
     private final BufferedImage fundo;
     private final Botao botaoDesafiar;
+    private final Botao botaoSpawnMedico;
 
     public TelaGinasio(GerenciadorDeTelas gerenciador, SessaoDeJogo sessao, int indiceGinasio) {
         this.gerenciador = gerenciador;
@@ -34,6 +35,8 @@ public class TelaGinasio implements Tela {
                 ? "Enfrentar o Chefe"
                 : "Desafiar";
         botaoDesafiar = new Botao(380, 400, 200, 50, rotuloDesafio, this::desafiar);
+        botaoSpawnMedico = new Botao(40, 460, 200, 40, "Spawn Médico",
+                this::voltarAoSpawnMedico);
     }
 
     @Override
@@ -58,16 +61,19 @@ public class TelaGinasio implements Tela {
             g.drawString(progresso, (960 - metricas.stringWidth(progresso)) / 2, 105);
         }
         botaoDesafiar.desenhar(g);
+        botaoSpawnMedico.desenhar(g);
     }
 
     @Override
     public void aoClicar(int x, int y) {
         botaoDesafiar.clicar(x, y);
+        botaoSpawnMedico.clicar(x, y);
     }
 
     @Override
     public void aoMoverMouse(int x, int y) {
         botaoDesafiar.atualizarHover(x, y);
+        botaoSpawnMedico.atualizarHover(x, y);
     }
 
     @Override
@@ -75,10 +81,17 @@ public class TelaGinasio implements Tela {
     }
 
     private void desafiar() {
+        if (sessao.getProximoEncontro() == null) {
+            return;
+        }
         Batalha batalha = new Batalha(
                 sessao.getEquipe().getTitular(),
                 sessao.getProximoEncontro());
         gerenciador.trocarPara(new TelaBatalha(gerenciador, batalha, this::processarResultado));
+    }
+
+    private void voltarAoSpawnMedico() {
+        gerenciador.trocarPara(new TelaSpawnMedico(gerenciador, sessao));
     }
 
     private void processarResultado(ResultadoBatalha resultado) {
