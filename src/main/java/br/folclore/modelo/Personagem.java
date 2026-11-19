@@ -4,8 +4,11 @@ import br.folclore.habilidades.Habilidade;
 import br.folclore.habilidades.ResultadoAcao;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Abstração: base comum de todo combatente
@@ -268,5 +271,24 @@ public abstract class Personagem {
     public String resumoDeStatus() {
         return getNome() + " (" + getTipo().getRotulo() + ") | PV " + getPvAtual() + "/" + getPvMaximo()
                 + " | ATQ " + getAtaque() + " | DEF " + getDefesa() + " | VEL " + getVelocidade();
+    }
+
+    public Map<String, String> exportarEstado() {
+        Map<String, String> estado = new LinkedHashMap<>();
+        estado.put("nome", nome);
+        estado.put("pv_atual", Integer.toString(pvAtual));
+        estado.put("pv_maximo", Integer.toString(pvMaximo));
+        estado.put("ataque", Integer.toString(ataque));
+        estado.put("defesa", Integer.toString(defesa));
+        estado.put("velocidade", Integer.toString(velocidade));
+        estado.put("xp", Integer.toString(xp));
+        estado.put("slots", Integer.toString(slotsDeHabilidade));
+        estado.put("equipadas", habilidades.stream()
+                .map(Habilidade::getNome)
+                .collect(Collectors.joining(";")));
+        estado.put("liberados", poderesLiberados.stream()
+                .map(Habilidade::getNome)
+                .collect(Collectors.joining(";")));
+        return estado;
     }
 }
