@@ -1,0 +1,26 @@
+package br.folclore.modelo;
+
+import br.folclore.habilidades.HabilidadeCura;
+
+public class Iara extends Personagem {
+    private static final int PV_BASE = 43;
+    private static final int ATAQUE_BASE = 8;
+    private static final int DEFESA_BASE = 4;
+    private static final int VELOCIDADE_BASE = 8;
+    private static final int PODER_ATAQUE_BASICO = 5;
+
+    public Iara() {
+        super("Iara", Tipo.AGUA, PV_BASE, ATAQUE_BASE, DEFESA_BASE, VELOCIDADE_BASE);
+        adicionarHabilidade(new HabilidadeCura("Águas Curativas", 2, 10));
+    }
+
+    @Override
+    public int atacar(Personagem alvo) {
+        return alvo.receberDano(calcularDano(alvo, PODER_ATAQUE_BASICO));
+    }
+
+    @Override
+    public String getNomeAtaqueBasico() {
+        return "Jato d’Água";
+    }
+}
