@@ -14,15 +14,20 @@ public class TelaSpawnMedico implements Tela {
     private final SessaoDeJogo sessao;
     private final BufferedImage fundo;
     private final Botao botaoCurar;
+    private String mensagemNotificacao;
+    private long mensagemExpiraEm;
 
     public TelaSpawnMedico(GerenciadorDeTelas gerenciador, SessaoDeJogo sessao) {
         this.sessao = sessao;
         fundo = CarregadorDeImagens.carregar("/fundos/spawn_medico.png");
-        botaoCurar = new Botao(380, 400, 200, 50, "Revigorar equipe", null);
+        botaoCurar = new Botao(380, 400, 200, 50, "Revigorar equipe", this::revigorarEquipe);
     }
 
     @Override
     public void atualizar() {
+        if (mensagemNotificacao != null && System.currentTimeMillis() >= mensagemExpiraEm) {
+            mensagemNotificacao = null;
+        }
     }
 
     @Override
@@ -39,6 +44,13 @@ public class TelaSpawnMedico implements Tela {
         g.drawString("PV: " + sessao.getEquipe().getTitular().getPvAtual()
                 + "/" + sessao.getEquipe().getTitular().getPvMaximo(), 325, 330);
         botaoCurar.desenhar(g);
+        if (mensagemNotificacao != null) {
+            g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 16));
+            FontMetrics metricasMensagem = g.getFontMetrics();
+            g.setColor(Color.WHITE);
+            g.drawString(mensagemNotificacao,
+                    (960 - metricasMensagem.stringWidth(mensagemNotificacao)) / 2, 480);
+        }
     }
 
     @Override
@@ -53,5 +65,11 @@ public class TelaSpawnMedico implements Tela {
 
     @Override
     public void aoPressionarTecla(int codigo) {
+    }
+
+    private void revigorarEquipe() {
+        sessao.getEquipe().revigorarTodos();
+        mensagemNotificacao = "Sua equipe foi revigorada!";
+        mensagemExpiraEm = System.currentTimeMillis() + 2000;
     }
 }
