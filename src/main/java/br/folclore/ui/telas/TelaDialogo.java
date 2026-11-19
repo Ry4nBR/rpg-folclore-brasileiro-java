@@ -2,6 +2,7 @@ package br.folclore.ui.telas;
 
 import br.folclore.ui.GerenciadorDeTelas;
 import br.folclore.ui.componentes.LinhaDeDialogo;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.List;
 
@@ -36,6 +37,14 @@ public class TelaDialogo implements Tela {
 
     @Override
     public void desenhar(Graphics2D g) {
+        if (telaDeFundo == null) {
+            g.setColor(Color.DARK_GRAY);
+            g.fillRect(0, 0, 960, 540);
+        } else {
+            telaDeFundo.desenhar(g);
+        }
+        g.setColor(new Color(0, 0, 0, 128));
+        g.fillRect(0, 0, 960, 540);
     }
 
     @Override
