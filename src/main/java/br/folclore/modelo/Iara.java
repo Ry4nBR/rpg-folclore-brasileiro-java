@@ -1,8 +1,13 @@
 package br.folclore.modelo;
 
 public class Iara extends Personagem {
+    private static final int PV_BASE = 43;
+    private static final int ATAQUE_BASE = 8;
+    private static final int DEFESA_BASE = 4;
+    private static final int VELOCIDADE_BASE = 8;
+
     public Iara() {
-        super("Iara", Tipo.AGUA, 43, 8, 4, 8);
+        super("Iara", Tipo.AGUA, PV_BASE, ATAQUE_BASE, DEFESA_BASE, VELOCIDADE_BASE);
     }
 
     @Override
