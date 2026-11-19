@@ -89,6 +89,8 @@ public class TelaGinasio implements Tela {
             } else {
                 gerenciador.trocarPara(new TelaGinasio(gerenciador, sessao, indiceGinasio));
             }
+        } else if (resultado == ResultadoBatalha.FUGA) {
+            gerenciador.trocarPara(new TelaGinasio(gerenciador, sessao, indiceGinasio));
         }
     }
 }
