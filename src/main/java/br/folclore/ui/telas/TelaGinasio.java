@@ -89,7 +89,8 @@ public class TelaGinasio implements Tela {
         }
         Runnable iniciarBatalha = () -> {
             Batalha batalha = new Batalha(sessao.getEquipe().getTitular(), proximoEncontro);
-            gerenciador.trocarPara(new TelaBatalha(gerenciador, batalha, this::processarResultado));
+            gerenciador.trocarPara(new TelaBatalha(gerenciador, batalha,
+                    resultado -> processarResultado(batalha, resultado)));
         };
         if (proximoEncontro.ehChefe()) {
             gerenciador.trocarPara(new TelaDialogo(gerenciador, this,
@@ -103,20 +104,24 @@ public class TelaGinasio implements Tela {
         gerenciador.trocarPara(new TelaSpawnMedico(gerenciador, sessao));
     }
 
-    private void processarResultado(ResultadoBatalha resultado) {
+    private void processarResultado(Batalha batalha, ResultadoBatalha resultado) {
         if (resultado == ResultadoBatalha.VITORIA) {
-            boolean ginasioVencido = sessao.registrarVitoriaNoEncontro();
-            if (ginasioVencido) {
-                gerenciador.trocarPara(new TelaDialogo(gerenciador, this,
-                        Roteiro.aposGinasio(indiceGinasio), this::aposDialogoDeGinasio));
-            } else {
-                gerenciador.trocarPara(new TelaGinasio(gerenciador, sessao, indiceGinasio));
-            }
+            gerenciador.trocarPara(new TelaVitoria(gerenciador, batalha, this::continuarAposVitoria));
         } else if (resultado == ResultadoBatalha.FUGA) {
             gerenciador.trocarPara(new TelaGinasio(gerenciador, sessao, indiceGinasio));
         } else if (resultado == ResultadoBatalha.DERROTA) {
             sessao.registrarDerrota();
             gerenciador.trocarPara(new TelaSpawnMedico(gerenciador, sessao));
+        }
+    }
+
+    private void continuarAposVitoria() {
+        boolean ginasioVencido = sessao.registrarVitoriaNoEncontro();
+        if (ginasioVencido) {
+            gerenciador.trocarPara(new TelaDialogo(gerenciador, this,
+                    Roteiro.aposGinasio(indiceGinasio), this::aposDialogoDeGinasio));
+        } else {
+            gerenciador.trocarPara(new TelaGinasio(gerenciador, sessao, indiceGinasio));
         }
     }
 
