@@ -3,6 +3,7 @@ package br.folclore.progressao;
 import br.folclore.modelo.Personagem;
 import br.folclore.modelo.Tipo;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Ginasio {
@@ -30,5 +31,25 @@ public class Ginasio {
         this.nome = nome;
         this.elemento = elemento;
         this.encontros = new ArrayList<>(encontros);
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public Tipo getElemento() {
+        return elemento;
+    }
+
+    public List<Personagem> getEncontros() {
+        return Collections.unmodifiableList(encontros);
+    }
+
+    public Personagem getChefe() {
+        return encontros.get(2);
+    }
+
+    public int getTotalDeEncontros() {
+        return encontros.size();
     }
 }
