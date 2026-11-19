@@ -3,6 +3,7 @@ package br.folclore.ui.telas;
 import br.folclore.ui.GerenciadorDeTelas;
 import br.folclore.ui.componentes.CaixaDeTexto;
 import br.folclore.ui.componentes.LinhaDeDialogo;
+import br.folclore.ui.componentes.RepositorioDeRetratos;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.List;
@@ -38,6 +39,7 @@ public class TelaDialogo implements Tela {
         this.aoTerminar = aoTerminar;
         caixa = new CaixaDeTexto(CAIXA_X, CAIXA_Y, CAIXA_LARGURA, CAIXA_ALTURA);
         caixa.definirTexto(this.linhas.get(indiceLinhaAtual).getTexto());
+        definirRetratoDaLinhaAtual();
     }
 
     @Override
@@ -68,5 +70,10 @@ public class TelaDialogo implements Tela {
 
     @Override
     public void aoPressionarTecla(int codigo) {
+    }
+
+    private void definirRetratoDaLinhaAtual() {
+        String idRetrato = linhas.get(indiceLinhaAtual).getIdRetrato();
+        caixa.definirRetrato(idRetrato == null ? null : RepositorioDeRetratos.obter(idRetrato));
     }
 }
