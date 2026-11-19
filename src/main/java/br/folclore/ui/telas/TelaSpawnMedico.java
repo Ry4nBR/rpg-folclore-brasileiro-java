@@ -15,6 +15,7 @@ public class TelaSpawnMedico implements Tela {
     private final SessaoDeJogo sessao;
     private final BufferedImage fundo;
     private final Botao botaoCurar;
+    private final Botao botaoEquipe;
     private String mensagemNotificacao;
     private long mensagemExpiraEm;
 
@@ -23,6 +24,8 @@ public class TelaSpawnMedico implements Tela {
         this.sessao = sessao;
         fundo = CarregadorDeImagens.carregar("/fundos/spawn_medico.png");
         botaoCurar = new Botao(380, 400, 200, 50, "Revigorar equipe", this::revigorarEquipe);
+        botaoEquipe = new Botao(40, 400, 200, 50, "Equipe",
+                () -> gerenciador.trocarPara(new TelaEquipe(gerenciador, sessao)));
     }
 
     @Override
@@ -50,6 +53,7 @@ public class TelaSpawnMedico implements Tela {
         g.drawString("PV: " + sessao.getEquipe().getTitular().getPvAtual()
                 + "/" + sessao.getEquipe().getTitular().getPvMaximo(), 325, 123);
         botaoCurar.desenhar(g);
+        botaoEquipe.desenhar(g);
         if (mensagemNotificacao != null) {
             g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 16));
             FontMetrics metricasMensagem = g.getFontMetrics();
@@ -85,6 +89,7 @@ public class TelaSpawnMedico implements Tela {
     @Override
     public void aoClicar(int x, int y) {
         botaoCurar.clicar(x, y);
+        botaoEquipe.clicar(x, y);
         if (x >= 130 && x < 270 && y >= 130 && y < 350) {
             sessao.entrarNoGinasio(0);
             gerenciador.trocarPara(new TelaGinasio(gerenciador, sessao, 0));
@@ -110,6 +115,7 @@ public class TelaSpawnMedico implements Tela {
     @Override
     public void aoMoverMouse(int x, int y) {
         botaoCurar.atualizarHover(x, y);
+        botaoEquipe.atualizarHover(x, y);
     }
 
     @Override
