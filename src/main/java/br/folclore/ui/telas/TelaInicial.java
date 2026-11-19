@@ -19,6 +19,8 @@ public class TelaInicial implements Tela {
     private final Botao botaoContinuar;
     private final Botao botaoSair;
     private int indiceSelecionado;
+    private String mensagemNotificacao;
+    private long mensagemExpiraEm;
 
     public TelaInicial(GerenciadorDeTelas gerenciador) {
         this.gerenciador = gerenciador;
@@ -38,6 +40,9 @@ public class TelaInicial implements Tela {
 
     @Override
     public void atualizar() {
+        if (mensagemNotificacao != null && System.currentTimeMillis() >= mensagemExpiraEm) {
+            mensagemNotificacao = null;
+        }
     }
 
     @Override
@@ -54,6 +59,13 @@ public class TelaInicial implements Tela {
         botaoNovoJogo.desenhar(g);
         botaoContinuar.desenhar(g);
         botaoSair.desenhar(g);
+        if (mensagemNotificacao != null) {
+            g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 16));
+            FontMetrics metricasMensagem = g.getFontMetrics();
+            g.setColor(Color.WHITE);
+            g.drawString(mensagemNotificacao,
+                    (ConfiguracoesUi.LARGURA - metricasMensagem.stringWidth(mensagemNotificacao)) / 2, 480);
+        }
     }
 
     @Override
@@ -92,8 +104,26 @@ public class TelaInicial implements Tela {
     }
 
     private void continuarJogo() {
-        GerenciadorDeSave.carregar().ifPresent(dados ->
-                gerenciador.trocarPara(new TelaSpawnMedico(
-                        gerenciador, SessaoDeJogo.restaurar(dados))));
+        var dados = GerenciadorDeSave.carregar();
+        if (dados.isEmpty()) {
+            exibirErroDeCarregamento();
+            return;
+        }
+
+        SessaoDeJogo sessao;
+        try {
+            sessao = SessaoDeJogo.restaurar(dados.get());
+        } catch (IllegalArgumentException e) {
+            System.err.println("Não foi possível restaurar o jogo salvo.");
+            e.printStackTrace(System.err);
+            exibirErroDeCarregamento();
+            return;
+        }
+        gerenciador.trocarPara(new TelaSpawnMedico(gerenciador, sessao));
+    }
+
+    private void exibirErroDeCarregamento() {
+        mensagemNotificacao = "Não foi possível carregar o jogo salvo.";
+        mensagemExpiraEm = System.currentTimeMillis() + 3000;
     }
 }
