@@ -2,6 +2,8 @@ package br.folclore.progressao;
 
 import br.folclore.modelo.CatalogoDeHerois;
 import br.folclore.modelo.Personagem;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class SessaoDeJogo {
     private final Equipe equipe;
@@ -108,5 +110,19 @@ public class SessaoDeJogo {
 
     public boolean jogoConcluido() {
         return ginasiosVencidos == 3;
+    }
+
+    public Map<String, String> exportarEstado() {
+        Map<String, String> estado = new LinkedHashMap<>();
+        estado.put("ginasios_vencidos", Integer.toString(ginasiosVencidos));
+        estado.put("indice_titular", Integer.toString(equipe.getMembros().indexOf(equipe.getTitular())));
+        estado.put("total_membros", Integer.toString(equipe.getMembros().size()));
+        for (int i = 0; i < equipe.getMembros().size(); i++) {
+            Map<String, String> estadoMembro = equipe.getMembros().get(i).exportarEstado();
+            for (Map.Entry<String, String> entrada : estadoMembro.entrySet()) {
+                estado.put("membro." + i + "." + entrada.getKey(), entrada.getValue());
+            }
+        }
+        return estado;
     }
 }
