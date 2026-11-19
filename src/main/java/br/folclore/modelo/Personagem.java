@@ -120,6 +120,10 @@ public abstract class Personagem {
         return true;
     }
 
+    public boolean podeTrocarPoderes() {
+        return poderesLiberados.size() >= 4;
+    }
+
     public ResultadoAcao usarHabilidade(int indice, Personagem alvo) {
         if (indice < 0 || indice >= habilidades.size()) {
             throw new IllegalArgumentException("Índice de habilidade inválido.");
