@@ -20,7 +20,9 @@ public class TelaGinasio implements Tela {
                 ? CarregadorDeImagens.carregar("/fundos/ginasio_fogo.png")
                 : indiceGinasio == 1
                         ? CarregadorDeImagens.carregar("/fundos/ginasio_planta.png")
-                        : null;
+                        : indiceGinasio == 2
+                                ? CarregadorDeImagens.carregar("/fundos/ginasio_agua.png")
+                                : null;
     }
 
     @Override
