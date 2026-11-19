@@ -291,4 +291,51 @@ public abstract class Personagem {
                 .collect(Collectors.joining(";")));
         return estado;
     }
+
+    public void restaurarEstado(Map<String, String> dados) {
+        if (dados == null) {
+            throw new IllegalArgumentException("O estado do personagem não pode ser nulo.");
+        }
+        if (!nome.equals(dados.get("nome"))) {
+            throw new IllegalArgumentException("O estado salvo pertence a outro personagem.");
+        }
+
+        int pvAtualSalvo = lerInteiro(dados, "pv_atual");
+        int pvMaximoSalvo = lerInteiro(dados, "pv_maximo");
+        int ataqueSalvo = lerInteiro(dados, "ataque");
+        int defesaSalva = lerInteiro(dados, "defesa");
+        int velocidadeSalva = lerInteiro(dados, "velocidade");
+        int xpSalvo = lerInteiro(dados, "xp");
+        int slotsSalvos = lerInteiro(dados, "slots");
+
+        if (pvMaximoSalvo <= 0 || pvAtualSalvo < 0 || pvAtualSalvo > pvMaximoSalvo) {
+            throw new IllegalArgumentException("Os pontos de vida salvos não são válidos.");
+        }
+        if (ataqueSalvo < 0 || defesaSalva < 0 || velocidadeSalva < 0 || xpSalvo < 0) {
+            throw new IllegalArgumentException("Os atributos e a experiência não podem ser negativos.");
+        }
+        if (slotsSalvos < 2 || slotsSalvos > MAX_SLOTS) {
+            throw new IllegalArgumentException("A quantidade de slots salva não é válida.");
+        }
+
+        pvAtual = pvAtualSalvo;
+        pvMaximo = pvMaximoSalvo;
+        ataque = ataqueSalvo;
+        defesa = defesaSalva;
+        velocidade = velocidadeSalva;
+        xp = xpSalvo;
+        slotsDeHabilidade = slotsSalvos;
+    }
+
+    private static int lerInteiro(Map<String, String> dados, String chave) {
+        String valor = dados.get(chave);
+        if (valor == null) {
+            throw new IllegalArgumentException("O campo obrigatório '" + chave + "' está ausente.");
+        }
+        try {
+            return Integer.parseInt(valor);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("O campo '" + chave + "' não contém um inteiro válido.", e);
+        }
+    }
 }
