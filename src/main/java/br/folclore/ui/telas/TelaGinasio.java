@@ -107,7 +107,8 @@ public class TelaGinasio implements Tela {
         if (resultado == ResultadoBatalha.VITORIA) {
             boolean ginasioVencido = sessao.registrarVitoriaNoEncontro();
             if (ginasioVencido) {
-                gerenciador.trocarPara(new TelaSpawnMedico(gerenciador, sessao));
+                gerenciador.trocarPara(new TelaDialogo(gerenciador, this,
+                        Roteiro.aposGinasio(indiceGinasio), this::aposDialogoDeGinasio));
             } else {
                 gerenciador.trocarPara(new TelaGinasio(gerenciador, sessao, indiceGinasio));
             }
@@ -115,6 +116,15 @@ public class TelaGinasio implements Tela {
             gerenciador.trocarPara(new TelaGinasio(gerenciador, sessao, indiceGinasio));
         } else if (resultado == ResultadoBatalha.DERROTA) {
             sessao.registrarDerrota();
+            gerenciador.trocarPara(new TelaSpawnMedico(gerenciador, sessao));
+        }
+    }
+
+    private void aposDialogoDeGinasio() {
+        if (sessao.jogoConcluido()) {
+            gerenciador.trocarPara(new TelaDialogo(gerenciador, this, Roteiro.desfecho(),
+                    () -> gerenciador.trocarPara(new TelaCreditos(gerenciador))));
+        } else {
             gerenciador.trocarPara(new TelaSpawnMedico(gerenciador, sessao));
         }
     }
