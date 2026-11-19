@@ -82,6 +82,7 @@ public class SessaoDeJogo {
                     }
                 }
             }
+            equipe.desbloquearSlotParaTodos();
             return true;
         }
 
