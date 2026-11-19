@@ -17,6 +17,7 @@ public class TelaSpawnMedico implements Tela {
     private final Botao botaoCurar;
     private final Botao botaoEquipe;
     private final Botao botaoMelhorias;
+    private final Botao botaoPoderes;
     private String mensagemNotificacao;
     private long mensagemExpiraEm;
 
@@ -29,6 +30,8 @@ public class TelaSpawnMedico implements Tela {
                 () -> gerenciador.trocarPara(new TelaEquipe(gerenciador, sessao)));
         botaoMelhorias = new Botao(600, 400, 200, 50, "Melhorar atributos",
                 () -> gerenciador.trocarPara(new TelaMelhoriaDeAtributos(gerenciador, sessao)));
+        botaoPoderes = new Botao(820, 400, 100, 50, "Poderes",
+                () -> gerenciador.trocarPara(new TelaPoderes(gerenciador, sessao)));
     }
 
     @Override
@@ -58,6 +61,7 @@ public class TelaSpawnMedico implements Tela {
         botaoCurar.desenhar(g);
         botaoEquipe.desenhar(g);
         botaoMelhorias.desenhar(g);
+        botaoPoderes.desenhar(g);
         if (mensagemNotificacao != null) {
             g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 16));
             FontMetrics metricasMensagem = g.getFontMetrics();
@@ -95,6 +99,7 @@ public class TelaSpawnMedico implements Tela {
         botaoCurar.clicar(x, y);
         botaoEquipe.clicar(x, y);
         botaoMelhorias.clicar(x, y);
+        botaoPoderes.clicar(x, y);
         if (x >= 130 && x < 270 && y >= 130 && y < 350) {
             sessao.entrarNoGinasio(0);
             gerenciador.trocarPara(new TelaGinasio(gerenciador, sessao, 0));
@@ -122,6 +127,7 @@ public class TelaSpawnMedico implements Tela {
         botaoCurar.atualizarHover(x, y);
         botaoEquipe.atualizarHover(x, y);
         botaoMelhorias.atualizarHover(x, y);
+        botaoPoderes.atualizarHover(x, y);
     }
 
     @Override

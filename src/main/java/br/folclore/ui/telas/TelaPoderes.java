@@ -4,6 +4,7 @@ import br.folclore.habilidades.Habilidade;
 import br.folclore.modelo.Personagem;
 import br.folclore.progressao.SessaoDeJogo;
 import br.folclore.ui.GerenciadorDeTelas;
+import br.folclore.ui.componentes.Botao;
 import br.folclore.ui.componentes.CarregadorDeImagens;
 import java.awt.Color;
 import java.awt.Font;
