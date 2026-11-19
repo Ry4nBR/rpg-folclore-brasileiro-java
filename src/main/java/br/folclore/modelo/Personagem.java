@@ -56,6 +56,17 @@ public abstract class Personagem {
         return Collections.unmodifiableList(habilidades);
     }
 
+    public void restaurarUsosDasHabilidades() {
+        for (Habilidade habilidade : habilidades) {
+            habilidade.restaurarUsos();
+        }
+    }
+
+    public void revigorar() {
+        restaurarVidaTotal();
+        restaurarUsosDasHabilidades();
+    }
+
     protected void adicionarHabilidade(Habilidade habilidade) {
         if (habilidade == null) {
             throw new IllegalArgumentException("A habilidade não pode ser nula.");
@@ -82,6 +93,10 @@ public abstract class Personagem {
 
     public int getPvAtual() {
         return pvAtual;
+    }
+
+    public void restaurarVidaTotal() {
+        pvAtual = pvMaximo;
     }
 
     public int getAtaque() {
