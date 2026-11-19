@@ -32,6 +32,15 @@ public final class CatalogoDePoderes {
             case "Galope Infernal" -> {
                 return new HabilidadeDano("Galope Infernal", 3, 15);
             }
+            case "Pegadas Invertidas" -> {
+                return new HabilidadeDano("Pegadas Invertidas", 3, 10);
+            }
+            case "Cipó Enrolante" -> {
+                return new HabilidadeDano("Cipó Enrolante", 3, 11);
+            }
+            case "Uivo da Mata" -> {
+                return new HabilidadeDano("Uivo da Mata", 3, 16);
+            }
             default -> throw new IllegalArgumentException("Poder desconhecido: " + nome);
         }
     }
