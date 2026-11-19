@@ -76,4 +76,16 @@ public final class Roteiro {
             default -> throw new IllegalArgumentException("Índice de ginásio inválido.");
         };
     }
+
+    public static List<LinhaDeDialogo> desfecho() {
+        return List.of(
+                new LinhaDeDialogo(null, "Narrador",
+                        "E assim, a mata reencontrou o compasso antigo de seus encantos."),
+                new LinhaDeDialogo(null, "Narrador",
+                        "Rios, raízes e chamas voltaram a guardar o mesmo equilíbrio."),
+                new LinhaDeDialogo(null, "Narrador",
+                        "Às lendas do Brasil, que seguem vivas em cada história, nosso agradecimento."),
+                new LinhaDeDialogo(null, "Narrador",
+                        "A jornada termina aqui; que a próxima lenda comece em sua memória."));
+    }
 }
