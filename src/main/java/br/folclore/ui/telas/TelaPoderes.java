@@ -34,7 +34,9 @@ public class TelaPoderes implements Tela {
 
     @Override
     public void atualizar() {
-        botaoEquipar.setHabilitado(indiceEquipadoSelecionado >= 0
+        boolean podeTrocar = sessao.getEquipe().getTitular().podeTrocarPoderes();
+        botaoEquipar.setHabilitado(podeTrocar
+                && indiceEquipadoSelecionado >= 0
                 && indicePoderSelecionado >= 0);
     }
 
@@ -79,7 +81,11 @@ public class TelaPoderes implements Tela {
                     + habilidade.getUsosMaximos() + " usos)", LISTA_PODERES_X + 10, y + 20);
         }
         botaoEquipar.desenhar(g);
-        if (mensagemNotificacao != null) {
+        if (!titular.podeTrocarPoderes()) {
+            g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 16));
+            g.setColor(Color.WHITE);
+            g.drawString("Libere 4 poderes para trocar", 480, 425);
+        } else if (mensagemNotificacao != null) {
             g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 16));
             g.drawString(mensagemNotificacao, 480, 425);
         }
