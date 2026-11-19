@@ -87,6 +87,14 @@ public class TelaSpawnMedico implements Tela {
         if (x >= 130 && x < 270 && y >= 130 && y < 350) {
             sessao.entrarNoGinasio(0);
             gerenciador.trocarPara(new TelaGinasio(gerenciador, sessao, 0));
+        } else if (x >= 410 && x < 550 && y >= 130 && y < 350) {
+            if (!sessao.portaLiberada(1)) {
+                mensagemNotificacao = "Vença o Ginásio do Fogo para abrir esta porta.";
+                mensagemExpiraEm = System.currentTimeMillis() + 2000;
+            } else {
+                sessao.entrarNoGinasio(1);
+                gerenciador.trocarPara(new TelaGinasio(gerenciador, sessao, 1));
+            }
         }
     }
 
