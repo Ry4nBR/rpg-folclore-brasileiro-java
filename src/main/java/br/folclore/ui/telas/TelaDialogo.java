@@ -4,7 +4,10 @@ import br.folclore.ui.GerenciadorDeTelas;
 import br.folclore.ui.componentes.CaixaDeTexto;
 import br.folclore.ui.componentes.LinhaDeDialogo;
 import br.folclore.ui.componentes.RepositorioDeRetratos;
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.util.List;
 
@@ -58,6 +61,19 @@ public class TelaDialogo implements Tela {
         g.setColor(new Color(0, 0, 0, 128));
         g.fillRect(0, 0, 960, 540);
         caixa.desenhar(g);
+
+        String falante = linhas.get(indiceLinhaAtual).getFalante();
+        g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 18));
+        FontMetrics metricas = g.getFontMetrics();
+        int larguraEtiqueta = metricas.stringWidth(falante) + 24;
+        int etiquetaX = CAIXA_X + 18;
+        int etiquetaY = CAIXA_Y - 34;
+        g.setColor(new Color(20, 20, 20, 235));
+        g.fillRoundRect(etiquetaX, etiquetaY, larguraEtiqueta, 32, 8, 8);
+        g.setColor(Color.WHITE);
+        g.setStroke(new BasicStroke(2f));
+        g.drawRoundRect(etiquetaX, etiquetaY, larguraEtiqueta, 32, 8, 8);
+        g.drawString(falante, etiquetaX + 12, etiquetaY + 22);
     }
 
     @Override
