@@ -29,4 +29,10 @@ public class SessaoDeJogo {
     public Ginasio getGinasioAtual() {
         return ginasioAtual;
     }
+
+    public boolean portaLiberada(int indiceGinasio) {
+        return indiceGinasio >= 0
+                && indiceGinasio < 3
+                && indiceGinasio <= ginasiosVencidos;
+    }
 }
