@@ -123,6 +123,17 @@ public abstract class Personagem {
         xp += quantidade;
     }
 
+    public boolean gastarExperiencia(int quantidade) {
+        if (quantidade <= 0) {
+            throw new IllegalArgumentException("A experiência gasta deve ser maior que zero.");
+        }
+        if (xp < quantidade) {
+            return false;
+        }
+        xp -= quantidade;
+        return true;
+    }
+
     public boolean estaVivo() {
         return pvAtual > 0;
     }
