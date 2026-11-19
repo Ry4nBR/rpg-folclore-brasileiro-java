@@ -31,6 +31,11 @@ public class TelaDerrota implements Tela {
         String titulo = "Derrota";
         FontMetrics metricas = g.getFontMetrics();
         g.drawString(titulo, (960 - metricas.stringWidth(titulo)) / 2, 180);
+
+        g.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 20));
+        String mensagem = "Sua equipe foi levada de volta ao Spawn Médico.";
+        metricas = g.getFontMetrics();
+        g.drawString(mensagem, (960 - metricas.stringWidth(mensagem)) / 2, 250);
     }
 
     @Override
