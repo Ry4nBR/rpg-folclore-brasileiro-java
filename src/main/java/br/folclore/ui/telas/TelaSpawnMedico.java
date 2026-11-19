@@ -35,6 +35,7 @@ public class TelaSpawnMedico implements Tela {
         botaoPoderes = new Botao(820, 400, 100, 50, "Poderes",
                 () -> gerenciador.trocarPara(new TelaPoderes(gerenciador, sessao)));
         botaoSalvar = new Botao(40, 470, 200, 45, "Salvar jogo", this::salvarJogo);
+        GerenciadorDeSave.salvar(sessao.exportarEstado());
     }
 
     @Override
