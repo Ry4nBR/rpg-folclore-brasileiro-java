@@ -62,6 +62,11 @@ public abstract class Personagem {
         }
     }
 
+    public void revigorar() {
+        restaurarVidaTotal();
+        restaurarUsosDasHabilidades();
+    }
+
     protected void adicionarHabilidade(Habilidade habilidade) {
         if (habilidade == null) {
             throw new IllegalArgumentException("A habilidade não pode ser nula.");
