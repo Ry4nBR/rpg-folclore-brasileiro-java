@@ -1,5 +1,7 @@
 package br.folclore.ui.telas;
 
+import br.folclore.modelo.Personagem;
+import br.folclore.progressao.Equipe;
 import br.folclore.progressao.SessaoDeJogo;
 import br.folclore.save.GerenciadorDeSave;
 import br.folclore.ui.GerenciadorDeTelas;
@@ -30,8 +32,7 @@ public class TelaInicial implements Tela {
                         this,
                         Roteiro.introducao(),
                         () -> gerenciador.trocarPara(new TelaSelecaoPersonagem(
-                                gerenciador,
-                                personagem -> System.out.println(personagem.getNome()))))));
+                                gerenciador, this::iniciarNovoJogo)))));
         botaoContinuar = new Botao(380, 315, 200, 50, "Continuar",
                 this::continuarJogo);
         botaoContinuar.setHabilitado(GerenciadorDeSave.existeSave());
@@ -119,6 +120,11 @@ public class TelaInicial implements Tela {
             exibirErroDeCarregamento();
             return;
         }
+        gerenciador.trocarPara(new TelaSpawnMedico(gerenciador, sessao));
+    }
+
+    private void iniciarNovoJogo(Personagem personagem) {
+        SessaoDeJogo sessao = new SessaoDeJogo(new Equipe(personagem));
         gerenciador.trocarPara(new TelaSpawnMedico(gerenciador, sessao));
     }
 
