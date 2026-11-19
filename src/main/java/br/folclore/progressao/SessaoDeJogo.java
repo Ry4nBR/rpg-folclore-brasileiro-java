@@ -101,4 +101,8 @@ public class SessaoDeJogo {
         encontrosVencidos = 0;
         ginasioAtual = ginasioReiniciado;
     }
+
+    public boolean jogoConcluido() {
+        return ginasiosVencidos == 3;
+    }
 }
