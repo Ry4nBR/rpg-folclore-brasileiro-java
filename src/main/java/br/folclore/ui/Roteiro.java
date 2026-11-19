@@ -45,4 +45,19 @@ public final class Roteiro {
             default -> throw new IllegalArgumentException("Índice de ginásio inválido.");
         };
     }
+
+    public static List<LinhaDeDialogo> aposGinasio(int indice) {
+        return switch (indice) {
+            case 0 -> List.of(
+                    new LinhaDeDialogo(null, "Narrador",
+                            "Vencida a Mula sem Cabeça, o fogo baixou seu bramido."),
+                    new LinhaDeDialogo(null, "Narrador",
+                            "A floresta abriu mais um espaço para os poderes do herói."),
+                    new LinhaDeDialogo(null, "Narrador",
+                            "Um aliado vindo das lendas iniciais juntou-se à equipe."),
+                    new LinhaDeDialogo(null, "Narrador",
+                            "Mas a mata ainda guarda dois desafios adiante."));
+            default -> throw new IllegalArgumentException("Índice de ginásio inválido.");
+        };
+    }
 }
