@@ -1,6 +1,7 @@
 package br.folclore.ui.telas;
 
 import br.folclore.batalha.Batalha;
+import br.folclore.habilidades.Habilidade;
 import br.folclore.ui.GerenciadorDeTelas;
 import br.folclore.ui.componentes.CarregadorDeImagens;
 import java.awt.Color;
@@ -42,6 +43,14 @@ public class TelaVitoria implements Tela {
         String experiencia = "+" + batalha.getXpDaVitoria() + " XP";
         metricas = g.getFontMetrics();
         g.drawString(experiencia, (960 - metricas.stringWidth(experiencia)) / 2, 235);
+
+        if (!batalha.getInimigo().getHabilidades().isEmpty()) {
+            Habilidade habilidade = batalha.getInimigo().getHabilidades().get(0);
+            g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 20));
+            String poderLiberado = "Novo poder liberado: " + habilidade.getNome();
+            metricas = g.getFontMetrics();
+            g.drawString(poderLiberado, (960 - metricas.stringWidth(poderLiberado)) / 2, 295);
+        }
     }
 
     @Override
