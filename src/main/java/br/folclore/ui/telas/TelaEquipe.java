@@ -4,17 +4,28 @@ import br.folclore.modelo.Personagem;
 import br.folclore.progressao.Equipe;
 import br.folclore.progressao.SessaoDeJogo;
 import br.folclore.ui.GerenciadorDeTelas;
+import br.folclore.ui.componentes.Botao;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TelaEquipe implements Tela {
     private final GerenciadorDeTelas gerenciador;
     private final SessaoDeJogo sessao;
+    private final List<Botao> botoesTitular = new ArrayList<>();
 
     public TelaEquipe(GerenciadorDeTelas gerenciador, SessaoDeJogo sessao) {
         this.gerenciador = gerenciador;
         this.sessao = sessao;
+        Equipe equipe = sessao.getEquipe();
+        for (int i = 0; i < equipe.getMembros().size(); i++) {
+            final int indice = i;
+            Botao botao = new Botao(700, 105 + i * 70, 220, 40,
+                    "Tornar titular", () -> equipe.trocarTitular(indice));
+            botoesTitular.add(botao);
+        }
     }
 
     @Override
@@ -43,15 +54,24 @@ public class TelaEquipe implements Tela {
             if (membro == equipe.getTitular()) {
                 g.drawString("Titular", 600, y);
             }
+            Botao botao = botoesTitular.get(i);
+            botao.setHabilitado(membro != equipe.getTitular() && membro.estaVivo());
+            botao.desenhar(g);
         }
     }
 
     @Override
     public void aoClicar(int x, int y) {
+        for (Botao botao : botoesTitular) {
+            botao.clicar(x, y);
+        }
     }
 
     @Override
     public void aoMoverMouse(int x, int y) {
+        for (Botao botao : botoesTitular) {
+            botao.atualizarHover(x, y);
+        }
     }
 
     @Override
