@@ -2,8 +2,10 @@ package br.folclore.ui.telas;
 
 import br.folclore.batalha.Batalha;
 import br.folclore.batalha.ResultadoBatalha;
+import br.folclore.modelo.Personagem;
 import br.folclore.progressao.SessaoDeJogo;
 import br.folclore.ui.GerenciadorDeTelas;
+import br.folclore.ui.Roteiro;
 import br.folclore.ui.componentes.Botao;
 import br.folclore.ui.componentes.CarregadorDeImagens;
 import java.awt.Color;
@@ -81,13 +83,20 @@ public class TelaGinasio implements Tela {
     }
 
     private void desafiar() {
-        if (sessao.getProximoEncontro() == null) {
+        Personagem proximoEncontro = sessao.getProximoEncontro();
+        if (proximoEncontro == null) {
             return;
         }
-        Batalha batalha = new Batalha(
-                sessao.getEquipe().getTitular(),
-                sessao.getProximoEncontro());
-        gerenciador.trocarPara(new TelaBatalha(gerenciador, batalha, this::processarResultado));
+        Runnable iniciarBatalha = () -> {
+            Batalha batalha = new Batalha(sessao.getEquipe().getTitular(), proximoEncontro);
+            gerenciador.trocarPara(new TelaBatalha(gerenciador, batalha, this::processarResultado));
+        };
+        if (proximoEncontro.ehChefe()) {
+            gerenciador.trocarPara(new TelaDialogo(gerenciador, this,
+                    Roteiro.preGinasio(indiceGinasio), iniciarBatalha));
+        } else {
+            iniciarBatalha.run();
+        }
     }
 
     private void voltarAoSpawnMedico() {
