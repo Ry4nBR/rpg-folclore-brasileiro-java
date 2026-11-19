@@ -11,6 +11,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 public class TelaSpawnMedico implements Tela {
+    private final GerenciadorDeTelas gerenciador;
     private final SessaoDeJogo sessao;
     private final BufferedImage fundo;
     private final Botao botaoCurar;
@@ -18,6 +19,7 @@ public class TelaSpawnMedico implements Tela {
     private long mensagemExpiraEm;
 
     public TelaSpawnMedico(GerenciadorDeTelas gerenciador, SessaoDeJogo sessao) {
+        this.gerenciador = gerenciador;
         this.sessao = sessao;
         fundo = CarregadorDeImagens.carregar("/fundos/spawn_medico.png");
         botaoCurar = new Botao(380, 400, 200, 50, "Revigorar equipe", this::revigorarEquipe);
@@ -67,6 +69,10 @@ public class TelaSpawnMedico implements Tela {
     @Override
     public void aoClicar(int x, int y) {
         botaoCurar.clicar(x, y);
+        if (x >= 130 && x < 270 && y >= 130 && y < 350) {
+            sessao.entrarNoGinasio(0);
+            gerenciador.trocarPara(new TelaGinasio(gerenciador, sessao, 0));
+        }
     }
 
     @Override
