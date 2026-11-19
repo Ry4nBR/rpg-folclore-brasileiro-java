@@ -116,6 +116,13 @@ public abstract class Personagem {
         return xp;
     }
 
+    public void ganharExperiencia(int quantidade) {
+        if (quantidade <= 0) {
+            throw new IllegalArgumentException("A experiência ganha deve ser maior que zero.");
+        }
+        xp += quantidade;
+    }
+
     public boolean estaVivo() {
         return pvAtual > 0;
     }
