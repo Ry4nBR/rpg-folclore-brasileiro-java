@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 
 public class TelaDerrota implements Tela {
     private final GerenciadorDeTelas gerenciador;
@@ -44,13 +45,18 @@ public class TelaDerrota implements Tela {
 
     @Override
     public void aoClicar(int x, int y) {
+        botaoRecomecar.clicar(x, y);
     }
 
     @Override
     public void aoMoverMouse(int x, int y) {
+        botaoRecomecar.atualizarHover(x, y);
     }
 
     @Override
     public void aoPressionarTecla(int codigo) {
+        if (codigo == KeyEvent.VK_ENTER) {
+            botaoRecomecar.clicar(480, 425);
+        }
     }
 }
