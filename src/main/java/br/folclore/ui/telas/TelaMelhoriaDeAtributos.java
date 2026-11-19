@@ -19,6 +19,7 @@ public class TelaMelhoriaDeAtributos implements Tela {
     private final Botao botaoPv;
     private final Botao botaoAtaque;
     private final Botao botaoDefesa;
+    private final Botao botaoVelocidade;
     private String mensagemNotificacao;
 
     public TelaMelhoriaDeAtributos(GerenciadorDeTelas gerenciador, SessaoDeJogo sessao) {
@@ -28,6 +29,8 @@ public class TelaMelhoriaDeAtributos implements Tela {
         botaoPv = new Botao(600, 185, 180, 40, "+ PV", this::melhorarPv);
         botaoAtaque = new Botao(600, 235, 180, 40, "+ Ataque", this::melhorarAtaque);
         botaoDefesa = new Botao(600, 285, 180, 40, "+ Defesa", this::melhorarDefesa);
+        botaoVelocidade = new Botao(600, 335, 180, 40, "+ Velocidade",
+                this::melhorarVelocidade);
     }
 
     @Override
@@ -58,6 +61,7 @@ public class TelaMelhoriaDeAtributos implements Tela {
         botaoPv.desenhar(g);
         botaoAtaque.desenhar(g);
         botaoDefesa.desenhar(g);
+        botaoVelocidade.desenhar(g);
         if (mensagemNotificacao != null) {
             g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 18));
             g.setColor(Color.WHITE);
@@ -70,6 +74,7 @@ public class TelaMelhoriaDeAtributos implements Tela {
         botaoPv.clicar(x, y);
         botaoAtaque.clicar(x, y);
         botaoDefesa.clicar(x, y);
+        botaoVelocidade.clicar(x, y);
     }
 
     @Override
@@ -77,6 +82,7 @@ public class TelaMelhoriaDeAtributos implements Tela {
         botaoPv.atualizarHover(x, y);
         botaoAtaque.atualizarHover(x, y);
         botaoDefesa.atualizarHover(x, y);
+        botaoVelocidade.atualizarHover(x, y);
     }
 
     @Override
@@ -102,6 +108,14 @@ public class TelaMelhoriaDeAtributos implements Tela {
     private void melhorarDefesa() {
         if (sessao.getEquipe().getTitular().melhorarAtributo(Atributo.DEFESA)) {
             mensagemNotificacao = "Defesa aumentou!";
+        } else {
+            mensagemNotificacao = "XP insuficiente!";
+        }
+    }
+
+    private void melhorarVelocidade() {
+        if (sessao.getEquipe().getTitular().melhorarAtributo(Atributo.VELOCIDADE)) {
+            mensagemNotificacao = "Velocidade aumentou!";
         } else {
             mensagemNotificacao = "XP insuficiente!";
         }
