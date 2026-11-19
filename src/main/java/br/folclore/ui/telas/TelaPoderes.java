@@ -8,6 +8,7 @@ import br.folclore.ui.componentes.CarregadorDeImagens;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class TelaPoderes implements Tela {
     private final SessaoDeJogo sessao;
     private final BufferedImage fundo;
     private final Botao botaoEquipar;
+    private final Botao botaoVoltar;
     private int indicePoderSelecionado = -1;
     private int indiceEquipadoSelecionado = -1;
     private String mensagemNotificacao;
@@ -29,6 +31,7 @@ public class TelaPoderes implements Tela {
         this.sessao = sessao;
         fundo = CarregadorDeImagens.carregar("/fundos/spawn_medico.png");
         botaoEquipar = new Botao(700, 440, 180, 40, "Equipar", this::equiparPoder);
+        botaoVoltar = new Botao(40, 465, 180, 40, "Voltar", this::voltar);
         atualizar();
     }
 
@@ -81,6 +84,7 @@ public class TelaPoderes implements Tela {
                     + habilidade.getUsosMaximos() + " usos)", LISTA_PODERES_X + 10, y + 20);
         }
         botaoEquipar.desenhar(g);
+        botaoVoltar.desenhar(g);
         if (!titular.podeTrocarPoderes()) {
             g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 16));
             g.setColor(Color.WHITE);
@@ -128,15 +132,24 @@ public class TelaPoderes implements Tela {
         }
         atualizar();
         botaoEquipar.clicar(x, y);
+        botaoVoltar.clicar(x, y);
     }
 
     @Override
     public void aoMoverMouse(int x, int y) {
         botaoEquipar.atualizarHover(x, y);
+        botaoVoltar.atualizarHover(x, y);
     }
 
     @Override
     public void aoPressionarTecla(int codigo) {
+        if (codigo == KeyEvent.VK_ESCAPE) {
+            voltar();
+        }
+    }
+
+    private void voltar() {
+        gerenciador.trocarPara(new TelaSpawnMedico(gerenciador, sessao));
     }
 
     private void equiparPoder() {
