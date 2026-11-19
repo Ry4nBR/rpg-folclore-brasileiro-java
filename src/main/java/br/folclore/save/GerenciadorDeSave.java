@@ -30,6 +30,7 @@ public final class GerenciadorDeSave {
 
             Properties propriedades = new Properties();
             dados.forEach(propriedades::setProperty);
+            propriedades.setProperty("versao_save", Integer.toString(VERSAO));
             try (Writer escritor = new OutputStreamWriter(
                     Files.newOutputStream(Path.of(ARQUIVO)), StandardCharsets.UTF_8)) {
                 propriedades.store(escritor, "RPG do Folclore Brasileiro");
@@ -52,6 +53,9 @@ public final class GerenciadorDeSave {
             Properties propriedades = new Properties();
             try (Reader leitor = new InputStreamReader(Files.newInputStream(caminho), StandardCharsets.UTF_8)) {
                 propriedades.load(leitor);
+            }
+            if (!Integer.toString(VERSAO).equals(propriedades.getProperty("versao_save"))) {
+                return Optional.empty();
             }
 
             Map<String, String> dados = new LinkedHashMap<>();
