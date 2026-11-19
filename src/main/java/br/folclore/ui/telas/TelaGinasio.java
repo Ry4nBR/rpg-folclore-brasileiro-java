@@ -1,5 +1,7 @@
 package br.folclore.ui.telas;
 
+import br.folclore.batalha.Batalha;
+import br.folclore.batalha.ResultadoBatalha;
 import br.folclore.progressao.SessaoDeJogo;
 import br.folclore.ui.GerenciadorDeTelas;
 import br.folclore.ui.componentes.Botao;
@@ -73,5 +75,12 @@ public class TelaGinasio implements Tela {
     }
 
     private void desafiar() {
+        Batalha batalha = new Batalha(
+                sessao.getEquipe().getTitular(),
+                sessao.getProximoEncontro());
+        gerenciador.trocarPara(new TelaBatalha(gerenciador, batalha, this::processarResultado));
+    }
+
+    private void processarResultado(ResultadoBatalha resultado) {
     }
 }
