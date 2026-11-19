@@ -1,5 +1,7 @@
 package br.folclore.modelo;
 
+import br.folclore.habilidades.HabilidadeDano;
+
 public class MaeDeOuro extends Personagem {
     private static final int PV_BASE = 40;
     private static final int ATAQUE_BASE = 8;
@@ -9,6 +11,7 @@ public class MaeDeOuro extends Personagem {
 
     public MaeDeOuro() {
         super("Mãe de Ouro", Tipo.FOGO, PV_BASE, ATAQUE_BASE, DEFESA_BASE, VELOCIDADE_BASE);
+        adicionarHabilidade(new HabilidadeDano("Chama Dourada", 3, 11));
     }
 
     @Override
