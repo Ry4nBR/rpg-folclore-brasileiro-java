@@ -39,6 +39,17 @@ public class TelaSpawnMedico implements Tela {
         g.setColor(Color.WHITE);
         g.drawString(titulo, (960 - metricas.stringWidth(titulo)) / 2, 70);
 
+        g.setColor(new Color(91, 48, 30));
+        g.fillRect(130, 130, 140, 220);
+        g.setColor(new Color(52, 33, 25));
+        g.drawRect(130, 130, 139, 219);
+        g.drawRect(142, 142, 115, 195);
+        g.drawLine(199, 143, 199, 337);
+        g.setColor(new Color(218, 179, 107));
+        g.fillOval(244, 238, 9, 9);
+        g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 20));
+        g.drawString("Fogo", 172, 380);
+
         g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 20));
         g.drawString("Titular: " + sessao.getEquipe().getTitular().getNome(), 325, 300);
         g.drawString("PV: " + sessao.getEquipe().getTitular().getPvAtual()
