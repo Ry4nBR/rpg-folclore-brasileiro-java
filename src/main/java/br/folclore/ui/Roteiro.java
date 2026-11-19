@@ -57,6 +57,15 @@ public final class Roteiro {
                             "Um aliado vindo das lendas iniciais juntou-se à equipe."),
                     new LinhaDeDialogo(null, "Narrador",
                             "Mas a mata ainda guarda dois desafios adiante."));
+            case 1 -> List.of(
+                    new LinhaDeDialogo(null, "Narrador",
+                            "O Capelobo caiu, e as trilhas tornaram a se abrir."),
+                    new LinhaDeDialogo(null, "Narrador",
+                            "Mais um espaço para habilidade foi liberado pela floresta."),
+                    new LinhaDeDialogo(null, "Narrador",
+                            "O último dos heróis iniciais veio completar a equipe."),
+                    new LinhaDeDialogo(null, "Narrador",
+                            "Agora resta enfrentar o guardião das águas."));
             default -> throw new IllegalArgumentException("Índice de ginásio inválido.");
         };
     }
