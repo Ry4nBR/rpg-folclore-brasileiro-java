@@ -152,6 +152,12 @@ public class Batalha {
         };
     }
 
+    public int getXpDaVitoria() {
+        return getResultado() == ResultadoBatalha.VITORIA
+                ? inimigo.getXpRecompensa()
+                : 0;
+    }
+
     public boolean estaEncerrada() {
         return estado == EstadoBatalha.VITORIA
                 || estado == EstadoBatalha.DERROTA
