@@ -37,6 +37,11 @@ public class TelaVitoria implements Tela {
         String titulo = "Vitória!";
         FontMetrics metricas = g.getFontMetrics();
         g.drawString(titulo, (960 - metricas.stringWidth(titulo)) / 2, 180);
+
+        g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 24));
+        String experiencia = "+" + batalha.getXpDaVitoria() + " XP";
+        metricas = g.getFontMetrics();
+        g.drawString(experiencia, (960 - metricas.stringWidth(experiencia)) / 2, 235);
     }
 
     @Override
