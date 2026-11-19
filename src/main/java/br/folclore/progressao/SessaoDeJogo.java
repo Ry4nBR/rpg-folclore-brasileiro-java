@@ -1,5 +1,7 @@
 package br.folclore.progressao;
 
+import br.folclore.modelo.Personagem;
+
 public class SessaoDeJogo {
     private final Equipe equipe;
     private int ginasiosVencidos = 0;
@@ -48,5 +50,13 @@ public class SessaoDeJogo {
             default -> throw new IllegalArgumentException("Índice de ginásio inválido.");
         };
         encontrosVencidos = 0;
+    }
+
+    public Personagem getProximoEncontro() {
+        if (ginasioAtual == null || encontrosVencidos >= ginasioAtual.getTotalDeEncontros()) {
+            return null;
+        }
+
+        return ginasioAtual.getEncontros().get(encontrosVencidos);
     }
 }
