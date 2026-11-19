@@ -2,6 +2,7 @@ package br.folclore.ui.telas;
 
 import br.folclore.progressao.SessaoDeJogo;
 import br.folclore.ui.GerenciadorDeTelas;
+import br.folclore.ui.componentes.Botao;
 import br.folclore.ui.componentes.CarregadorDeImagens;
 import java.awt.Color;
 import java.awt.Font;
@@ -14,6 +15,7 @@ public class TelaGinasio implements Tela {
     private final SessaoDeJogo sessao;
     private final int indiceGinasio;
     private final BufferedImage fundo;
+    private final Botao botaoDesafiar;
 
     public TelaGinasio(GerenciadorDeTelas gerenciador, SessaoDeJogo sessao, int indiceGinasio) {
         this.gerenciador = gerenciador;
@@ -26,6 +28,10 @@ public class TelaGinasio implements Tela {
                         : indiceGinasio == 2
                                 ? CarregadorDeImagens.carregar("/fundos/ginasio_agua.png")
                                 : null;
+        String rotuloDesafio = sessao.getEncontrosVencidos() == 2
+                ? "Enfrentar o Chefe"
+                : "Desafiar";
+        botaoDesafiar = new Botao(380, 400, 200, 50, rotuloDesafio, this::desafiar);
     }
 
     @Override
@@ -49,17 +55,23 @@ public class TelaGinasio implements Tela {
             metricas = g.getFontMetrics();
             g.drawString(progresso, (960 - metricas.stringWidth(progresso)) / 2, 105);
         }
+        botaoDesafiar.desenhar(g);
     }
 
     @Override
     public void aoClicar(int x, int y) {
+        botaoDesafiar.clicar(x, y);
     }
 
     @Override
     public void aoMoverMouse(int x, int y) {
+        botaoDesafiar.atualizarHover(x, y);
     }
 
     @Override
     public void aoPressionarTecla(int codigo) {
+    }
+
+    private void desafiar() {
     }
 }
