@@ -1,6 +1,9 @@
 package br.folclore.progressao;
 
 import br.folclore.modelo.Batatao;
+import br.folclore.modelo.Caipora;
+import br.folclore.modelo.Capelobo;
+import br.folclore.modelo.Curupira;
 import br.folclore.modelo.MaeDeOuro;
 import br.folclore.modelo.MulaSemCabeca;
 import br.folclore.modelo.Personagem;
@@ -16,5 +19,12 @@ public final class CatalogoDeGinasios {
                 new MaeDeOuro(),
                 new Batatao(),
                 new MulaSemCabeca()));
+    }
+
+    public static Ginasio criarGinasioDePlanta() {
+        return new Ginasio("Ginásio da Planta", Tipo.PLANTA, List.<Personagem>of(
+                new Curupira(),
+                new Caipora(),
+                new Capelobo()));
     }
 }
