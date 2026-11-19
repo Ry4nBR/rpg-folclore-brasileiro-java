@@ -42,6 +42,10 @@ public class TelaMelhoriaDeAtributos implements Tela {
         g.drawString("Titular: " + titular.getNome(), 80, 110);
         g.drawString("XP: " + titular.getXp() + " (custo "
                 + Personagem.CUSTO_MELHORIA_XP + " por ponto)", 80, 145);
+        g.drawString("PV máximo: " + titular.getPvMaximo(), 80, 215);
+        g.drawString("Ataque: " + titular.getAtaque(), 80, 265);
+        g.drawString("Defesa: " + titular.getDefesa(), 80, 315);
+        g.drawString("Velocidade: " + titular.getVelocidade(), 80, 365);
     }
 
     @Override
