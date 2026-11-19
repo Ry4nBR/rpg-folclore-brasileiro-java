@@ -9,11 +9,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 public class TelaPoderes implements Tela {
     private final GerenciadorDeTelas gerenciador;
     private final SessaoDeJogo sessao;
     private final BufferedImage fundo;
+    private int indicePoderSelecionado = -1;
 
     public TelaPoderes(GerenciadorDeTelas gerenciador, SessaoDeJogo sessao) {
         this.gerenciador = gerenciador;
@@ -46,6 +48,22 @@ public class TelaPoderes implements Tela {
             g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 16));
             g.drawString(descricaoDoSlot(titular, indiceSlot), 52, y + 27);
         }
+
+        g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 18));
+        g.drawString("Poderes liberados", 490, 105);
+        List<Habilidade> poderes = titular.getPoderesLiberados();
+        for (int indice = 0; indice < poderes.size(); indice++) {
+            int y = 125 + indice * 38;
+            g.setColor(indice == indicePoderSelecionado
+                    ? new Color(50, 90, 130, 220)
+                    : new Color(25, 25, 25, 210));
+            g.fillRect(480, y, 440, 34);
+            g.setColor(Color.WHITE);
+            g.drawRect(480, y, 439, 33);
+            Habilidade habilidade = poderes.get(indice);
+            g.drawString(habilidade.getNome() + " ("
+                    + habilidade.getUsosMaximos() + " usos)", 490, y + 23);
+        }
     }
 
     private String descricaoDoSlot(Personagem titular, int indiceSlot) {
@@ -66,6 +84,13 @@ public class TelaPoderes implements Tela {
 
     @Override
     public void aoClicar(int x, int y) {
+        List<Habilidade> poderes = sessao.getEquipe().getTitular().getPoderesLiberados();
+        int indice = (y - 125) / 38;
+        if (x >= 480 && x < 920 && y >= 125
+                && indice >= 0 && indice < poderes.size()
+                && y < 125 + poderes.size() * 38) {
+            indicePoderSelecionado = indice;
+        }
     }
 
     @Override
