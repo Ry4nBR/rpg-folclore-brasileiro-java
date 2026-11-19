@@ -41,21 +41,13 @@ public class TelaSpawnMedico implements Tela {
         g.setColor(Color.WHITE);
         g.drawString(titulo, (960 - metricas.stringWidth(titulo)) / 2, 70);
 
-        g.setColor(new Color(91, 48, 30));
-        g.fillRect(130, 130, 140, 220);
-        g.setColor(new Color(52, 33, 25));
-        g.drawRect(130, 130, 139, 219);
-        g.drawRect(142, 142, 115, 195);
-        g.drawLine(199, 143, 199, 337);
-        g.setColor(new Color(218, 179, 107));
-        g.fillOval(244, 238, 9, 9);
-        g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 20));
-        g.drawString("Fogo", 172, 380);
+        desenharPorta(g, 130, "Fogo", true);
+        desenharPorta(g, 410, "Planta", sessao.portaLiberada(1));
 
-        g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 20));
-        g.drawString("Titular: " + sessao.getEquipe().getTitular().getNome(), 325, 300);
+        g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 18));
+        g.drawString("Titular: " + sessao.getEquipe().getTitular().getNome(), 325, 100);
         g.drawString("PV: " + sessao.getEquipe().getTitular().getPvAtual()
-                + "/" + sessao.getEquipe().getTitular().getPvMaximo(), 325, 330);
+                + "/" + sessao.getEquipe().getTitular().getPvMaximo(), 325, 123);
         botaoCurar.desenhar(g);
         if (mensagemNotificacao != null) {
             g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 16));
@@ -64,6 +56,29 @@ public class TelaSpawnMedico implements Tela {
             g.drawString(mensagemNotificacao,
                     (960 - metricasMensagem.stringWidth(mensagemNotificacao)) / 2, 480);
         }
+    }
+
+    private void desenharPorta(Graphics2D g, int x, String rotulo, boolean liberada) {
+        Color madeira = liberada ? new Color(91, 48, 30) : new Color(105, 105, 105);
+        Color detalhe = liberada ? new Color(52, 33, 25) : new Color(65, 65, 65);
+        g.setColor(madeira);
+        g.fillRect(x, 130, 140, 220);
+        g.setColor(detalhe);
+        g.drawRect(x, 130, 139, 219);
+        g.drawRect(x + 12, 142, 115, 195);
+        g.drawLine(x + 69, 143, x + 69, 337);
+        if (liberada) {
+            g.setColor(new Color(218, 179, 107));
+            g.fillOval(x + 114, 238, 9, 9);
+        } else {
+            g.setColor(new Color(230, 210, 150));
+            g.fillRoundRect(x + 54, 236, 34, 30, 5, 5);
+            g.setStroke(new java.awt.BasicStroke(5));
+            g.drawArc(x + 59, 219, 24, 27, 0, 180);
+        }
+        g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 20));
+        g.setColor(Color.WHITE);
+        g.drawString(rotulo, x + (140 - g.getFontMetrics().stringWidth(rotulo)) / 2, 380);
     }
 
     @Override
