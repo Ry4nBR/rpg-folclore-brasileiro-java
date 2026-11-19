@@ -5,6 +5,7 @@ import br.folclore.habilidades.ResultadoAcao;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Abstração: base comum de todo combatente
@@ -87,6 +88,21 @@ public abstract class Personagem {
 
         habilidades.add(habilidade);
         poderesLiberados.add(habilidade);
+    }
+
+    public boolean liberarPoder(Habilidade habilidade) {
+        if (habilidade == null) {
+            throw new IllegalArgumentException("O poder liberado não pode ser nulo.");
+        }
+        boolean jaLiberado = poderesLiberados.stream()
+                .anyMatch(poder -> Objects.equals(poder.getNome(), habilidade.getNome()));
+        if (jaLiberado) {
+            return false;
+        }
+
+        habilidade.restaurarUsos();
+        poderesLiberados.add(habilidade);
+        return true;
     }
 
     public ResultadoAcao usarHabilidade(int indice, Personagem alvo) {
