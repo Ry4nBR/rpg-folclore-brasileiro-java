@@ -56,6 +56,12 @@ public abstract class Personagem {
         return Collections.unmodifiableList(habilidades);
     }
 
+    public void restaurarUsosDasHabilidades() {
+        for (Habilidade habilidade : habilidades) {
+            habilidade.restaurarUsos();
+        }
+    }
+
     protected void adicionarHabilidade(Habilidade habilidade) {
         if (habilidade == null) {
             throw new IllegalArgumentException("A habilidade não pode ser nula.");
