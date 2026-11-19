@@ -151,6 +151,8 @@ public abstract class Personagem {
 
         switch (atributo) {
             case PV -> {
+                pvMaximo += 5;
+                pvAtual += 5;
             }
             case ATAQUE -> {
             }
