@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.util.List;
 
 public class TelaDialogo implements Tela {
@@ -23,6 +24,7 @@ public class TelaDialogo implements Tela {
     private final Runnable aoTerminar;
     private final CaixaDeTexto caixa;
     private int indiceLinhaAtual;
+    private boolean aoTerminarExecutado;
 
     public TelaDialogo(GerenciadorDeTelas gerenciador, Tela telaDeFundo,
                        List<LinhaDeDialogo> linhas, Runnable aoTerminar) {
@@ -78,6 +80,7 @@ public class TelaDialogo implements Tela {
 
     @Override
     public void aoClicar(int x, int y) {
+        avancar();
     }
 
     @Override
@@ -86,10 +89,30 @@ public class TelaDialogo implements Tela {
 
     @Override
     public void aoPressionarTecla(int codigo) {
+        if (codigo == KeyEvent.VK_ENTER) {
+            avancar();
+        }
     }
 
     private void definirRetratoDaLinhaAtual() {
         String idRetrato = linhas.get(indiceLinhaAtual).getIdRetrato();
         caixa.definirRetrato(idRetrato == null ? null : RepositorioDeRetratos.obter(idRetrato));
+    }
+
+    private void avancar() {
+        if (!caixa.estaCompleta()) {
+            caixa.completar();
+            return;
+        }
+        if (indiceLinhaAtual + 1 < linhas.size()) {
+            indiceLinhaAtual++;
+            caixa.definirTexto(linhas.get(indiceLinhaAtual).getTexto());
+            definirRetratoDaLinhaAtual();
+            return;
+        }
+        if (!aoTerminarExecutado) {
+            aoTerminarExecutado = true;
+            aoTerminar.run();
+        }
     }
 }
