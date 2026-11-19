@@ -2,6 +2,7 @@ package br.folclore.ui.telas;
 
 import br.folclore.ui.GerenciadorDeTelas;
 import br.folclore.ui.ConfiguracoesUi;
+import br.folclore.ui.Roteiro;
 import br.folclore.ui.componentes.Botao;
 import java.awt.Color;
 import java.awt.Font;
@@ -20,9 +21,13 @@ public class TelaInicial implements Tela {
     public TelaInicial(GerenciadorDeTelas gerenciador) {
         this.gerenciador = gerenciador;
         botaoNovoJogo = new Botao(380, 250, 200, 50, "Novo Jogo",
-                () -> gerenciador.trocarPara(new TelaSelecaoPersonagem(
+                () -> gerenciador.trocarPara(new TelaDialogo(
                         gerenciador,
-                        personagem -> System.out.println(personagem.getNome()))));
+                        this,
+                        Roteiro.introducao(),
+                        () -> gerenciador.trocarPara(new TelaSelecaoPersonagem(
+                                gerenciador,
+                                personagem -> System.out.println(personagem.getNome()))))));
         botaoContinuar = new Botao(380, 315, 200, 50, "Continuar",
                 () -> System.out.println("Continuar selecionado"));
         botaoSair = new Botao(380, 380, 200, 50, "Sair", () -> System.exit(0));
