@@ -82,5 +82,13 @@ public class TelaGinasio implements Tela {
     }
 
     private void processarResultado(ResultadoBatalha resultado) {
+        if (resultado == ResultadoBatalha.VITORIA) {
+            boolean ginasioVencido = sessao.registrarVitoriaNoEncontro();
+            if (ginasioVencido) {
+                gerenciador.trocarPara(new TelaSpawnMedico(gerenciador, sessao));
+            } else {
+                gerenciador.trocarPara(new TelaGinasio(gerenciador, sessao, indiceGinasio));
+            }
+        }
     }
 }
