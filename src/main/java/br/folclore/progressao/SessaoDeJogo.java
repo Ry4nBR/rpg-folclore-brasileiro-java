@@ -68,6 +68,7 @@ public class SessaoDeJogo {
 
         Personagem inimigoDerrotado = getProximoEncontro();
         equipe.getTitular().ganharExperiencia(inimigoDerrotado.getXpRecompensa());
+        equipe.getTitular().liberarPoder(inimigoDerrotado.getHabilidades().get(0));
         encontrosVencidos++;
         if (encontrosVencidos == ginasioAtual.getTotalDeEncontros()) {
             ginasiosVencidos++;
