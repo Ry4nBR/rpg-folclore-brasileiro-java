@@ -23,4 +23,9 @@ public class MulaSemCabeca extends Personagem {
     public String getNomeAtaqueBasico() {
         return "Coice Flamejante";
     }
+
+    @Override
+    public boolean ehChefe() {
+        return true;
+    }
 }
