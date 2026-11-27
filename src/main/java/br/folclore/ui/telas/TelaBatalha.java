@@ -129,11 +129,11 @@ public class TelaBatalha implements Tela {
         desenharPlataformas(g);
         if (quadrosDeslocamentoJogador == 0 && quadrosTremorJogador == 0) {
             RepositorioDeSprites.desenhar(g, batalha.getJogador(),
-                    PosicoesDeBatalha.JOGADOR_X, PosicoesDeBatalha.JOGADOR_Y, true);
+                    PosicoesDeBatalha.JOGADOR_X, PosicoesDeBatalha.JOGADOR_Y, false);
         }
         if (quadrosDeslocamentoInimigo == 0 && quadrosTremorInimigo == 0) {
             RepositorioDeSprites.desenhar(g, batalha.getInimigo(),
-                    PosicoesDeBatalha.INIMIGO_X, PosicoesDeBatalha.INIMIGO_Y, false);
+                    PosicoesDeBatalha.INIMIGO_X, PosicoesDeBatalha.INIMIGO_Y, true);
         }
         desenharHudInimigo(g);
         desenharHudJogador(g);
@@ -186,7 +186,7 @@ public class TelaBatalha implements Tela {
         int xAlvo = obterX(alvo);
         int yAlvo = obterY(alvo);
         int tamanho = PosicoesDeBatalha.TAMANHO_SPRITE;
-        boolean atacanteEspelhado = atacanteJogador;
+        boolean atacanteEspelhado = !atacanteJogador;
         BufferedImage spriteAtacante = RepositorioDeSprites.obter(
                 NormalizadorDeNomes.paraId(atacante.getNome()));
 
@@ -228,7 +228,7 @@ public class TelaBatalha implements Tela {
         int xAlvo = obterX(alvo);
         int yAlvo = obterY(alvo);
         int tamanho = PosicoesDeBatalha.TAMANHO_SPRITE;
-        boolean alvoEspelhado = alvo == batalha.getJogador();
+        boolean alvoEspelhado = alvo != batalha.getJogador();
         BufferedImage spriteAlvo = RepositorioDeSprites.obter(
                 NormalizadorDeNomes.paraId(alvo.getNome()));
         gerenciadorDeEfeitos.adicionar(new AnimacaoTremor(spriteAlvo,
