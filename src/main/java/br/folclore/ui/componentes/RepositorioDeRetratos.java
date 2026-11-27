@@ -24,6 +24,6 @@ public final class RepositorioDeRetratos {
     }
 
     public static BufferedImage obter(String id) {
-        return CarregadorDeImagens.carregar(DIRETORIO_RETRATOS + id + ".png");
+        return CarregadorDeImagens.carregar(DIRETORIO_RETRATOS + id + "_portrait.png");
     }
 }
