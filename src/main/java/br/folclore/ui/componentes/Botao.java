@@ -13,16 +13,22 @@ public class Botao {
     private final int largura;
     private final int altura;
     private final String rotulo;
+    private final String detalhe;
     private final Runnable aoAcionar;
     private boolean habilitado = true;
     private boolean sobMouse;
 
     public Botao(int x, int y, int largura, int altura, String rotulo, Runnable aoAcionar) {
+        this(x, y, largura, altura, rotulo, null, aoAcionar);
+    }
+
+    public Botao(int x, int y, int largura, int altura, String rotulo, String detalhe, Runnable aoAcionar) {
         this.x = x;
         this.y = y;
         this.largura = largura;
         this.altura = altura;
         this.rotulo = rotulo;
+        this.detalhe = detalhe;
         this.aoAcionar = aoAcionar;
     }
 
@@ -41,11 +47,30 @@ public class Botao {
         g.setColor(habilitado ? Color.WHITE : Color.LIGHT_GRAY);
         g.drawRect(x, y, largura - 1, altura - 1);
 
-        g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 20));
+        if (detalhe != null) {
+            desenharTexto(g, rotulo, 16, y + 18);
+            desenharTexto(g, detalhe, 12, y + 36);
+            return;
+        }
+        int tamanhoFonte = Math.min(20, altura - 6);
+        while (tamanhoFonte > 10 && g.getFontMetrics(new Font(Font.MONOSPACED, Font.BOLD, tamanhoFonte))
+                .stringWidth(rotulo) > largura - 16) {
+            tamanhoFonte--;
+        }
+        g.setFont(new Font(Font.MONOSPACED, Font.BOLD, tamanhoFonte));
         FontMetrics metricas = g.getFontMetrics();
         int textoX = x + (largura - metricas.stringWidth(rotulo)) / 2;
         int textoY = y + ((altura - metricas.getHeight()) / 2) + metricas.getAscent();
         g.drawString(rotulo, textoX, textoY);
+    }
+
+    private void desenharTexto(Graphics2D g, String texto, int tamanho, int linhaBase) {
+        Font fonte = new Font(Font.MONOSPACED, Font.BOLD, tamanho);
+        while (tamanho > 10 && g.getFontMetrics(fonte).stringWidth(texto) > largura - 12) {
+            fonte = new Font(Font.MONOSPACED, Font.BOLD, --tamanho);
+        }
+        g.setFont(fonte);
+        g.drawString(texto, x + (largura - g.getFontMetrics().stringWidth(texto)) / 2, linhaBase);
     }
 
     public void setHabilitado(boolean habilitado) {

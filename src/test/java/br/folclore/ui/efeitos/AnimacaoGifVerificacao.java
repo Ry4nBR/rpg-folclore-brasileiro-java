@@ -46,16 +46,18 @@ public final class AnimacaoGifVerificacao {
         TelaBatalha tela = new TelaBatalha(new GerenciadorDeTelas(), batalha, resultado -> {});
         Method usar = TelaBatalha.class.getDeclaredMethod("usarHabilidade", int.class);
         usar.setAccessible(true);
+        tela.aoPressionarTecla(java.awt.event.KeyEvent.VK_ENTER);
+        tela.aoPressionarTecla(java.awt.event.KeyEvent.VK_ENTER);
         int pvAntes = saci.getPvAtual();
-        int usosAntes = saci.getHabilidades().get(0).getUsosRestantes();
-        usar.invoke(tela, 0);
+        int usosAntes = saci.getHabilidades().get(1).getUsosRestantes();
+        usar.invoke(tela, 1);
         Field efeito = TelaBatalha.class.getDeclaredField("animacaoHabilidadeSaci");
         efeito.setAccessible(true);
         conferir(efeito.get(tela) instanceof AnimacaoGif, "Habilidade inicia o GIF exclusivo");
         conferir(saci.getPvAtual() > pvAntes, "Cura original preservada");
-        conferir(saci.getHabilidades().get(0).getUsosRestantes() == usosAntes - 1, "Consome um uso");
-        usar.invoke(tela, 0);
-        conferir(saci.getHabilidades().get(0).getUsosRestantes() == usosAntes - 1,
+        conferir(saci.getHabilidades().get(1).getUsosRestantes() == usosAntes - 1, "Consome um uso");
+        usar.invoke(tela, 1);
+        conferir(saci.getHabilidades().get(1).getUsosRestantes() == usosAntes - 1,
                 "Nao permite ativar novamente durante o efeito");
         BufferedImage batalhaRenderizada = new BufferedImage(960, 540, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = batalhaRenderizada.createGraphics();

@@ -25,7 +25,6 @@ import br.folclore.ui.efeitos.CoresDeTipo;
 import br.folclore.ui.efeitos.GerenciadorDeEfeitos;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -50,20 +49,19 @@ public class TelaBatalha implements Tela {
     private final GerenciadorDeEfeitos gerenciadorDeEfeitos = new GerenciadorDeEfeitos();
     private final CaixaDeTexto caixaDeTexto;
     private final Botao botaoAtacar;
-    private final Botao botaoHabilidade;
+    private final Botao botaoMochila;
     private final Botao botaoVerStatus;
     private final Botao botaoFugir;
     private final Botao botaoFecharStatus;
     private final Botao botaoVoltarHabilidades;
     private final List<Botao> botoesHabilidade = new ArrayList<>();
-    private final List<String> rotulosHabilidade = new ArrayList<>();
     private final Queue<String> filaMensagens = new ArrayDeque<>();
     private int mensagensLidasDoRegistro;
     private String mensagemAtual;
     private boolean exibindoSubmenuHabilidades;
     private boolean exibindoPainelStatus;
     private boolean notificacaoEncerramentoEnviada;
-    private String textoStatus;
+    private boolean exibindoMochila;
     private int quadrosDeslocamentoJogador;
     private int quadrosDeslocamentoInimigo;
     private int quadrosTremorJogador;
@@ -84,18 +82,18 @@ public class TelaBatalha implements Tela {
         this.fundo = CarregadorDeImagens.carregar("/fundos/batalha_generico.png");
         this.caixaDeTexto = new CaixaDeTexto(CAIXA_TEXTO_X, CAIXA_TEXTO_Y,
                 CAIXA_TEXTO_LARGURA, CAIXA_TEXTO_ALTURA);
-        this.botaoAtacar = new Botao(520, 410, 200, 45, "Atacar",
-                this::atacarComJogador);
-        this.botaoHabilidade = new Botao(740, 410, 200, 45, "Habilidade",
+        this.botaoAtacar = new Botao(520, 410, 200, 45, "Ataque",
                 this::abrirSubmenuHabilidades);
-        this.botaoVerStatus = new Botao(520, 465, 200, 45, "Ver status",
+        this.botaoMochila = new Botao(740, 410, 200, 45, "Mochila",
+                this::abrirMochila);
+        this.botaoVerStatus = new Botao(520, 465, 200, 45, "Status",
                 this::abrirPainelStatus);
         this.botaoFugir = new Botao(740, 465, 200, 45, "Fugir",
-                () -> batalha.acaoFugir());
+                this::fugir);
         this.botaoFugir.setHabilitado(batalha.isFugaPermitida());
-        this.botaoFecharStatus = new Botao(380, 290, 200, 45, "Fechar",
+        this.botaoFecharStatus = new Botao(380, 345, 200, 35, "Voltar",
                 this::fecharPainelStatus);
-        this.botaoVoltarHabilidades = new Botao(740, 465, 200, 45, "Voltar",
+        this.botaoVoltarHabilidades = new Botao(520, 515, 420, 22, "Voltar (Esc)",
                 this::voltarAoMenuPrincipal);
         batalha.iniciar();
         pvExibidoJogador = batalha.getJogador().getPvAtual();
@@ -153,25 +151,43 @@ public class TelaBatalha implements Tela {
             desenharSubmenuHabilidades(g);
         } else {
             botaoAtacar.desenhar(g);
-            botaoHabilidade.desenhar(g);
+            botaoMochila.desenhar(g);
             botaoVerStatus.desenhar(g);
             botaoFugir.desenhar(g);
         }
-        if (exibindoPainelStatus) {
+        if (exibindoPainelStatus || exibindoMochila) {
             desenharPainelStatus(g);
         }
     }
 
     private void abrirPainelStatus() {
-        textoStatus = batalha.acaoVerStatus();
-        exibindoPainelStatus = true;
+        if (podeAgir()) {
+            exibindoPainelStatus = true;
+        }
+    }
+
+    private void abrirMochila() {
+        if (podeAgir()) {
+            exibindoMochila = true;
+        }
+    }
+
+    private void fugir() {
+        if (podeAgir() && batalha.isFugaPermitida()) {
+            batalha.acaoFugir();
+        }
     }
 
     private void fecharPainelStatus() {
         exibindoPainelStatus = false;
+        exibindoMochila = false;
     }
 
     private void atacarComJogador() {
+        if (!podeAgir()) {
+            return;
+        }
+        exibindoSubmenuHabilidades = false;
         int pvAntes = batalha.getInimigo().getPvAtual();
         batalha.acaoAtacar();
         iniciarEfeitosDeAtaque(batalha.getJogador(), batalha.getInimigo(),
@@ -290,46 +306,64 @@ public class TelaBatalha implements Tela {
     }
 
     private void desenharPainelStatus(Graphics2D g) {
-        int x = 180;
-        int y = 170;
-        int largura = 600;
-        int altura = 190;
-        g.setColor(new Color(20, 24, 30, 235));
-        g.fillRect(x, y, largura, altura);
+        g.setColor(new Color(20, 24, 30, 245));
+        g.fillRect(90, 90, 780, 300);
         g.setColor(Color.WHITE);
-        g.drawRect(x, y, largura - 1, altura - 1);
-
-        Font fonteAnterior = g.getFont();
-        int tamanhoFonte = 18;
-        Font fonte = new Font(Font.MONOSPACED, Font.BOLD, tamanhoFonte);
-        FontMetrics metricas = g.getFontMetrics(fonte);
-        while (metricas.stringWidth(textoStatus) > largura - 40 && tamanhoFonte > 10) {
-            tamanhoFonte--;
-            fonte = new Font(Font.MONOSPACED, Font.BOLD, tamanhoFonte);
-            metricas = g.getFontMetrics(fonte);
+        g.drawRect(90, 90, 779, 299);
+        g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 24));
+        g.drawString(exibindoMochila ? "Mochila" : "Status dos combatentes", 120, 125);
+        if (exibindoMochila) {
+            g.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 20));
+            g.drawString("Sua mochila est? vazia.", 120, 205);
+            g.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 16));
+            g.drawString("Abrir a mochila n?o consome seu turno.", 120, 240);
+        } else {
+            desenharStatusCombatente(g, batalha.getJogador(), "Seu personagem", 120);
+            desenharStatusCombatente(g, batalha.getInimigo(), "Inimigo", 510);
         }
-        g.setFont(fonte);
-        int textoX = x + (largura - metricas.stringWidth(textoStatus)) / 2;
-        g.drawString(textoStatus, textoX, y + 75);
-        g.setFont(fonteAnterior);
         botaoFecharStatus.desenhar(g);
     }
 
+    private void desenharStatusCombatente(Graphics2D g, Personagem personagem, String titulo, int x) {
+        g.setColor(new Color(150, 210, 255));
+        g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 18));
+        g.drawString(titulo, x, 160);
+        g.setColor(Color.WHITE);
+        g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 17));
+        g.drawString(personagem.getNome(), x, 185);
+        g.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 16));
+        String[] linhas = {
+            "Tipo: " + personagem.getTipo().getRotulo(),
+            "PV: " + personagem.getPvAtual() + "/" + personagem.getPvMaximo(),
+            "Ataque: " + personagem.getAtaque(),
+            "Defesa: " + personagem.getDefesa(),
+            "Velocidade: " + personagem.getVelocidade()
+        };
+        for (int i = 0; i < linhas.length; i++) {
+            g.drawString(linhas[i], x, 210 + i * 25);
+        }
+    }
+
     private void abrirSubmenuHabilidades() {
+        if (!podeAgir()) {
+            return;
+        }
         exibindoSubmenuHabilidades = true;
         botoesHabilidade.clear();
-        rotulosHabilidade.clear();
-
-        List<Habilidade> habilidades = batalha.getJogador().getHabilidades();
+        Personagem jogador = batalha.getJogador();
+        Personagem inimigo = batalha.getInimigo();
+        botoesHabilidade.add(new Botao(520, 410, 200, 45, jogador.getNomeAtaqueBasico(),
+                "Dano: " + jogador.preverDanoAtaqueBasico(inimigo) + " | Sem limite", this::atacarComJogador));
+        List<Habilidade> habilidades = jogador.getHabilidades();
         for (int i = 0; i < habilidades.size() && i < 3; i++) {
             Habilidade habilidade = habilidades.get(i);
-            int x = i % 2 == 0 ? 520 : 740;
-            int y = 410 + i / 2 * 55;
-            rotulosHabilidade.add(habilidade.getNome() + " ("
-                    + habilidade.getUsosRestantes() + "/" + habilidade.getUsosMaximos()
-                    + " usos)");
+            int slot = i + 1;
+            int x = slot % 2 == 0 ? 520 : 740;
+            int y = 410 + slot / 2 * 55;
+            String detalhe = habilidade.descreverEfeito(jogador, inimigo) + " | "
+                    + habilidade.getUsosRestantes() + "/" + habilidade.getUsosMaximos();
             int indiceHabilidade = i;
-            Botao botao = new Botao(x, y, 200, 45, "",
+            Botao botao = new Botao(x, y, 200, 45, habilidade.getNome(), detalhe,
                     () -> usarHabilidade(indiceHabilidade));
             botao.setHabilitado(habilidade.temUsosRestantes());
             botoesHabilidade.add(botao);
@@ -337,8 +371,7 @@ public class TelaBatalha implements Tela {
     }
 
     private void usarHabilidade(int indice) {
-        if (gerenciadorDeEfeitos.temAtivas()
-                || batalha.getEstado() != EstadoBatalha.ESCOLHA_DO_JOGADOR) {
+        if (!podeAgir()) {
             return;
         }
         int pvInimigoAntes = batalha.getInimigo().getPvAtual();
@@ -398,34 +431,13 @@ public class TelaBatalha implements Tela {
     }
 
     private void desenharSubmenuHabilidades(Graphics2D g) {
-        for (int i = 0; i < botoesHabilidade.size(); i++) {
-            int x = i % 2 == 0 ? 520 : 740;
-            int y = 410 + i / 2 * 55;
-            botoesHabilidade.get(i).desenhar(g);
-            desenharRotuloHabilidade(g, rotulosHabilidade.get(i), x, y);
+        for (Botao botao : botoesHabilidade) {
+            botao.desenhar(g);
         }
         botaoVoltarHabilidades.desenhar(g);
     }
 
-    private void desenharRotuloHabilidade(Graphics2D g, String rotulo, int x, int y) {
-        Font fonteAnterior = g.getFont();
-        Color corAnterior = g.getColor();
-        int tamanhoFonte = 20;
-        Font fonte = new Font(Font.MONOSPACED, Font.BOLD, tamanhoFonte);
-        FontMetrics metricas = g.getFontMetrics(fonte);
-        while (metricas.stringWidth(rotulo) > 184 && tamanhoFonte > 10) {
-            tamanhoFonte--;
-            fonte = new Font(Font.MONOSPACED, Font.BOLD, tamanhoFonte);
-            metricas = g.getFontMetrics(fonte);
-        }
-        g.setFont(fonte);
-        g.setColor(Color.WHITE);
-        int textoX = x + (200 - metricas.stringWidth(rotulo)) / 2;
-        int textoY = y + ((45 - metricas.getHeight()) / 2) + metricas.getAscent();
-        g.drawString(rotulo, textoX, textoY);
-        g.setFont(fonteAnterior);
-        g.setColor(corAnterior);
-    }
+
 
     private void desenharPlataformas(Graphics2D g) {
         g.setColor(new Color(70, 55, 45, 180));
@@ -498,7 +510,7 @@ public class TelaBatalha implements Tela {
     @Override
     public void aoClicar(int x, int y) {
         atualizarHabilitacaoBotoes();
-        if (exibindoPainelStatus) {
+        if (exibindoPainelStatus || exibindoMochila) {
             botaoFecharStatus.clicar(x, y);
             return;
         }
@@ -509,7 +521,7 @@ public class TelaBatalha implements Tela {
             botaoVoltarHabilidades.clicar(x, y);
         } else {
             botaoAtacar.clicar(x, y);
-            botaoHabilidade.clicar(x, y);
+            botaoMochila.clicar(x, y);
             botaoVerStatus.clicar(x, y);
             botaoFugir.clicar(x, y);
         }
@@ -523,7 +535,7 @@ public class TelaBatalha implements Tela {
     @Override
     public void aoMoverMouse(int x, int y) {
         botaoAtacar.atualizarHover(x, y);
-        botaoHabilidade.atualizarHover(x, y);
+        botaoMochila.atualizarHover(x, y);
         botaoVerStatus.atualizarHover(x, y);
         botaoFugir.atualizarHover(x, y);
         botaoFecharStatus.atualizarHover(x, y);
@@ -535,14 +547,34 @@ public class TelaBatalha implements Tela {
 
     @Override
     public void aoPressionarTecla(int codigo) {
-        if (exibindoPainelStatus) {
-            if (codigo == KeyEvent.VK_ESCAPE) {
+        if (exibindoPainelStatus || exibindoMochila) {
+            if (codigo == KeyEvent.VK_ESCAPE || codigo == KeyEvent.VK_ENTER) {
                 fecharPainelStatus();
             }
-        } else if (codigo == KeyEvent.VK_ESCAPE && exibindoSubmenuHabilidades) {
+            return;
+        }
+        if (codigo == KeyEvent.VK_ESCAPE && exibindoSubmenuHabilidades) {
             voltarAoMenuPrincipal();
         } else if (codigo == KeyEvent.VK_ENTER) {
             avancarMensagem();
+        } else if (podeAgir()) {
+            if (exibindoSubmenuHabilidades && codigo >= KeyEvent.VK_1 && codigo <= KeyEvent.VK_4) {
+                int slot = codigo - KeyEvent.VK_1;
+                if (slot == 0) {
+                    atacarComJogador();
+                } else if (slot - 1 < batalha.getJogador().getHabilidades().size()
+                        && batalha.getJogador().getHabilidades().get(slot - 1).temUsosRestantes()) {
+                    usarHabilidade(slot - 1);
+                }
+            } else if (!exibindoSubmenuHabilidades) {
+                switch (codigo) {
+                    case KeyEvent.VK_A -> abrirSubmenuHabilidades();
+                    case KeyEvent.VK_M -> abrirMochila();
+                    case KeyEvent.VK_S -> abrirPainelStatus();
+                    case KeyEvent.VK_F -> fugir();
+                    default -> { }
+                }
+            }
         }
     }
 
@@ -560,14 +592,21 @@ public class TelaBatalha implements Tela {
     }
 
     private void atualizarHabilitacaoBotoes() {
-        boolean habilitado = batalha.getEstado() == EstadoBatalha.ESCOLHA_DO_JOGADOR
-                && filaMensagens.isEmpty()
-                && mensagemAtual == null
-                && !gerenciadorDeEfeitos.temAtivas();
+        boolean habilitado = podeAgir();
         botaoAtacar.setHabilitado(habilitado);
-        botaoHabilidade.setHabilitado(habilitado);
+        botaoMochila.setHabilitado(habilitado);
         botaoVerStatus.setHabilitado(habilitado);
         botaoFugir.setHabilitado(habilitado && batalha.isFugaPermitida());
+        for (int slot = 0; slot < botoesHabilidade.size(); slot++) {
+            boolean disponivel = slot == 0 || batalha.getJogador().getHabilidades().get(slot - 1).temUsosRestantes();
+            botoesHabilidade.get(slot).setHabilitado(habilitado && disponivel);
+        }
+    }
+
+    private boolean podeAgir() {
+        return batalha.getEstado() == EstadoBatalha.ESCOLHA_DO_JOGADOR
+                && filaMensagens.isEmpty() && mensagemAtual == null
+                && !gerenciadorDeEfeitos.temAtivas();
     }
 
     private void sincronizarMensagens() {
