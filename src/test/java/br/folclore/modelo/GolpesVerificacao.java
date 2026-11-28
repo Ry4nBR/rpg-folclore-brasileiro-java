@@ -12,6 +12,9 @@ public final class GolpesVerificacao {
                 new MaeDeOuro(), new Batatao(), new MulaSemCabeca(), new Curupira(), new Caipora(),
                 new Capelobo(), new Iara(), new BotoCorDeRosa(), new Honorato());
         for (Personagem personagem : personagens) {
+            for (Habilidade habilidade : personagem.getHabilidades()) {
+                conferir(!habilidade.getNome().contains("?"), "Nome do golpe preserva os acentos");
+            }
             conferir(personagem.getHabilidades().size() == 3 && personagem.getSlotsDeHabilidade() == 4,
                     "Quatro golpes de " + personagem.getNome());
             Personagem alvo = new Honorato();

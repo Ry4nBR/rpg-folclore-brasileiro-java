@@ -10,6 +10,7 @@ de versão previstas para esta solicitação.
 | 1 | Registrar a reprodução de GIF e a habilidade já implementadas | `feat: reproduz gifs animados nos sprites e na habilidade do saci` |
 | 2 | Três poderes por personagem, previsão de dano/cura e migração de saves | `feat: completa os quatro golpes dos personagens` |
 | 3 | Ataque, Mochila, Status dos dois combatentes e Fugir | `feat: reorganiza o menu e os paineis da batalha` |
+| 3.1 | Preservar os acentos dos nomes e mensagens | `fix: preserva acentos nos nomes dos golpes e nas mensagens` |
 | 4 | Associar os quatro GIFs aos golpes do Saci | `feat: associa animacoes aos quatro golpes do saci` |
 | 5 | Verificar navegação, golpes, animações e compatibilidade de saves | `test: valida o menu de batalha e os quatro golpes` |
 

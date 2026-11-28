@@ -314,9 +314,9 @@ public class TelaBatalha implements Tela {
         g.drawString(exibindoMochila ? "Mochila" : "Status dos combatentes", 120, 125);
         if (exibindoMochila) {
             g.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 20));
-            g.drawString("Sua mochila est? vazia.", 120, 205);
+            g.drawString("Sua mochila está vazia.", 120, 205);
             g.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 16));
-            g.drawString("Abrir a mochila n?o consome seu turno.", 120, 240);
+            g.drawString("Abrir a mochila não consome seu turno.", 120, 240);
         } else {
             desenharStatusCombatente(g, batalha.getJogador(), "Seu personagem", 120);
             desenharStatusCombatente(g, batalha.getInimigo(), "Inimigo", 510);
