@@ -11,6 +11,11 @@ public class HabilidadeDano extends HabilidadeBase {
     }
 
     @Override
+    public int preverDano(Personagem usuario, Personagem alvo) {
+        return Math.min(alvo.getPvAtual(), usuario.calcularDano(alvo, poderBase));
+    }
+
+    @Override
     public ResultadoAcao executar(Personagem usuario, Personagem alvo) {
         if (!temUsosRestantes()) {
             return new ResultadoAcao(
@@ -20,7 +25,7 @@ public class HabilidadeDano extends HabilidadeBase {
         }
 
         consumirUso();
-        int dano = usuario.calcularDano(alvo, poderBase);
+        int dano = preverDano(usuario, alvo);
         int danoAplicado = alvo.receberDano(dano);
 
         return new ResultadoAcao(

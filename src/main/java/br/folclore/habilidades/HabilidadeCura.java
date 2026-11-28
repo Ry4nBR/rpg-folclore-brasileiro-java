@@ -11,6 +11,12 @@ public class HabilidadeCura extends HabilidadeBase {
     }
 
     @Override
+    public String descreverEfeito(Personagem usuario, Personagem alvo) {
+        int recuperacao = Math.max(1, usuario.getPvMaximo() * percentual / 100);
+        return "Cura: " + Math.min(usuario.getPvMaximo() - usuario.getPvAtual(), recuperacao) + " PV";
+    }
+
+    @Override
     public ResultadoAcao executar(Personagem usuario, Personagem alvo) {
         if (!temUsosRestantes()) {
             return new ResultadoAcao(

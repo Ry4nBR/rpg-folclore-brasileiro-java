@@ -11,6 +11,7 @@
     <properties>
         <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <skipTests>false</skipTests>
     </properties>
 
     <build>
@@ -30,6 +31,26 @@
                 <configuration>
                     <mainClass>br.folclore.Main</mainClass>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>verificar-combate</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>br.folclore.VerificacoesDoCombate</mainClass>
+                            <classpathScope>test</classpathScope>
+                            <skip>${skipTests}</skip>
+                            <systemProperties>
+                                <systemProperty>
+                                    <key>java.awt.headless</key>
+                                    <value>true</value>
+                                </systemProperty>
+                            </systemProperties>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
