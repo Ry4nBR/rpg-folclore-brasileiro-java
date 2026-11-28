@@ -2,13 +2,14 @@ package br.folclore.ui.efeitos;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.function.Supplier;
 
 public final class AnimacaoDeslocamento implements Animacao {
     public static final int DURACAO_QUADROS = 20;
     private static final int QUADROS_AVANCO = DURACAO_QUADROS / 2;
     private static final int DISTANCIA_AVANCO = 40;
 
-    private final BufferedImage sprite;
+    private final Supplier<BufferedImage> fornecedorSprite;
     private final int xInicial;
     private final int yInicial;
     private final int tamanho;
@@ -19,14 +20,19 @@ public final class AnimacaoDeslocamento implements Animacao {
 
     public AnimacaoDeslocamento(BufferedImage sprite, int xInicial, int yInicial,
                                 int xAlvo, int yAlvo, int tamanho, boolean espelhado) {
-        if (sprite == null) {
+        this(() -> sprite, xInicial, yInicial, xAlvo, yAlvo, tamanho, espelhado);
+    }
+
+    public AnimacaoDeslocamento(Supplier<BufferedImage> fornecedorSprite, int xInicial, int yInicial,
+                                int xAlvo, int yAlvo, int tamanho, boolean espelhado) {
+        if (fornecedorSprite == null || fornecedorSprite.get() == null) {
             throw new IllegalArgumentException("O sprite não pode ser nulo.");
         }
         if (tamanho <= 0) {
             throw new IllegalArgumentException("O tamanho do sprite deve ser positivo.");
         }
 
-        this.sprite = sprite;
+        this.fornecedorSprite = fornecedorSprite;
         this.xInicial = xInicial;
         this.yInicial = yInicial;
         this.tamanho = tamanho;
@@ -48,6 +54,7 @@ public final class AnimacaoDeslocamento implements Animacao {
 
     @Override
     public void desenhar(Graphics2D g) {
+        BufferedImage sprite = fornecedorSprite.get();
         double progresso;
         if (quadroAtual <= QUADROS_AVANCO) {
             progresso = (double) quadroAtual / QUADROS_AVANCO;

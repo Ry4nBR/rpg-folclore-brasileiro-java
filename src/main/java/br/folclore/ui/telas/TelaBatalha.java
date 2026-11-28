@@ -5,6 +5,7 @@ import br.folclore.batalha.EstadoBatalha;
 import br.folclore.batalha.ResultadoBatalha;
 import br.folclore.habilidades.Habilidade;
 import br.folclore.modelo.Personagem;
+import br.folclore.modelo.Saci;
 import br.folclore.ui.GerenciadorDeTelas;
 import br.folclore.ui.componentes.BarraDeVida;
 import br.folclore.ui.componentes.Botao;
@@ -13,8 +14,10 @@ import br.folclore.ui.componentes.CarregadorDeImagens;
 import br.folclore.ui.componentes.NormalizadorDeNomes;
 import br.folclore.ui.componentes.PosicoesDeBatalha;
 import br.folclore.ui.componentes.RepositorioDeSprites;
+import br.folclore.ui.componentes.SpriteAnimado;
 import br.folclore.ui.efeitos.AnimacaoCura;
 import br.folclore.ui.efeitos.AnimacaoDeslocamento;
+import br.folclore.ui.efeitos.AnimacaoGif;
 import br.folclore.ui.efeitos.AnimacaoNumeroFlutuante;
 import br.folclore.ui.efeitos.AnimacaoParticulas;
 import br.folclore.ui.efeitos.AnimacaoTremor;
@@ -26,6 +29,8 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +70,9 @@ public class TelaBatalha implements Tela {
     private int quadrosTremorInimigo;
     private int quadrosAteImpactoHabilidade;
     private int danoHabilidadePendente;
+    private int curaHabilidadePendente;
+    private SpriteAnimado spriteHabilidadeSaci;
+    private AnimacaoGif animacaoHabilidadeSaci;
     private double pvExibidoJogador;
     private double pvExibidoInimigo;
 
@@ -117,7 +125,8 @@ public class TelaBatalha implements Tela {
         caixaDeTexto.atualizar();
         atualizarHabilitacaoBotoes();
         if (!notificacaoEncerramentoEnviada && batalha.estaEncerrada()
-                && mensagemAtual == null && filaMensagens.isEmpty()) {
+                && mensagemAtual == null && filaMensagens.isEmpty()
+                && !gerenciadorDeEfeitos.temAtivas()) {
             notificacaoEncerramentoEnviada = true;
             aoEncerrar.accept(batalha.getResultado());
         }
@@ -127,7 +136,8 @@ public class TelaBatalha implements Tela {
     public void desenhar(Graphics2D g) {
         g.drawImage(fundo, 0, 0, null);
         desenharPlataformas(g);
-        if (quadrosDeslocamentoJogador == 0 && quadrosTremorJogador == 0) {
+        if (quadrosDeslocamentoJogador == 0 && quadrosTremorJogador == 0
+                && animacaoHabilidadeSaci == null) {
             RepositorioDeSprites.desenhar(g, batalha.getJogador(),
                     PosicoesDeBatalha.JOGADOR_X, PosicoesDeBatalha.JOGADOR_Y, false);
         }
@@ -187,10 +197,9 @@ public class TelaBatalha implements Tela {
         int yAlvo = obterY(alvo);
         int tamanho = PosicoesDeBatalha.TAMANHO_SPRITE;
         boolean atacanteEspelhado = !atacanteJogador;
-        BufferedImage spriteAtacante = RepositorioDeSprites.obter(
-                NormalizadorDeNomes.paraId(atacante.getNome()));
+        String idAtacante = NormalizadorDeNomes.paraId(atacante.getNome());
 
-        gerenciadorDeEfeitos.adicionar(new AnimacaoDeslocamento(spriteAtacante,
+        gerenciadorDeEfeitos.adicionar(new AnimacaoDeslocamento(() -> RepositorioDeSprites.obter(idAtacante),
                 xAtacante, yAtacante, xAlvo, yAlvo, tamanho, atacanteEspelhado));
         if (atacanteJogador) {
             quadrosDeslocamentoJogador = AnimacaoDeslocamento.DURACAO_QUADROS;
@@ -213,6 +222,20 @@ public class TelaBatalha implements Tela {
     }
 
     private void atualizarImpactoHabilidadePendente() {
+        if (animacaoHabilidadeSaci != null) {
+            if (animacaoHabilidadeSaci.terminou()) {
+                animacaoHabilidadeSaci = null;
+                if (danoHabilidadePendente > 0) {
+                    iniciarEfeitosDeDano(batalha.getInimigo(), danoHabilidadePendente);
+                }
+                if (curaHabilidadePendente > 0) {
+                    iniciarEfeitosDeCura(curaHabilidadePendente);
+                }
+                danoHabilidadePendente = 0;
+                curaHabilidadePendente = 0;
+            }
+            return;
+        }
         if (quadrosAteImpactoHabilidade == 0) {
             return;
         }
@@ -229,9 +252,8 @@ public class TelaBatalha implements Tela {
         int yAlvo = obterY(alvo);
         int tamanho = PosicoesDeBatalha.TAMANHO_SPRITE;
         boolean alvoEspelhado = alvo != batalha.getJogador();
-        BufferedImage spriteAlvo = RepositorioDeSprites.obter(
-                NormalizadorDeNomes.paraId(alvo.getNome()));
-        gerenciadorDeEfeitos.adicionar(new AnimacaoTremor(spriteAlvo,
+        String idAlvo = NormalizadorDeNomes.paraId(alvo.getNome());
+        gerenciadorDeEfeitos.adicionar(new AnimacaoTremor(() -> RepositorioDeSprites.obter(idAlvo),
                 xAlvo, yAlvo, tamanho, alvoEspelhado));
         gerenciadorDeEfeitos.adicionar(new AnimacaoNumeroFlutuante(dano,
                 xAlvo + tamanho / 2, yAlvo + tamanho / 2, false));
@@ -315,18 +337,51 @@ public class TelaBatalha implements Tela {
     }
 
     private void usarHabilidade(int indice) {
+        if (gerenciadorDeEfeitos.temAtivas()
+                || batalha.getEstado() != EstadoBatalha.ESCOLHA_DO_JOGADOR) {
+            return;
+        }
         int pvInimigoAntes = batalha.getInimigo().getPvAtual();
         int pvJogadorAntes = batalha.getJogador().getPvAtual();
+        int usosAntes = batalha.getJogador().getHabilidades().get(indice).getUsosRestantes();
         batalha.acaoHabilidade(indice);
         int dano = pvInimigoAntes - batalha.getInimigo().getPvAtual();
+        int cura = batalha.getJogador().getPvAtual() - pvJogadorAntes;
+        boolean habilidadeExecutada = batalha.getJogador().getHabilidades().get(indice)
+                .getUsosRestantes() < usosAntes;
+        if (batalha.getJogador() instanceof Saci && habilidadeExecutada
+                && iniciarAnimacaoHabilidadeSaci(dano, cura)) {
+            exibindoSubmenuHabilidades = false;
+            return;
+        }
         if (dano > 0) {
             iniciarParticulasDeHabilidade(dano);
         }
-        int cura = batalha.getJogador().getPvAtual() - pvJogadorAntes;
         if (cura > 0) {
             iniciarEfeitosDeCura(cura);
         }
         exibindoSubmenuHabilidades = false;
+    }
+
+    private boolean iniciarAnimacaoHabilidadeSaci(int dano, int cura) {
+        if (spriteHabilidadeSaci == null) {
+            try (InputStream entrada = TelaBatalha.class.getResourceAsStream("/efeitos/saci_habilidade.gif")) {
+                if (entrada == null) {
+                    return false;
+                }
+                spriteHabilidadeSaci = SpriteAnimado.carregar(entrada);
+            } catch (IOException e) {
+                System.err.println("Falha ao carregar habilidade do Saci: " + e.getMessage());
+                return false;
+            }
+        }
+        animacaoHabilidadeSaci = new AnimacaoGif(spriteHabilidadeSaci,
+                PosicoesDeBatalha.JOGADOR_X, PosicoesDeBatalha.JOGADOR_Y,
+                PosicoesDeBatalha.TAMANHO_SPRITE, false);
+        danoHabilidadePendente = dano;
+        curaHabilidadePendente = cura;
+        gerenciadorDeEfeitos.adicionar(animacaoHabilidadeSaci);
+        return true;
     }
 
     private void iniciarEfeitosDeCura(int cura) {
@@ -507,7 +562,8 @@ public class TelaBatalha implements Tela {
     private void atualizarHabilitacaoBotoes() {
         boolean habilitado = batalha.getEstado() == EstadoBatalha.ESCOLHA_DO_JOGADOR
                 && filaMensagens.isEmpty()
-                && mensagemAtual == null;
+                && mensagemAtual == null
+                && !gerenciadorDeEfeitos.temAtivas();
         botaoAtacar.setHabilitado(habilitado);
         botaoHabilidade.setHabilitado(habilitado);
         botaoVerStatus.setHabilitado(habilitado);
