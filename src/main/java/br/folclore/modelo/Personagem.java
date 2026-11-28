@@ -32,7 +32,7 @@ public abstract class Personagem {
     private int defesa;
     private int velocidade;
     private int xp;
-    private int slotsDeHabilidade = 2;
+    private int slotsDeHabilidade = MAX_SLOTS;
 
     protected Personagem(String nome, Tipo tipo, int pvMaximo, int ataque, int defesa, int velocidade) {
         if (nome == null || nome.isBlank()) {
@@ -261,6 +261,12 @@ public abstract class Personagem {
         return Math.max(1, getAtaque() + poderBase - alvo.getDefesa());
     }
 
+    public int preverDanoAtaqueBasico(Personagem alvo) {
+        return Math.min(alvo.getPvAtual(), calcularDano(alvo, getPoderAtaqueBasico()));
+    }
+
+    protected abstract int getPoderAtaqueBasico();
+
     /**
      * Define o ataque básico de cada subclasse por meio de polimorfismo.
      *
@@ -339,11 +345,26 @@ public abstract class Personagem {
         defesa = defesaSalva;
         velocidade = velocidadeSalva;
         xp = xpSalvo;
-        slotsDeHabilidade = slotsSalvos;
+        List<Habilidade> iniciais = new ArrayList<>(habilidades);
+        slotsDeHabilidade = MAX_SLOTS;
         habilidades.clear();
         habilidades.addAll(habilidadesSalvas);
         poderesLiberados.clear();
         poderesLiberados.addAll(poderesLiberadosSalvos);
+        // Completa saves do formato anterior sem apagar poderes conquistados.
+        for (Habilidade inicial : iniciais) {
+            boolean jaLiberado = poderesLiberados.stream()
+                    .anyMatch(poder -> poder.getNome().equals(inicial.getNome()));
+            if (!jaLiberado) {
+                poderesLiberados.add(inicial);
+            }
+            if (habilidades.size() < MAX_SLOTS - 1 && habilidades.stream()
+                    .noneMatch(poder -> poder.getNome().equals(inicial.getNome()))) {
+                Habilidade poder = poderesLiberados.stream()
+                        .filter(liberado -> liberado.getNome().equals(inicial.getNome())).findFirst().orElseThrow();
+                habilidades.add(poder);
+            }
+        }
     }
 
     private static List<Habilidade> lerPoderes(Map<String, String> dados, String chave) {

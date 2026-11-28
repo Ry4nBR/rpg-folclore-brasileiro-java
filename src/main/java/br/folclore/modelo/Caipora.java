@@ -1,6 +1,7 @@
 package br.folclore.modelo;
 
-import br.folclore.habilidades.HabilidadeDano;
+import br.folclore.habilidades.Habilidade;
+import br.folclore.progressao.CatalogoDePoderes;
 
 public class Caipora extends Personagem {
     private static final int PV_BASE = 44;
@@ -11,12 +12,19 @@ public class Caipora extends Personagem {
 
     public Caipora() {
         super("Caipora", Tipo.PLANTA, PV_BASE, ATAQUE_BASE, DEFESA_BASE, VELOCIDADE_BASE);
-        adicionarHabilidade(new HabilidadeDano("Cipó Enrolante", 3, 11));
+        for (Habilidade habilidade : CatalogoDePoderes.criarIniciais(getNome())) {
+            adicionarHabilidade(habilidade);
+        }
+    }
+
+    @Override
+    protected int getPoderAtaqueBasico() {
+        return PODER_ATAQUE_BASICO;
     }
 
     @Override
     public int atacar(Personagem alvo) {
-        return alvo.receberDano(calcularDano(alvo, PODER_ATAQUE_BASICO));
+        return alvo.receberDano(preverDanoAtaqueBasico(alvo));
     }
 
     @Override
