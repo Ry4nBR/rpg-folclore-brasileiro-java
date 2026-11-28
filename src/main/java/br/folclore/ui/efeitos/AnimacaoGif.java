@@ -46,9 +46,14 @@ public final class AnimacaoGif implements Animacao {
             return;
         }
         BufferedImage quadro = sprite.quadroEm(decorridoMs);
-        int esquerda = espelhado ? x + tamanho : x;
-        int direita = espelhado ? x : x + tamanho;
-        g.drawImage(quadro, esquerda, y, direita, y + tamanho,
+        double escala = Math.min((double) tamanho / quadro.getWidth(), (double) tamanho / quadro.getHeight());
+        int largura = Math.max(1, (int) Math.round(quadro.getWidth() * escala));
+        int altura = Math.max(1, (int) Math.round(quadro.getHeight() * escala));
+        int posicaoX = x + (tamanho - largura) / 2;
+        int posicaoY = y + tamanho - altura;
+        int esquerda = espelhado ? posicaoX + largura : posicaoX;
+        int direita = espelhado ? posicaoX : posicaoX + largura;
+        g.drawImage(quadro, esquerda, posicaoY, direita, posicaoY + altura,
                 0, 0, quadro.getWidth(), quadro.getHeight(), null);
     }
 

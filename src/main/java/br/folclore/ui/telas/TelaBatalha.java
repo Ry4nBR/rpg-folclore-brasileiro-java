@@ -33,6 +33,8 @@ import java.io.InputStream;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Queue;
 import java.util.function.Consumer;
 
@@ -69,7 +71,7 @@ public class TelaBatalha implements Tela {
     private int quadrosAteImpactoHabilidade;
     private int danoHabilidadePendente;
     private int curaHabilidadePendente;
-    private SpriteAnimado spriteHabilidadeSaci;
+    private final Map<String, SpriteAnimado> animacoesSaci = new HashMap<>();
     private AnimacaoGif animacaoHabilidadeSaci;
     private double pvExibidoJogador;
     private double pvExibidoInimigo;
@@ -190,8 +192,13 @@ public class TelaBatalha implements Tela {
         exibindoSubmenuHabilidades = false;
         int pvAntes = batalha.getInimigo().getPvAtual();
         batalha.acaoAtacar();
+        int dano = pvAntes - batalha.getInimigo().getPvAtual();
+        if (batalha.getJogador() instanceof Saci
+                && iniciarAnimacaoSaci("/efeitos/saci_ataque.gif", dano, 0)) {
+            return;
+        }
         iniciarEfeitosDeAtaque(batalha.getJogador(), batalha.getInimigo(),
-                pvAntes - batalha.getInimigo().getPvAtual());
+                dano);
     }
 
     private void atacarComInimigo() {
@@ -377,13 +384,14 @@ public class TelaBatalha implements Tela {
         int pvInimigoAntes = batalha.getInimigo().getPvAtual();
         int pvJogadorAntes = batalha.getJogador().getPvAtual();
         int usosAntes = batalha.getJogador().getHabilidades().get(indice).getUsosRestantes();
+        String nomeHabilidade = batalha.getJogador().getHabilidades().get(indice).getNome();
         batalha.acaoHabilidade(indice);
         int dano = pvInimigoAntes - batalha.getInimigo().getPvAtual();
         int cura = batalha.getJogador().getPvAtual() - pvJogadorAntes;
         boolean habilidadeExecutada = batalha.getJogador().getHabilidades().get(indice)
                 .getUsosRestantes() < usosAntes;
         if (batalha.getJogador() instanceof Saci && habilidadeExecutada
-                && iniciarAnimacaoHabilidadeSaci(dano, cura)) {
+                && iniciarAnimacaoSaci(caminhoAnimacaoSaci(nomeHabilidade), dano, cura)) {
             exibindoSubmenuHabilidades = false;
             return;
         }
@@ -396,19 +404,33 @@ public class TelaBatalha implements Tela {
         exibindoSubmenuHabilidades = false;
     }
 
-    private boolean iniciarAnimacaoHabilidadeSaci(int dano, int cura) {
-        if (spriteHabilidadeSaci == null) {
-            try (InputStream entrada = TelaBatalha.class.getResourceAsStream("/efeitos/saci_habilidade.gif")) {
+    private String caminhoAnimacaoSaci(String nomeHabilidade) {
+        return switch (nomeHabilidade) {
+            case "Chute Furacão" -> "/efeitos/saci_habilidade.gif";
+            case "Vento Revigorante" -> "/efeitos/saci_vento_revigorante.gif";
+            case "Assobio" -> "/efeitos/saci_assobio.gif";
+            default -> null;
+        };
+    }
+
+    private boolean iniciarAnimacaoSaci(String caminho, int dano, int cura) {
+        if (caminho == null) {
+            return false;
+        }
+        SpriteAnimado sprite = animacoesSaci.get(caminho);
+        if (sprite == null) {
+            try (InputStream entrada = TelaBatalha.class.getResourceAsStream(caminho)) {
                 if (entrada == null) {
                     return false;
                 }
-                spriteHabilidadeSaci = SpriteAnimado.carregar(entrada);
+                sprite = SpriteAnimado.carregar(entrada);
+                animacoesSaci.put(caminho, sprite);
             } catch (IOException e) {
                 System.err.println("Falha ao carregar habilidade do Saci: " + e.getMessage());
                 return false;
             }
         }
-        animacaoHabilidadeSaci = new AnimacaoGif(spriteHabilidadeSaci,
+        animacaoHabilidadeSaci = new AnimacaoGif(sprite,
                 PosicoesDeBatalha.JOGADOR_X, PosicoesDeBatalha.JOGADOR_Y,
                 PosicoesDeBatalha.TAMANHO_SPRITE, false);
         danoHabilidadePendente = dano;
